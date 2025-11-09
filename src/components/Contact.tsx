@@ -1,7 +1,19 @@
+"use client";
+
+import { useInViewAnimation } from "@/hooks/useInViewAnimation";
+
 export default function Contact() {
+    const { ref, inView } = useInViewAnimation({ threshold: 0.2, once: false });
+
     return (
-        <section id="contact" className="py-16 md:py-20 bg-slate-50">
-            <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10">
+        <section
+            ref={ref}
+            id="contact"
+            className={`py-16 md:py-20 bg-slate-50 min-h-screen snap-start flex items-center scroll-mt-28 transition-all duration-700 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+        >
+            <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 w-full">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-[#001517] mb-3">
                         Холбоо барих
@@ -48,7 +60,14 @@ export default function Contact() {
                     </p>
                 </div>
 
-                <form className="bg-white rounded-xl border p-6 space-y-4">
+                <form
+                    className="bg-white rounded-xl border p-6 space-y-4 transition-all duration-700"
+                    style={{
+                        transitionDelay: inView ? "150ms" : "0ms",
+                        opacity: inView ? 1 : 0,
+                        transform: inView ? "translateY(0)" : "translateY(16px)",
+                    }}
+                >
                     <div>
                         <label className="text-sm font-medium text-slate-700">Нэр</label>
                         <input

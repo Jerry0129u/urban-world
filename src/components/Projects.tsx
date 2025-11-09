@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useInViewAnimation } from "@/hooks/useInViewAnimation";
 
 type Project = {
     id: string;
@@ -67,6 +69,7 @@ const projects: Project[] = [
 const categories = ["Бүгд", "Оффис", "Зочид буудал", "Орон сууц", "Худалдаа", "Бусад"];
 
 export default function Projects() {
+    const { ref, inView } = useInViewAnimation({ threshold: 0.2, once: false });
     const [activeCategory, setActiveCategory] = useState<string>("Бүгд");
     const [activeProject, setActiveProject] = useState<Project | null>(projects[0]);
 
@@ -76,8 +79,14 @@ export default function Projects() {
             : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <section id="projects" className="py-16 md:py-20 bg-white">
-            <div className="container mx-auto px-4 space-y-8">
+        <section
+            ref={ref}
+            id="projects"
+            className={`py-16 md:py-20 bg-white min-h-screen snap-start flex items-center scroll-mt-28 transition-all duration-700 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+        >
+            <div className="container mx-auto px-4 space-y-8 w-full">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
@@ -90,12 +99,12 @@ export default function Projects() {
                             үзүүлнэ. Before/After болон 360° tour-ыг дагалдуулж болно.
                         </p>
                     </div>
-                    <a
+                    <Link
                         href="#contact"
                         className="inline-flex items-center text-sm text-[#001517] underline-offset-4 hover:underline"
                     >
                         Шийдэл авах хүсэлт илгээх
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Category filter */}
@@ -117,13 +126,18 @@ export default function Projects() {
 
                 {/* Overview cards */}
                 <div className="grid md:grid-cols-3 gap-6">
-                    {filtered.map((p) => (
+                    {filtered.map((p, index) => (
                         <article
                             key={p.id}
                             onClick={() => setActiveProject(p)}
                             className={`rounded-xl border overflow-hidden flex flex-col bg-white cursor-pointer transition hover:shadow-sm ${
                                 activeProject?.id === p.id ? "ring-2 ring-[#001517]/40" : ""
                             }`}
+                            style={{
+                                transitionDelay: inView ? `${index * 80}ms` : "0ms",
+                                opacity: inView ? 1 : 0,
+                                transform: inView ? "translateY(0)" : "translateY(12px)",
+                            }}
                         >
                             <div className="relative h-40 w-full bg-slate-100">
                                 {/* cover image */}
