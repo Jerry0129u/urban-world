@@ -21,8 +21,7 @@ const rooms = [
 export default function Services() {
     return (
         <section id="services" className="room-section relative overflow-hidden text-slate-900 scroll-mt-24">
-            <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]" aria-hidden="true" />
-            <div className="relative z-10 container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
+            <div className="container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
                 <div className="flex flex-col gap-3">
                     <p className="text-xs uppercase tracking-[0.5em] text-slate-500">
                         Three gestures

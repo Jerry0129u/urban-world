@@ -62,7 +62,7 @@ export default function Home() {
                     content="Интерьер дизайн, зураг төсөл, дотоод засал, тохижилт - Urban World LLC"
                 />
             </Head>
-            <div className="relative flex min-h-screen flex-col overflow-hidden bg-white text-slate-900">
+            <div className="relative flex min-h-screen flex-col overflow-hidden text-slate-900">
                 <Navbar />
                 <main>
                     <Hero />

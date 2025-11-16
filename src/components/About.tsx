@@ -24,8 +24,7 @@ const journey = [
 export default function About() {
     return (
         <section id="about" className="room-section relative overflow-hidden text-slate-900 scroll-mt-24">
-            <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]" aria-hidden="true" />
-            <div className="relative z-10 container mx-auto flex w-full flex-col gap-12 px-4 py-12 lg:py-16">
+            <div className="container mx-auto flex w-full flex-col gap-12 px-4 py-12 lg:py-16">
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div>
                         <p className="text-xs uppercase tracking-[0.6em] text-slate-500">

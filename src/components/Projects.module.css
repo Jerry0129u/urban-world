@@ -28,10 +28,13 @@
     position: fixed;
     inset: 0;
     display: grid;
-    place-items: center;
+    justify-items: center;
+    align-items: flex-start;
     padding: clamp(1rem, 4vw, 3rem);
-    background: radial-gradient(circle at top, rgba(14, 165, 233, 0.12), transparent 55%),
-        rgba(255, 255, 255, 0.95);
+    padding-top: clamp(6rem, 14vh, 9rem);
+    background:
+        radial-gradient(circle at top, rgba(14, 165, 233, 0.08), transparent 55%),
+        #ffffff;
     backdrop-filter: blur(18px) saturate(140%);
     opacity: 0;
     pointer-events: none;
@@ -57,18 +60,24 @@
         inset 0 0 0 1px rgba(255, 255, 255, 0.8);
     padding: clamp(1.4rem, 3vw, 3rem);
     display: grid;
+    align-items: flex-start;
     gap: clamp(1.5rem, 3vw, 3rem);
     grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
     position: relative;
     overflow: hidden;
-    max-height: min(88vh, 760px);
+    max-height: min(86vh, 780px);
     overflow-y: auto;
-    margin: 0 auto;
 }
 
 @media (max-width: 1024px) {
     .overlayCard {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        padding-top: clamp(4rem, 20vw, 5rem);
     }
 }
 
@@ -94,6 +103,7 @@
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.75rem;
     min-height: 320px;
+    align-content: flex-start;
 }
 
 .galleryItem {

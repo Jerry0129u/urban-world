@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import Comparison from "./Comparison";
 import styles from "./Projects.module.css";
@@ -91,6 +91,8 @@ const layoutClassMap: Record<ShotLayout, string> = {
 
 export default function Projects() {
     const [activeAlbumId, setActiveAlbumId] = useState<string | null>(null);
+    const overlayRef = useRef<HTMLDivElement | null>(null);
+    const overlayCardRef = useRef<HTMLDivElement | null>(null);
     const activeAlbum = useMemo(() => albums.find((album) => album.id === activeAlbumId) ?? null, [activeAlbumId]);
 
     useEffect(() => {
@@ -103,10 +105,15 @@ export default function Projects() {
         };
     }, [activeAlbumId]);
 
+    useEffect(() => {
+        if (!activeAlbum) return;
+        overlayRef.current?.scrollTo({ top: 0 });
+        overlayCardRef.current?.scrollTo({ top: 0 });
+    }, [activeAlbum]);
+
     return (
         <section id="projects" className="room-section relative overflow-hidden text-slate-900 scroll-mt-24">
-            <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]" aria-hidden="true" />
-            <div className="relative z-10 container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
+            <div className="container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
                 <div className="flex flex-col gap-2">
                     <p className="text-xs uppercase tracking-[0.6em] text-slate-500">walk the work</p>
                     <h2 className="text-3xl font-light md:text-5xl">Rooms in sequence.</h2>
@@ -145,9 +152,10 @@ export default function Projects() {
                 role="dialog"
                 aria-modal="true"
                 aria-label={activeAlbum ? `${activeAlbum.title} gallery` : undefined}
+                ref={overlayRef}
             >
                 {activeAlbum && (
-                    <div className={styles.overlayCard}>
+                    <div className={styles.overlayCard} ref={overlayCardRef}>
                         <button
                             type="button"
                             className={styles.closeButton}
