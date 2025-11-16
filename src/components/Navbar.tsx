@@ -11,7 +11,13 @@ import {
     useState,
 } from "react";
 
-const links = [
+type NavLink = {
+    href: string;
+    label: string;
+    variant?: "cta";
+};
+
+const links: NavLink[] = [
     { href: "#home", label: "Нүүр" },
     { href: "#about", label: "Бидний тухай" },
     { href: "#services", label: "Үйлчилгээ" },
@@ -23,13 +29,13 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [scrolled, setScrolled] = useState(false);
-    const switcherRef = useRef<HTMLFieldsetElement | null>(null);
+    const switcherRef = useRef<HTMLFieldSetElement | null>(null);
     const optionRefs = useRef<(HTMLLabelElement | null)[]>([]);
     const [indicator, setIndicator] = useState({ width: 84, left: 4 });
     const prevIndexRef = useRef(0);
     const activeIndexRef = useRef(0);
 
-    const navOptions = [
+    const navOptions: NavLink[] = [
         ...links,
         { href: "#contact", label: "Санал илгээх", variant: "cta" as const },
     ];
