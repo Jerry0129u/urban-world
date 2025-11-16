@@ -23,16 +23,16 @@ export default function Home() {
                     }
                 });
             },
-            { threshold: 0.35 }
+            { threshold: 0.1, rootMargin: "-10% 0px -10% 0px" }
         );
 
         const activeObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    entry.target.classList.toggle("is-active", entry.intersectionRatio > 0.6);
+                    entry.target.classList.toggle("is-active", entry.intersectionRatio > 0.4);
                 });
             },
-            { threshold: [0.3, 0.6, 0.9] }
+            { threshold: [0.2, 0.4, 0.7], rootMargin: "-20% 0px -20% 0px" }
         );
 
         sections.forEach((section, index) => {
@@ -40,6 +40,8 @@ export default function Home() {
             observer.observe(section);
             activeObserver.observe(section);
         });
+
+        sections[0]?.classList.add("is-visible", "is-active");
 
         return () => {
             sections.forEach((section) => {
@@ -60,7 +62,7 @@ export default function Home() {
                     content="Интерьер дизайн, зураг төсөл, дотоод засал, тохижилт - Urban World LLC"
                 />
             </Head>
-            <div className="flex min-h-screen flex-col bg-black text-white">
+            <div className="relative flex min-h-screen flex-col overflow-hidden bg-white text-slate-900">
                 <Navbar />
                 <main>
                     <Hero />

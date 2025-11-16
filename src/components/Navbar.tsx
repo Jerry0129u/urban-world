@@ -158,8 +158,8 @@ export default function Navbar() {
                 scrolled ? "scrolled" : ""
             }`}
         >
-            <div className="container mx-auto px-4 pt-4 flex items-center justify-between gap-4 text-white/70">
-                <Link href="#home" className="flex items-center gap-3 whitespace-nowrap text-white">
+            <div className="container mx-auto px-4 pt-4 flex items-center justify-between gap-4 text-slate-500">
+                <Link href="#home" className="flex items-center gap-3 whitespace-nowrap text-slate-900">
                     <Image
                         src="/urbanworld-logo.png"
                         alt="Urban World"
@@ -167,8 +167,8 @@ export default function Navbar() {
                         height={40}
                         priority
                     />
-                    <span className="hidden text-xs uppercase tracking-[0.4em] text-white/80 md:inline-flex">
-                        walkthrough
+                    <span className="hidden text-xs uppercase tracking-[0.4em] text-slate-500 md:inline-flex">
+                        urbanworld
                     </span>
                 </Link>
                 <div className="hidden min-w-0 flex-1 justify-center md:flex">
@@ -222,14 +222,14 @@ export default function Navbar() {
                 </div>
                 <button
                     onClick={() => setOpen((p) => !p)}
-                    className="inline-flex items-center justify-center rounded-full border border-white/40 px-3 py-2 text-white md:hidden"
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/80 px-3 py-2 text-slate-700 shadow-sm md:hidden"
                 >
                     ☰
                 </button>
             </div>
             {open && (
-                <div className="md:hidden border-t border-white/10 bg-black/70 backdrop-blur-xl">
-                    <div className="container mx-auto px-4 py-3 flex flex-col gap-3 text-white">
+                <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl">
+                    <div className="container mx-auto px-4 py-3 flex flex-col gap-3 text-slate-900">
                         {links.map((item) => (
                             <a
                                 key={item.href}
@@ -243,7 +243,7 @@ export default function Navbar() {
                         <a
                             href="#contact"
                             onClick={() => setOpen(false)}
-                            className="inline-flex items-center justify-center rounded-full border border-white/40 px-4 py-2 text-sm whitespace-nowrap"
+                            className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-slate-900 px-4 py-2 text-sm whitespace-nowrap text-white"
                         >
                             Санал илгээх
                         </a>

@@ -8,19 +8,21 @@ html {
 
 /* энд @apply биш, жирийн css ашиглая */
 body {
-    background: #000000;
-    color: #ffffff;
+    margin: 0;
+    background: #f7f7fb;
+    color: #0f172a;
     font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: clamp(80px, 12vh, 140px);
 }
 
 :root {
-    --liquid-glass: #bbbbbc;
+    --liquid-glass: #f0f4f8;
     --liquid-light: #ffffff;
-    --liquid-dark: #000000;
-    --liquid-content: #e3e3e6;
-    --liquid-accent: #03d5ff;
+    --liquid-dark: #0f172a;
+    --liquid-content: #0f172a;
+    --liquid-accent: #0ea5e9;
 }
 
 .liquid-nav-header {
@@ -67,7 +69,7 @@ body {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    color: #f6f7fb;
+    color: #0f172a;
     overflow: hidden;
     isolation: isolate;
     transition: box-shadow 0.4s ease, transform 0.4s ease;
@@ -159,7 +161,7 @@ body {
 }
 
 .liquid-switcher__option input:checked + span {
-    color: #ffffff;
+    color: var(--liquid-dark);
 }
 
 .liquid-switcher__option--cta input:checked + span {
@@ -167,8 +169,8 @@ body {
 }
 
 .liquid-switcher__option--cta {
-    border: 1px solid color-mix(in srgb, var(--liquid-light) 30%, transparent);
-    background: color-mix(in srgb, var(--liquid-glass) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--liquid-accent) 35%, transparent);
+    background: color-mix(in srgb, var(--liquid-accent) 8%, transparent);
 }
 
 .liquid-switcher__filter {
@@ -205,50 +207,35 @@ body {
 
 .room-section {
     --room-depth: calc(var(--room-index, 0) * 8px);
-    min-height: 100vh;
+    min-height: auto;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transform: translateY(80px) scale(0.95) perspective(1200px) rotateX(6deg);
-    opacity: 0.25;
-    filter: blur(12px);
+    padding: clamp(48px, 8vh, 96px) 0;
+    transform: translateY(60px);
+    opacity: 0.12;
+    filter: blur(14px);
     transition:
-        transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-        filter 900ms cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 900ms ease;
+        transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     isolation: isolate;
 }
 
-.room-section::after {
-    content: "";
-    position: absolute;
-    inset: 4%;
-    border-radius: 40px;
-    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 60%);
-    opacity: 0;
-    transition: opacity 600ms ease;
-    pointer-events: none;
-    z-index: -1;
-}
-
 .room-section.is-visible {
-    transform: translateY(0) scale(1) perspective(1200px) rotateX(0deg);
+    transform: translateY(0);
     opacity: 1;
-    filter: blur(0);
-    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
-}
-
-.room-section.is-active::after {
-    opacity: 1;
+    filter: none;
+    box-shadow: none;
 }
 
 @media (max-width: 768px) {
+    body {
+        scroll-padding-top: 0;
+    }
+
     .room-section {
         min-height: auto;
-        padding: 72px 0;
+        padding: 56px 0;
         transform: none;
         opacity: 1;
         filter: none;

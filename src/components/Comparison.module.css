@@ -1,0 +1,195 @@
+.section {
+    position: relative;
+    overflow: hidden;
+}
+
+.section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(0, 133, 255, 0.18), transparent 52%);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(226, 232, 240, 0.9));
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.stageShell {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.stage {
+    --xp: 0;
+    --yp: 0;
+    --compare: 50;
+    position: relative;
+    width: min(1100px, 96vw);
+    aspect-ratio: 4 / 3;
+    border-radius: 56px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(148, 163, 184, 0.25));
+    overflow: hidden;
+    box-shadow:
+        0 40px 80px rgba(15, 23, 42, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    transform-style: preserve-3d;
+    transform: perspective(1600px) rotateX(calc(var(--yp, 0) * -10deg))
+        rotateY(calc(var(--xp, 0) * 16deg));
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+}
+
+.stage[data-reveal="false"] {
+    opacity: 0;
+    transform: perspective(1200px) translateY(80px) scale(0.96);
+}
+
+.stage[data-reveal="true"] {
+    opacity: 1;
+}
+
+.stage::before,
+.stage::after {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    border-radius: 46px;
+    pointer-events: none;
+    border: 1px dashed rgba(15, 23, 42, 0.12);
+}
+
+.stage::after {
+    inset: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(15, 23, 42, 0.08);
+}
+
+.images {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: clip-path 0.4s ease, filter 0.4s ease;
+}
+
+.imageAfter {
+    clip-path: inset(0 calc(100% - (var(--compare, 50) * 1%)) 0 0);
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.35));
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: grab;
+    appearance: none;
+}
+
+.slider:active {
+    cursor: grabbing;
+}
+
+.drag {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--compare, 50) * 1%);
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(14, 165, 233, 0.35);
+    color: #0f172a;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.drag svg {
+    width: 28px;
+    height: 28px;
+}
+
+.metaRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    width: min(1100px, 96vw);
+}
+
+.metaGroup {
+    flex: 1;
+    min-width: 220px;
+}
+
+.metaLabel {
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-size: 0.65rem;
+    color: rgba(15, 23, 42, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.metaTitle {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: #0f172a;
+    margin: 0;
+}
+
+.metaDetail {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: rgba(15, 23, 42, 0.65);
+}
+
+@media (max-width: 768px) {
+    .stage {
+        border-radius: 42px;
+    }
+
+    .stage::after,
+    .stage::before {
+        border-radius: 32px;
+    }
+
+    .drag {
+        width: 44px;
+        height: 44px;
+    }
+}
