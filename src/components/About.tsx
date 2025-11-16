@@ -1,7 +1,10 @@
 export default function About() {
     return (
-        <section id="about" className="py-16 md:py-20 bg-white">
-            <div className="container mx-auto px-4 space-y-12">
+        <section
+            id="about"
+            className="py-16 md:py-20 bg-white scroll-mt-24 min-h-screen flex items-center"
+        >
+            <div className="container mx-auto w-full px-4 space-y-12">
                 <div className="max-w-2xl">
                     <h2 className="text-2xl md:text-3xl font-bold text-[#001517] mb-3">
                         Бидний тухай

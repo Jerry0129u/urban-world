@@ -16,7 +16,7 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-100">
+        <header className="fixed top-0 left-0 right-0 z-40 bg-transparent">
             <div className="container mx-auto px-4 flex items-center justify-between py-3 gap-4">
                 <Link href="#home" className="flex items-center gap-2">
                     {/* put /public/urbanworld-logo.png */}

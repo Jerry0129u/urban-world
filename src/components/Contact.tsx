@@ -1,7 +1,10 @@
 export default function Contact() {
     return (
-        <section id="contact" className="py-16 md:py-20 bg-slate-50">
-            <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10">
+        <section
+            id="contact"
+            className="py-16 md:py-20 bg-slate-50 scroll-mt-24 min-h-screen flex items-center"
+        >
+            <div className="container mx-auto w-full px-4 grid md:grid-cols-2 gap-10">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-[#001517] mb-3">
                         Холбоо барих

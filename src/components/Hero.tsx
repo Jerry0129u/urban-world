@@ -1,8 +1,11 @@
 export default function Hero() {
     return (
-        <section id="home" className="relative bg-[#001517] text-white overflow-hidden">
+        <section
+            id="home"
+            className="relative bg-[#001517] text-white overflow-hidden scroll-mt-24 min-h-screen flex items-center"
+        >
             <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,_white,_transparent_55%)]" />
-            <div className="container mx-auto px-4 py-20 md:py-28 relative z-10 flex flex-col md:flex-row gap-10 items-center">
+            <div className="container mx-auto w-full px-4 py-20 md:py-28 relative z-10 flex flex-col md:flex-row gap-10 items-center">
                 <div className="flex-1 space-y-6">
                     <p className="inline-flex bg-white/10 border border-white/10 px-3 py-1 rounded-full text-xs uppercase tracking-[0.2em]">
                         Интерьер • Зураг төсөл • Гүйцэтгэл

@@ -76,8 +76,11 @@ export default function Projects() {
             : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <section id="projects" className="py-16 md:py-20 bg-white">
-            <div className="container mx-auto px-4 space-y-8">
+        <section
+            id="projects"
+            className="py-16 md:py-20 bg-white scroll-mt-24 min-h-screen flex items-center"
+        >
+            <div className="container mx-auto w-full px-4 space-y-8">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>

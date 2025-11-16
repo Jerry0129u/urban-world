@@ -32,8 +32,11 @@ const services = [
 
 export default function Services() {
     return (
-        <section id="services" className="py-16 md:py-20 bg-slate-50">
-            <div className="container mx-auto px-4">
+        <section
+            id="services"
+            className="py-16 md:py-20 bg-slate-50 scroll-mt-24 min-h-screen flex items-center"
+        >
+            <div className="container mx-auto w-full px-4">
                 <div className="max-w-2xl mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold text-[#001517] mb-3">
                         Үйлчилгээ
