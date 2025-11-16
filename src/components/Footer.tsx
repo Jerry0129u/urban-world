@@ -1,14 +1,9 @@
 export default function Footer() {
     return (
-        <footer className="border-t bg-white py-6 mt-10">
-            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-                <p>
-                    © {new Date().getFullYear()} Urban World LLC. Бүх эрх хуулиар
-                    хамгаалагдсан.
-                </p>
-                <p className="text-slate-400">
-                    Интерьер • Зураг төсөл • Дотоод засал
-                </p>
+        <footer className="bg-black py-8 text-white">
+            <div className="container mx-auto flex flex-col items-center justify-between gap-3 px-4 text-xs uppercase tracking-[0.3em] text-white/50 md:flex-row">
+                <p>© {new Date().getFullYear()} Urban World LLC</p>
+                <p>walkthrough interiors</p>
             </div>
         </footer>
     );

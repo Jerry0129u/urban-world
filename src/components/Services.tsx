@@ -1,32 +1,20 @@
-const services = [
+import Image from "next/image";
+
+const rooms = [
     {
-        title: "1. Мэргэжлийн зөвлөгөө ба төлөвлөлтийн шийдэл",
-        points: [
-            "Объектын нөхцөл байдлын судалгаа",
-            "Төлөвлөлтийн зөвлөгөө",
-            "Шийдэл санал болгох",
-        ],
+        label: "plan",
+        title: "Briefing table",
+        image: "/office-2.jpg",
     },
     {
-        title: "2. Интерьер дизайн ба техникийн зураг",
-        points: [
-            "Талбайн хэмжилт хийх",
-            "2D төлөвлөлтийн зураг",
-            "3D интерьер зураглал",
-            "Гэрэлтүүлэг, агааржуулалт",
-            "Тавилгын төлөвлөлт",
-            "Ажлын нарийвчилсан зураг",
-        ],
+        label: "render",
+        title: "Mood study",
+        image: "/apartment-4.jpg",
     },
     {
-        title: "3. Дотоод засал, тохижилтын гүйцэтгэл",
-        points: [
-            "Чанартай материал санал болгох",
-            "Инженерийн төлөвлөлт, угсралт",
-            "Дотоод засал, тохижилт",
-            "Тавилга угсралт",
-            "Хог хаягдлын менежмент",
-        ],
+        label: "build",
+        title: "Finish pass",
+        image: "/hotel-6.jpg",
     },
 ];
 
@@ -34,33 +22,41 @@ export default function Services() {
     return (
         <section
             id="services"
-            className="py-16 md:py-20 bg-slate-50 scroll-mt-24 min-h-screen flex items-center"
+            className="room-section bg-[#050910] py-20 text-white scroll-mt-24"
         >
-            <div className="container mx-auto w-full px-4">
-                <div className="max-w-2xl mb-10">
-                    <h2 className="text-2xl md:text-3xl font-bold text-[#001517] mb-3">
-                        Үйлчилгээ
-                    </h2>
-                    <p className="text-slate-600">
-                        Үндсэн гурван чиглэлээрээ захиалагчийн хэрэгцээг цогцоор нь
-                        шийднэ.
+            <div className="container mx-auto flex w-full flex-col gap-10 px-4">
+                <div className="flex flex-col gap-3">
+                    <p className="text-xs uppercase tracking-[0.5em] text-white/50">
+                        Three gestures
                     </p>
+                    <h2 className="text-3xl font-light md:text-4xl">Plan. Render. Build.</h2>
                 </div>
-                <div className="grid md:grid-cols-3 gap-6">
-                    {services.map((service) => (
+                <div className="grid gap-6 md:grid-cols-3">
+                    {rooms.map((room) => (
                         <div
-                            key={service.title}
-                            className="bg-white rounded-xl border p-6 flex flex-col gap-3"
+                            key={room.title}
+                            className="group relative min-h-[380px] overflow-hidden rounded-[30px] border border-white/5 bg-white/5"
                         >
-                            <h3 className="font-semibold text-[#001517]">{service.title}</h3>
-                            <ul className="text-sm text-slate-600 space-y-1">
-                                {service.points.map((p) => (
-                                    <li key={p}>• {p}</li>
-                                ))}
-                            </ul>
+                            <Image
+                                src={room.image}
+                                alt={room.title}
+                                fill
+                                className="object-cover transition duration-700 group-hover:scale-105"
+                                sizes="(min-width: 768px) 33vw, 100vw"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                            <div className="absolute bottom-6 left-6 right-6">
+                                <p className="text-xs uppercase tracking-[0.5em] text-white/60">
+                                    {room.label}
+                                </p>
+                                <h3 className="text-2xl font-light">{room.title}</h3>
+                            </div>
                         </div>
                     ))}
                 </div>
+                <p className="text-xs uppercase tracking-[0.6em] text-white/40">
+                    touch every surface • light every corner
+                </p>
             </div>
         </section>
     );
