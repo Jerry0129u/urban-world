@@ -112,41 +112,43 @@ export default function Projects() {
     }, [activeAlbum]);
 
     return (
-        <section id="projects" className="room-section relative overflow-hidden text-slate-900 scroll-mt-24">
-            <div className="container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
-                <div className="flex flex-col gap-2">
-                    <p className="text-xs uppercase tracking-[0.6em] text-slate-500">walk the work</p>
-                    <h2 className="text-3xl font-light md:text-5xl">Rooms in sequence.</h2>
+        <>
+            <section id="projects" className="room-section relative overflow-hidden text-slate-900 scroll-mt-24">
+                <div className="container mx-auto flex w-full flex-col gap-10 px-4 py-12 lg:py-16">
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs uppercase tracking-[0.6em] text-slate-500">walk the work</p>
+                        <h2 className="text-3xl font-light md:text-5xl">Rooms in sequence.</h2>
+                    </div>
+                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {albums.map((album) => (
+                            <button
+                                key={album.id}
+                                type="button"
+                                onClick={() => setActiveAlbumId(album.id)}
+                                className={`${styles.albumButton} group flex flex-col gap-5 border border-slate-200 bg-white p-5 text-left text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300`}
+                            >
+                                <div className="relative h-64 w-full overflow-hidden rounded-[28px]">
+                                    <Image
+                                        src={album.cover}
+                                        alt={album.title}
+                                        fill
+                                        className="object-cover object-center transition duration-700 group-hover:scale-105"
+                                        sizes="(min-width: 1024px) 30vw, 100vw"
+                                    />
+                                    <div className={`absolute inset-0 bg-gradient-to-t ${album.palette}`} />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <p className="text-xs uppercase tracking-[0.4em] text-slate-500">{album.location}</p>
+                                    <h3 className="text-2xl font-light">{album.title}</h3>
+                                    <p className="text-sm text-slate-600">{album.description}</p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                    <p className="text-xs uppercase tracking-[0.6em] text-slate-400">tap an album to open the full set ↓</p>
+                    <Comparison variant="embedded" className="mt-4" />
                 </div>
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {albums.map((album) => (
-                        <button
-                            key={album.id}
-                            type="button"
-                            onClick={() => setActiveAlbumId(album.id)}
-                            className={`${styles.albumButton} group flex flex-col gap-5 border border-slate-200 bg-white p-5 text-left text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300`}
-                        >
-                            <div className="relative h-64 w-full overflow-hidden rounded-[28px]">
-                                <Image
-                                    src={album.cover}
-                                    alt={album.title}
-                                    fill
-                                    className="object-cover object-center transition duration-700 group-hover:scale-105"
-                                    sizes="(min-width: 1024px) 30vw, 100vw"
-                                />
-                                <div className={`absolute inset-0 bg-gradient-to-t ${album.palette}`} />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <p className="text-xs uppercase tracking-[0.4em] text-slate-500">{album.location}</p>
-                                <h3 className="text-2xl font-light">{album.title}</h3>
-                                <p className="text-sm text-slate-600">{album.description}</p>
-                            </div>
-                        </button>
-                    ))}
-                </div>
-                <p className="text-xs uppercase tracking-[0.6em] text-slate-400">tap an album to open the full set ↓</p>
-                <Comparison variant="embedded" className="mt-4" />
-            </div>
+            </section>
             <div
                 className={`${styles.overlay} ${activeAlbum ? styles.overlayVisible : ""}`}
                 role="dialog"
@@ -211,6 +213,6 @@ export default function Projects() {
                     </div>
                 )}
             </div>
-        </section>
+        </>
     );
 }

@@ -27,11 +27,13 @@
 .overlay {
     position: fixed;
     inset: 0;
-    display: grid;
-    justify-items: center;
-    align-items: flex-start;
-    padding: clamp(1rem, 4vw, 3rem);
-    padding-top: clamp(6rem, 14vh, 9rem);
+    height: 100vh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
     background:
         radial-gradient(circle at top, rgba(14, 165, 233, 0.08), transparent 55%),
         #ffffff;
@@ -41,7 +43,7 @@
     transform: translateY(30px);
     transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 60;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .overlayVisible {
@@ -77,7 +79,7 @@
 
 @media (max-width: 768px) {
     .overlay {
-        padding-top: clamp(4rem, 20vw, 5rem);
+        padding: clamp(1.25rem, 5vw, 2rem);
     }
 }
 
