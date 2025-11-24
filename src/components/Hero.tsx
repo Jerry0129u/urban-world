@@ -8,14 +8,14 @@ export default function Hero() {
         >
             <div className="absolute inset-0">
                 <Image
-                    src="/office-4.jpg"
+                    src="/5.jpg"
                     alt="Urban World walkthrough"
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-center opacity-60"
+                    className="object-cover object-center opacity-100 zoom-in-smooth"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white" />
+                <div className="absolute inset-0 bg-gradient-to-b" />
             </div>
             <div className="relative z-10 flex min-h-screen flex-col justify-between">
                 <div className="container mx-auto w-full px-4 pt-32 md:pt-40">

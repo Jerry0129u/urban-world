@@ -43,7 +43,7 @@ export default function Contact() {
 
         const subject = encodeURIComponent("Urban World project inquiry");
         const bodyLines = [
-            "New inquiry via urbanworld.mn",
+            "New inquiry via khanllc.mn",
             name ? `Name: ${name}` : "",
             email ? `Email: ${email}` : "",
             brief ? `Project notes: ${brief}` : "",
