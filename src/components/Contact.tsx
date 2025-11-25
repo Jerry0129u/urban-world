@@ -1,3 +1,5 @@
+"use client";
+
 import { type CSSProperties, type FormEvent } from "react";
 
 const InstagramIcon = () => (
@@ -36,27 +38,28 @@ export default function Contact() {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
+
         const data = new FormData(form);
         const name = (data.get("name") as string | null)?.trim() ?? "";
         const email = (data.get("email") as string | null)?.trim() ?? "";
         const brief = (data.get("brief") as string | null)?.trim() ?? "";
 
         const subject = encodeURIComponent("Urban World project inquiry");
+
         const bodyLines = [
-            "New inquiry via khanllc.mn",
-            name ? `Name: ${name}` : "",
-            email ? `Email: ${email}` : "",
-            brief ? `Project notes: ${brief}` : "",
+            "New inquiry via urbanworld.mn",
+            name && `Name: ${name}`,
+            email && `Email: ${email}`,
+            brief && `Project notes: ${brief}`,
         ].filter(Boolean);
+
         const body = encodeURIComponent(bodyLines.join("\n"));
         const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@urbanworld.mn&su=${subject}&body=${body}`;
-        const mailtoUrl = `mailto:info@urbanworld.mn?subject=${subject}&body=${body}`;
+        const mailtoFallback = `mailto:info@urbanworld.mn?subject=${subject}&body=${body}`;
 
         if (typeof window !== "undefined") {
             const newWindow = window.open(gmailUrl, "_blank");
-            if (!newWindow) {
-                window.location.href = mailtoUrl;
-            }
+            if (!newWindow) window.location.href = mailtoFallback;
         }
 
         form.reset();
@@ -65,82 +68,153 @@ export default function Contact() {
     return (
         <section
             id="contact"
-            className="room-section relative min-h-screen overflow-hidden text-slate-900 scroll-mt-24"
+            className="relative min-h-screen w-full bg-[#0B0C10] text-white scroll-mt-24"
         >
-            <div className="container mx-auto px-4 py-20">
-                <div className="grid gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
-                    <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-2xl shadow-slate-200/80">
-                        <p className="text-xs uppercase tracking-[0.6em] text-slate-500">reach out</p>
-                        <h2 className="mt-3 text-3xl font-light">Step inside with us.</h2>
-                        <div className="mt-8 space-y-4 text-sm uppercase tracking-[0.3em] text-slate-600">
+            <div className="mx-auto w-full max-w-6xl px-6 py-24">
+                <h2 className="mb-12 text-center text-3xl font-light md:text-4xl">
+                    Contact Us
+                </h2>
+
+                <div className="grid gap-10 lg:grid-cols-2">
+
+                    {/* LEFT CONTACT CARD */}
+                    <div
+                        className="
+                            rounded-3xl
+                            bg-white/5
+                            backdrop-blur-xl
+                            p-10
+                            shadow-[0_20px_60px_rgba(0,0,0,0.45)]
+                        "
+                    >
+                        <div className="space-y-2 text-sm tracking-wide text-slate-200">
                             <p>+976 8888 7675</p>
-                            <a href="mailto:info@urbanworld.mn" className="hover:text-slate-900">
-                                info@urbanworld.mn
-                            </a>
+                            <p>info@urbanworld.mn</p>
                             <p>River Plaza 1403 · Хан-Уул</p>
-                            <div className="pt-4">
-                                <p className="text-[0.6rem] uppercase tracking-[0.5em] text-slate-400">Social</p>
-                                <div className="mt-3 flex flex-col gap-3">
-                                    {socialLinks.map(({ name, username, url, Icon }) => (
-                                        <a
-                                            key={name}
-                                            href={url}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="group flex items-center gap-4 rounded-3xl border border-slate-200 px-4 py-3 text-slate-800 transition hover:border-slate-400 hover:bg-white hover:text-slate-900"
-                                        >
-                                            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-inner shadow-white/20">
-                                                <Icon />
+                        </div>
+
+                        {/* SOCIAL LINKS */}
+                        <div className="mt-10">
+                            <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
+                                Social
+                            </p>
+
+                            <div className="mt-4 space-y-3">
+                                {socialLinks.map(({ name, username, url, Icon }) => (
+                                    <a
+                                        key={name}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="
+                                            flex items-center gap-4
+                                            rounded-2xl
+                                            bg-white/5
+                                            px-4 py-3
+                                            hover:bg-white/10
+                                            transition
+                                        "
+                                    >
+                                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black">
+                                            <Icon />
+                                        </span>
+
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] uppercase tracking-[0.4em] text-slate-400">
+                                                {name}
                                             </span>
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.6rem] uppercase tracking-[0.5em] text-slate-400">{name}</span>
-                                                <span className="text-sm uppercase tracking-[0.3em]">{username}</span>
-                                            </div>
-                                            <span className="ml-auto text-lg text-slate-300 transition group-hover:text-slate-900">↗</span>
-                                        </a>
-                                    ))}
-                                </div>
+                                            <span className="text-sm tracking-[0.2em]">{username}</span>
+                                        </div>
+
+                                        <span className="ml-auto text-lg text-slate-500 group-hover:text-white">
+                                            ↗
+                                        </span>
+                                    </a>
+                                ))}
                             </div>
                         </div>
-                        <form className="mt-10 space-y-4 text-slate-900" onSubmit={handleSubmit}>
+
+                        {/* FORM */}
+                        <form className="mt-10 space-y-4" onSubmit={handleSubmit}>
                             <input
                                 type="text"
-                                placeholder="Нэр"
                                 name="name"
-                                className="w-full rounded-full border border-slate-200 bg-white px-5 py-3 text-sm uppercase tracking-[0.3em]"
+                                placeholder="Нэр"
+                                className="
+                                    w-full rounded-2xl
+                                    bg-white/5
+                                    px-5 py-3
+                                    placeholder:text-white
+                                    focus:border-white/40
+                                    outline-none
+                                "
                             />
+
                             <input
                                 type="email"
-                                placeholder="И-мэйл"
                                 name="email"
-                                className="w-full rounded-full border border-slate-200 bg-white px-5 py-3 text-sm uppercase tracking-[0.3em]"
+                                placeholder="И-мэйл"
+                                className="
+                                    w-full rounded-2xl
+                                    bg-white/5
+                                    px-5 py-3
+                                    placeholder:text-white
+                                    focus:border-white/40
+                                    outline-none
+                                "
                             />
+
                             <textarea
                                 rows={3}
-                                placeholder="Төслийн товч"
                                 name="brief"
-                                className="w-full rounded-[24px] border border-slate-200 bg-white px-5 py-4 text-sm uppercase tracking-[0.3em]"
+                                placeholder="Төслийн товч"
+                                className="
+                                    w-full rounded-2xl
+                                    bg-white/5
+                                    px-5 py-3
+                                    placeholder:text-white
+                                    focus:border-white/40
+                                    outline-none
+                                "
                             />
+
                             <button
                                 type="submit"
-                                className="w-full rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm uppercase tracking-[0.4em] text-white transition hover:bg-slate-800"
+                                className="
+                                    w-full rounded-full
+                                    bg-white text-black
+                                    py-3
+                                    tracking-[0.3em]
+                                    hover:bg-slate-200
+                                    transition
+                                "
                             >
-                                Send
+                                SEND
                             </button>
                         </form>
                     </div>
-                    <div className="relative min-h-[360px] overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/80">
-                        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-slate-50 pointer-events-none" />
+
+                    {/* RIGHT MAP CARD — UPDATED CLEAN VERSION */}
+                    <div
+                        className="
+                            relative rounded-3xl
+                            overflow-hidden
+                            bg-white/5
+                            backdrop-blur-xl
+                            shadow-[0_16px_40px_rgba(0,0,0,0.35)]
+                            min-h-[360px]
+                        "
+                    >
                         <iframe
                             title="River Tower location"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"
-                            className="h-full w-full rounded-[32px]"
+                            className="h-full w-full"
                             style={{ border: 0 } as CSSProperties}
                             loading="lazy"
                             allowFullScreen
                             referrerPolicy="no-referrer-when-downgrade"
                         />
-                        <div className="pointer-events-none absolute inset-4 rounded-[28px] border border-white/60" />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
                     </div>
                 </div>
             </div>
