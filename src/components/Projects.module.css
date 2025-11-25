@@ -1,6 +1,6 @@
 .albumButton {
     position: relative;
-    border-radius: 34px;
+    border-radius: 0;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
 }
 
@@ -9,7 +9,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    border: none;
     pointer-events: none;
     transition: opacity 0.5s ease;
 }
@@ -53,21 +53,21 @@
 }
 
 .overlayCard {
-    width: min(1240px, 94vw);
-    border-radius: 44px;
+    width: min(1480px, 98vw);
+    border-radius: 0;
     border: 1px solid rgba(15, 23, 42, 0.08);
     background: rgba(255, 255, 255, 0.98);
     box-shadow:
         0 30px 120px rgba(15, 23, 42, 0.2),
         inset 0 0 0 1px rgba(255, 255, 255, 0.8);
-    padding: clamp(1.4rem, 3vw, 3rem);
-    display: grid;
-    align-items: flex-start;
-    gap: clamp(1.5rem, 3vw, 3rem);
-    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    padding: clamp(1.4rem, 2vw, 2.4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(1rem, 2vw, 1.6rem);
     position: relative;
     overflow: hidden;
-    max-height: min(86vh, 780px);
+    max-height: min(92vh, 880px);
     overflow-y: auto;
 }
 
@@ -85,64 +85,67 @@
 
 .overlayInfo {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     position: relative;
     z-index: 1;
 }
 
-.overlayInfo::after {
-    content: "";
-    position: absolute;
-    inset: 2rem;
-    border-radius: 32px;
-    pointer-events: none;
-    border: 1px dashed rgba(15, 23, 42, 0.08);
-}
-
 .overlayGallery {
+    --g: 12px;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 0.75rem;
-    min-height: 320px;
+    gap: var(--g);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     align-content: flex-start;
+    padding: var(--g);
+    background: linear-gradient(135deg, rgba(241, 245, 249, 0.6), rgba(255, 255, 255, 0.9));
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
 }
 
 .galleryItem {
     position: relative;
-    border-radius: 26px;
+    border-radius: 0;
     overflow: hidden;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    min-height: 140px;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    border: none;
+    background: #fff;
+    aspect-ratio: 4 / 3;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
 }
 
 .galleryItem:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 16px 36px rgba(15, 23, 42, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
 }
 
 .galleryItem :global(img) {
-    filter: grayscale(1) contrast(1.1);
-    transition: filter 0.5s ease;
+    filter: none;
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .galleryItem:hover :global(img) {
-    filter: grayscale(0) contrast(1);
+    transform: scale(1.05);
 }
 
-.galleryItemWide {
-    grid-column: span 6;
-    min-height: 220px;
-}
-
-.galleryItemTall {
-    grid-column: span 3;
-    grid-row: span 2;
-    min-height: 260px;
-}
-
+.galleryItemWide,
+.galleryItemTall,
 .galleryItemSquare {
-    grid-column: span 3;
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.overlayTitleRow {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -196,4 +199,25 @@
     text-transform: uppercase;
     letter-spacing: 0.4em;
     font-size: 0.65rem;
+}
+
+.fullProjectLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #0f172a;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    background: rgba(14, 165, 233, 0.08);
+    width: fit-content;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fullProjectLink:hover,
+.fullProjectLink:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(14, 165, 233, 0.5);
+    box-shadow: 0 14px 40px rgba(14, 165, 233, 0.18);
 }

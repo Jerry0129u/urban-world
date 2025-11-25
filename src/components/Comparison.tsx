@@ -1,18 +1,20 @@
 import Image from "next/image";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
+import { type BeforeAfter } from "@/data/projects";
 import styles from "./Comparison.module.css";
 
-const beforeShot = {
-    image: "/before.jpg",
-    title: "Existing loft capture",
-    detail: "raw daylight frame",
-};
-
-const afterShot = {
-    image: "/after.jpg",
-    title: "Layered finish pass",
-    detail: "balanced lighting + styling",
+const defaultBeforeAfter: BeforeAfter = {
+    before: {
+        image: "/before.jpg",
+        title: "Existing loft capture",
+        detail: "raw daylight frame",
+    },
+    after: {
+        image: "/after.jpg",
+        title: "Layered finish pass",
+        detail: "balanced lighting + styling",
+    },
 };
 
 type ComparisonVariant = "standalone" | "embedded";
@@ -20,9 +22,22 @@ type ComparisonVariant = "standalone" | "embedded";
 interface ComparisonProps {
     variant?: ComparisonVariant;
     className?: string;
+    beforeAfter?: BeforeAfter;
+    id?: string;
+    heading?: string;
+    eyebrow?: string;
+    copy?: string;
 }
 
-export default function Comparison({ variant = "standalone", className }: ComparisonProps = {}) {
+export default function Comparison({
+    variant = "standalone",
+    className,
+    beforeAfter = defaultBeforeAfter,
+    id,
+    heading = "Do an interior mood comparison.",
+    eyebrow = "before / after",
+    copy = "Drag the orbital control to reveal how the same room feels before and after we stage it. Layered lighting, texture, and styling cadence dial the atmosphere from raw to ready.",
+}: ComparisonProps = {}) {
     const [value, setValue] = useState(50);
     const [reveal, setReveal] = useState(false);
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -55,7 +70,7 @@ export default function Comparison({ variant = "standalone", className }: Compar
 
     const isStandalone = variant === "standalone";
     const wrapperClass = [
-        isStandalone ? `room-section relative overflow-hidden text-slate-900 scroll-mt-24 ${styles.section}` : "relative w-full text-slate-900",
+        isStandalone ? `room-section relative overflow-hidden text-black scroll-mt-24 ${styles.section}` : "relative w-full text-black",
         className,
     ]
         .filter(Boolean)
@@ -73,19 +88,16 @@ export default function Comparison({ variant = "standalone", className }: Compar
 
     return (
         <WrapperTag
-            id={isStandalone ? "comparison" : undefined}
+            id={id ?? (isStandalone ? "comparison" : undefined)}
             ref={sectionRef}
             className={wrapperClass}
         >
-            {isStandalone && <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" aria-hidden="true" />}
+            {isStandalone && <div className="absolute inset-0 bg-white" aria-hidden="true" />}
             <div className={innerClass}>
                 <div className="max-w-2xl space-y-4">
-                    <p className="text-xs uppercase tracking-[0.6em] text-slate-500">before / after</p>
-                    <h2 className="text-3xl font-light md:text-4xl">Do an interior mood comparison.</h2>
-                    <p className="text-base text-slate-600 md:text-lg">
-                        Drag the orbital control to reveal how the same room feels before and after we stage it.
-                        Layered lighting, texture, and styling cadence dial the atmosphere from raw to ready.
-                    </p>
+                    <p className="text-xs uppercase tracking-[0.6em] text-black/60">{eyebrow}</p>
+                    <h2 className="text-3xl font-light md:text-4xl text-black">{heading}</h2>
+                    <p className="text-base text-black/70 md:text-lg">{copy}</p>
                 </div>
                 <div className={styles.stageShell}>
                     <div
@@ -95,15 +107,15 @@ export default function Comparison({ variant = "standalone", className }: Compar
                     >
                         <div className={styles.images}>
                             <Image
-                                src={beforeShot.image}
-                                alt={beforeShot.title}
+                                src={beforeAfter.before.image}
+                                alt={beforeAfter.before.title}
                                 fill
                                 className={styles.image}
                                 sizes="(min-width: 1024px) 70vw, 100vw"
                             />
                             <Image
-                                src={afterShot.image}
-                                alt={afterShot.title}
+                                src={beforeAfter.after.image}
+                                alt={beforeAfter.after.title}
                                 fill
                                 className={`${styles.image} ${styles.imageAfter}`}
                                 sizes="(min-width: 1024px) 70vw, 100vw"
@@ -133,13 +145,13 @@ export default function Comparison({ variant = "standalone", className }: Compar
                     <div className={styles.metaRow}>
                         <div className={styles.metaGroup}>
                             <p className={styles.metaLabel}>before</p>
-                            <p className={styles.metaTitle}>{beforeShot.title}</p>
-                            <p className={styles.metaDetail}>{beforeShot.detail}</p>
+                            <p className={styles.metaTitle}>{beforeAfter.before.title}</p>
+                            <p className={styles.metaDetail}>{beforeAfter.before.detail}</p>
                         </div>
                         <div className={styles.metaGroup}>
                             <p className={styles.metaLabel}>after</p>
-                            <p className={styles.metaTitle}>{afterShot.title}</p>
-                            <p className={styles.metaDetail}>{afterShot.detail}</p>
+                            <p className={styles.metaTitle}>{beforeAfter.after.title}</p>
+                            <p className={styles.metaDetail}>{beforeAfter.after.detail}</p>
                         </div>
                     </div>
                 </div>

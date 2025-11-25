@@ -30,6 +30,8 @@
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    align-items: center;
+    text-align: center;
 }
 
 .stageShell {
@@ -45,37 +47,37 @@
     --yp: 0;
     --compare: 50;
     position: relative;
-    width: min(1100px, 96vw);
+    width: min(900px, 92vw);
     aspect-ratio: 4 / 3;
-    border-radius: 56px;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(148, 163, 184, 0.25));
+    border-radius: 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #ffffff;
     overflow: hidden;
     box-shadow:
-        0 40px 80px rgba(15, 23, 42, 0.15),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(6px);
-    transform-style: preserve-3d;
-    transform: perspective(1600px) rotateX(calc(var(--yp, 0) * -10deg))
-        rotateY(calc(var(--xp, 0) * 16deg));
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+        0 24px 60px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: none;
+    transition: opacity 0.5s ease;
 }
 
 .stage[data-reveal="false"] {
     opacity: 0;
-    transform: perspective(1200px) translateY(80px) scale(0.96);
+    transform: translateY(30px);
 }
 
 .stage[data-reveal="true"] {
     opacity: 1;
+    transform: none;
 }
 
 .stage::before,
 .stage::after {
     content: "";
     position: absolute;
-    inset: 22px;
-    border-radius: 46px;
+    inset: 18px;
+    border-radius: 0;
     pointer-events: none;
     border: 1px dashed rgba(15, 23, 42, 0.12);
 }
@@ -99,12 +101,13 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    transition: clip-path 0.4s ease, filter 0.4s ease;
+    transition: clip-path 0.3s ease;
+    filter: none;
 }
 
 .imageAfter {
     clip-path: inset(0 calc(100% - (var(--compare, 50) * 1%)) 0 0);
-    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.35));
+    filter: none;
 }
 
 .slider {
@@ -162,20 +165,20 @@
     text-transform: uppercase;
     letter-spacing: 0.5em;
     font-size: 0.65rem;
-    color: rgba(15, 23, 42, 0.5);
+    color: rgba(0, 0, 0, 0.6);
     margin-bottom: 0.5rem;
 }
 
 .metaTitle {
     font-size: clamp(1.1rem, 2vw, 1.5rem);
-    color: #0f172a;
+    color: #000000;
     margin: 0;
 }
 
 .metaDetail {
     margin-top: 0.4rem;
     font-size: 0.9rem;
-    color: rgba(15, 23, 42, 0.65);
+    color: rgba(0, 0, 0, 0.65);
 }
 
 @media (max-width: 768px) {
