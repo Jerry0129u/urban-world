@@ -19,14 +19,14 @@ export default function Projects() {
     return (
         <section
             id="projects"
-            className="relative w-full overflow-hidden bg-white text-slate-900 scroll-mt-24"
+            className="relative w-full overflow-hidden bg-[#222222] text-[#fffdef] scroll-mt-24"
         >
             <div className="w-full px-6 py-16 flex flex-col items-center text-center">
-                <p className="text-[11px] uppercase tracking-[0.55em] text-slate-500">
+                <p className="text-[11px] uppercase tracking-[0.55em] text-[#fffdef]/70">
                     Projects
                 </p>
 
-                <h2 className="mt-3 text-3xl md:text-4xl font-light leading-tight text-[#0D0E11]">
+                <h2 className="mt-3 text-3xl md:text-4xl font-light leading-tight text-[#fffdef]">
                     Rooms, lobbies, and studios we’ve finished.
                 </h2>
                 <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -39,8 +39,8 @@ export default function Projects() {
                                 onClick={() => setFilter(item)}
                                 className={`rounded-full border px-4 py-2 text-sm transition ${
                                     isActive
-                                        ? "border-[#0D0E11] bg-[#0D0E11] text-white shadow-sm"
-                                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-400"
+                                        ? "border-[#444444] bg-[#444444] text-[#fffdef] shadow-sm hover:bg-[#989898] hover:border-[#989898]"
+                                        : "border-[#444444] bg-transparent text-[#fffdef] hover:bg-[#444444]/80 hover:border-[#989898]"
                                 }`}
                             >
                                 {item}
@@ -75,7 +75,7 @@ export default function Projects() {
                     ))}
                 </div>
                 {filtered.length === 0 && (
-                    <p className="mt-8 text-center text-sm text-slate-500">No projects match this filter.</p>
+                    <p className="mt-8 text-center text-sm text-[#fffdef]/70">No projects match this filter.</p>
                 )}
             </div>
         </section>

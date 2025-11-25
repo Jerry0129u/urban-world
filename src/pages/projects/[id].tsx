@@ -44,8 +44,16 @@ export default function ProjectDetail({ project }: ProjectPageProps) {
         }
     }, [router.isReady, router.query, project.gallery.length]);
 
+    const totalShots = project.gallery.length || 1;
     const activeShot = useMemo(() => project.gallery[activeIndex] ?? project.gallery[0], [activeIndex, project.gallery]);
-    const totalShots = project.gallery.length;
+    const prevShot = useMemo(
+        () => project.gallery[(activeIndex - 1 + totalShots) % totalShots] ?? project.gallery[0],
+        [activeIndex, project.gallery, totalShots]
+    );
+    const nextShot = useMemo(
+        () => project.gallery[(activeIndex + 1) % totalShots] ?? project.gallery[0],
+        [activeIndex, project.gallery, totalShots]
+    );
     const goNext = () => setActiveIndex((prev) => (prev + 1) % totalShots);
     const goPrev = () => setActiveIndex((prev) => (prev - 1 + totalShots) % totalShots);
 
@@ -77,6 +85,48 @@ export default function ProjectDetail({ project }: ProjectPageProps) {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                            <div className={styles.heroPeekStage}>
+                                <button
+                                    type="button"
+                                    className={`${styles.peekCard} ${styles.peekPrev}`}
+                                    onClick={goPrev}
+                                    aria-label={`Previous photo: ${prevShot?.alt ?? "Previous"}`}
+                                >
+                                    <div className={styles.peekImageWrap}>
+                                        <Image
+                                            src={prevShot?.src ?? project.cover}
+                                            alt={prevShot?.alt ?? "Previous photo"}
+                                            fill
+                                            sizes="(min-width: 1024px) 45vw, 90vw"
+                                            className={styles.peekImage}
+                                        />
+                                    </div>
+                                    <div className={styles.peekLabel}>
+                                        <span>Previous</span>
+                                        <p>{prevShot?.alt ?? "Previous photo"}</p>
+                                    </div>
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`${styles.peekCard} ${styles.peekNext}`}
+                                    onClick={goNext}
+                                    aria-label={`Next photo: ${nextShot?.alt ?? "Next"}`}
+                                >
+                                    <div className={styles.peekImageWrap}>
+                                        <Image
+                                            src={nextShot?.src ?? project.cover}
+                                            alt={nextShot?.alt ?? "Next photo"}
+                                            fill
+                                            sizes="(min-width: 1024px) 45vw, 90vw"
+                                            className={styles.peekImage}
+                                        />
+                                    </div>
+                                    <div className={styles.peekLabel}>
+                                        <span>Next</span>
+                                        <p>{nextShot?.alt ?? "Next photo"}</p>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                         <div className={styles.heroNav}>
