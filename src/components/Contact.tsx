@@ -4,8 +4,23 @@ import { type CSSProperties, type FormEvent } from "react";
 
 const InstagramIcon = () => (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
-        <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <rect
+            x="3"
+            y="3"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+        />
+        <circle
+            cx="12"
+            cy="12"
+            r="4.2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+        />
         <circle cx="17" cy="7" r="1.2" fill="currentColor" />
     </svg>
 );
@@ -68,38 +83,29 @@ export default function Contact() {
     return (
         <section
             id="contact"
-            className="relative min-h-screen w-full bg-[#0B0C10] text-white scroll-mt-24"
+            className="relative min-h-screen w-full bg-[#222222] text-[#fffdef] scroll-mt-24"
         >
-            <div className="mx-auto w-full max-w-6xl px-6 py-24">
-                <h2 className="mb-12 text-center text-3xl font-light md:text-4xl">
+            <div className="mx-auto w-full max-w-7xl px-8 py-32">
+                <h2 className="mb-16 text-3xl md:text-4xl font-light tracking-wide">
                     Contact Us
                 </h2>
 
-                <div className="grid gap-10 lg:grid-cols-2">
-
+                <div className="grid gap-12 lg:grid-cols-[420px_1fr]">
                     {/* LEFT CONTACT CARD */}
-                    <div
-                        className="
-                            rounded-3xl
-                            bg-white/5
-                            backdrop-blur-xl
-                            p-10
-                            shadow-[0_20px_60px_rgba(0,0,0,0.45)]
-                        "
-                    >
-                        <div className="space-y-2 text-sm tracking-wide text-slate-200">
+                    <div className="bg-white/5 p-10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
+                        <div className="space-y-2 text-sm tracking-wide text-[#fffdef]">
                             <p>+976 8888 7675</p>
                             <p>info@urbanworld.mn</p>
                             <p>River Plaza 1403 · Хан-Уул</p>
                         </div>
 
                         {/* SOCIAL LINKS */}
-                        <div className="mt-10">
-                            <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                                Social
+                        <div className="mt-12">
+                            <p className="text-xs uppercase tracking-[0.4em] text-[#fffdef]">
+                                SOCIAL
                             </p>
 
-                            <div className="mt-4 space-y-3">
+                            <div className="mt-5 space-y-3">
                                 {socialLinks.map(({ name, username, url, Icon }) => (
                                     <a
                                         key={name}
@@ -108,14 +114,13 @@ export default function Contact() {
                                         rel="noreferrer"
                                         className="
                                             flex items-center gap-4
-                                            rounded-2xl
-                                            bg-white/5
+                                            bg-white/5 border border-white/10
                                             px-4 py-3
                                             hover:bg-white/10
                                             transition
                                         "
                                     >
-                                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black">
+                                        <span className="flex h-10 w-10 items-center justify-center bg-white text-black">
                                             <Icon />
                                         </span>
 
@@ -123,11 +128,13 @@ export default function Contact() {
                                             <span className="text-[10px] uppercase tracking-[0.4em] text-slate-400">
                                                 {name}
                                             </span>
-                                            <span className="text-sm tracking-[0.2em]">{username}</span>
+                                            <span className="text-sm tracking-[0.2em]">
+                                                {username}
+                                            </span>
                                         </div>
 
-                                        <span className="ml-auto text-lg text-slate-500 group-hover:text-white">
-                                            ↗
+                                        <span className="ml-auto text-base text-[#fffdef]">
+                                            →
                                         </span>
                                     </a>
                                 ))}
@@ -135,16 +142,15 @@ export default function Contact() {
                         </div>
 
                         {/* FORM */}
-                        <form className="mt-10 space-y-4" onSubmit={handleSubmit}>
+                        <form className="mt-12 space-y-5" onSubmit={handleSubmit}>
                             <input
                                 type="text"
                                 name="name"
                                 placeholder="Нэр"
                                 className="
-                                    w-full rounded-2xl
-                                    bg-white/5
-                                    px-5 py-3
-                                    placeholder:text-white
+                                    w-full bg-white/5 px-5 py-3
+                                    border border-white/10
+                                    placeholder:text-[#fffdef]
                                     focus:border-white/40
                                     outline-none
                                 "
@@ -155,10 +161,9 @@ export default function Contact() {
                                 name="email"
                                 placeholder="И-мэйл"
                                 className="
-                                    w-full rounded-2xl
-                                    bg-white/5
-                                    px-5 py-3
-                                    placeholder:text-white
+                                    w-full bg-white/5 px-5 py-3
+                                    border border-white/10
+                                    placeholder:text-[#fffdef]
                                     focus:border-white/40
                                     outline-none
                                 "
@@ -169,10 +174,9 @@ export default function Contact() {
                                 name="brief"
                                 placeholder="Төслийн товч"
                                 className="
-                                    w-full rounded-2xl
-                                    bg-white/5
-                                    px-5 py-3
-                                    placeholder:text-white
+                                    w-full bg-white/5 px-5 py-3
+                                    border border-white/10
+                                    placeholder:text-[#fffdef]
                                     focus:border-white/40
                                     outline-none
                                 "
@@ -181,12 +185,11 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 className="
-                                    w-full rounded-full
-                                    bg-white text-black
-                                    py-3
+                                    w-full bg-[#444444] text-[#fffdef] py-3
                                     tracking-[0.3em]
-                                    hover:bg-slate-200
+                                    hover:bg-[#989898]
                                     transition
+                                    shadow-lg
                                 "
                             >
                                 SEND
@@ -194,17 +197,24 @@ export default function Contact() {
                         </form>
                     </div>
 
-                    {/* RIGHT MAP CARD — UPDATED CLEAN VERSION */}
+                    {/* RIGHT MAP CARD – CLICK = OPEN GOOGLE MAPS */}
                     <div
                         className="
-                            relative rounded-3xl
-                            overflow-hidden
-                            bg-white/5
-                            backdrop-blur-xl
+                            relative overflow-hidden
+                            bg-white/5 backdrop-blur-xl
                             shadow-[0_16px_40px_rgba(0,0,0,0.35)]
-                            min-h-[360px]
+                            min-h-[440px]
                         "
                     >
+                        {/* Бүх картыг дармагц Google Maps нээгдэнэ */}
+                        <a
+                            href="https://www.google.com/maps?q=River+Tower+Ulaanbaatar"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="absolute inset-0 z-20"
+                            aria-label="Open River Tower in Google Maps"
+                        />
+
                         <iframe
                             title="River Tower location"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"
@@ -214,7 +224,7 @@ export default function Contact() {
                             allowFullScreen
                             referrerPolicy="no-referrer-when-downgrade"
                         />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40" />
                     </div>
                 </div>
             </div>

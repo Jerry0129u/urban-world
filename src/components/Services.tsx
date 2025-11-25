@@ -45,80 +45,80 @@ export default function Services() {
     return (
         <section
             id="services"
-            className="relative w-full overflow-hidden bg-[#0D0E11] text-white scroll-mt-24"
+            className="relative overflow-hidden bg-[#222222] py-28 text-[#fffdef] scroll-mt-24"
         >
-            {/* Section Header */}
-            <div className="w-full px-6 py-16 flex flex-col items-center text-center">
-                <p className="text-[11px] uppercase tracking-[0.55em] text-slate-500">
-                    ҮЙЛЧИЛГЭЭ
-                </p>
+            <div className="container mx-auto max-w-7xl px-6">
+                {/* Section Header */}
+                <div className="flex flex-col mb-12">
+                    <p className="text-[11px] uppercase tracking-[0.4em] text-[#fffdef] mb-3">
+                        Service
+                    </p>
+                    <h2 className="text-5xl lg:text-4xl leading-tight font-light text-[#fffdef] mb-4">
+                        URBAN W0RLD LLC
+                    </h2>
+                    <p className="text-[11px] uppercase tracking-[0.35em] text-[#fffdef] mb-8">
+                        consult • design • build
+                    </p>
+                </div>
 
-                <h2 className="mt-3 text-3xl md:text-4xl font-light leading-tight">
-                    Мэргэжлийн зөвлөгөө • Дизайн • Гүйцэтгэл
-                </h2>
-            </div>
-
-            {/* Full-width Grid */}
-            <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3 px-6 pb-20">
-                {services.map((service) => (
-                    <div
-                        key={service.title}
-                        className="group relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-900"
-                    >
-                        {/* Background Image */}
-                        <Image
-                            src={service.image}
-                            alt={service.title}
-                            fill
-                            priority
-                            className="object-cover object-center transition-all duration-[1400ms] group-hover:scale-110"
-                        />
-
-                        {/* Dark cinematic gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-                        {/* Static bottom text */}
-                        <div className="absolute bottom-6 left-6 right-6 space-y-1.5">
-                            <p className="text-[10px] uppercase tracking-[0.4em] text-white/60">
-                                {service.label}
-                            </p>
-                            <h3 className="text-xl font-light md:text-2xl">
-                                {service.title}
-                            </h3>
-                            <p className="text-xs text-white/70">{service.summary}</p>
-                        </div>
-
-                        {/* Hover info card */}
+                {/* Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {services.map((service) => (
                         <div
-                            className="
-                                pointer-events-none absolute left-4 top-4 max-w-[260px]
-                                translate-y-4 translate-x-4 opacity-0
-                                rounded-xl bg-black/70 p-4 backdrop-blur-xl
-                                transition-all duration-500 group-hover:pointer-events-auto
-                                group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100
-                            "
+                            key={service.title}
+                            className="group relative aspect-[4/5] w-full overflow-hidden bg-slate-900"
                         >
-                            <p className="mb-2 text-[10px] uppercase tracking-[0.25em] text-slate-300">
-                                {service.label}
-                            </p>
-                            <p className="mb-2 text-sm font-medium text-white">
-                                {service.title}
-                            </p>
-                            <ul className="list-disc list-inside space-y-1.5">
-                                {service.details.map((item) => (
-                                    <li key={item} className="text-[11px] leading-snug">
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                            {/* Background Image */}
+                            <Image
+                                src={service.image}
+                                alt={service.title}
+                                fill
+                                priority
+                                className="object-cover object-center transition-all duration-[1400ms] group-hover:scale-105"
+                            />
 
-            <p className="pb-12 text-center text-xs uppercase tracking-[0.5em] text-slate-600">
-                consult • design • build
-            </p>
+                            {/* Dark cinematic gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+                            {/* Static bottom text */}
+                            <div className="absolute bottom-5 left-5 right-5 space-y-1.5">
+                                <p className="text-[10px] uppercase tracking-[0.4em] text-white/60">
+                                    {service.label}
+                                </p>
+                                <h3 className="text-xl font-light md:text-2xl">
+                                    {service.title}
+                                </h3>
+                                <p className="text-xs text-white/70">
+                                    {service.summary}
+                                </p>
+                            </div>
+
+                            {/* Hover info card */}
+                            <div
+                                className="
+                                    pointer-events-none absolute left-3 top-3 max-w-[250px]
+                                    translate-y-4 translate-x-4 opacity-0
+                                    bg-black/70 p-4 backdrop-blur-xl
+                                    transition-all duration-500 group-hover:pointer-events-auto
+                                    group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100
+                                "
+                            >
+                                <ul className="list-disc list-inside space-y-1.5">
+                                    {service.details.map((item) => (
+                                        <li
+                                            key={item}
+                                            className="text-[11px] leading-snug"
+                                        >
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+            </div>
         </section>
     );
 }

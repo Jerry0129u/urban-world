@@ -44,7 +44,7 @@ export default function About() {
     return (
         <section
             id="about"
-            className="relative overflow-hidden bg-[#f8f8f8] py-28 text-slate-800"
+            className="relative overflow-hidden bg-[#222222] pt-28 text-[#fffdef]"
         >
             <div
                 className="
@@ -55,30 +55,30 @@ export default function About() {
             >
                 {/* LEFT TEXT */}
                 <div className="flex-1 flex flex-col justify-start">
-                    <p className="text-[11px] uppercase tracking-[0.4em] text-slate-500 mb-3">
+                    <p className="text-[11px] uppercase tracking-[0.4em] text-[#fffdef] mb-3">
                         About us
                     </p>
 
-                    <h2 className="text-5xl lg:text-6xl leading-tight font-light text-slate-900 mb-4">
+                    <h2 className="text-5xl lg:text-4xl leading-tight font-light text-[#fffdef] mb-4">
                         URBAN W0RLD LLC
                     </h2>
 
-                    <p className="text-[11px] uppercase tracking-[0.35em] text-slate-400 mb-8">
+                    <p className="text-[11px] uppercase tracking-[0.35em] text-[#fffdef] mb-8">
                         Vision • Mission • Goals
                     </p>
 
                     {/* Dynamic vision / mission / goal text */}
                     <div className="max-w-xl space-y-3 transition-all duration-500">
-                        <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">
+                        <p className="text-[11px] uppercase tracking-[0.35em] text-[#fffdef]">
                             {journey[active].description}
                         </p>
-                        <p className="text-lg leading-relaxed text-slate-700 font-light">
+                        <p className="text-lg leading-relaxed text-[#fffdef] font-light">
                             {journey[active].text}
                         </p>
                     </div>
 
                     {/* Static company description – always visible */}
-                    <div className="max-w-xl mt-10 pt-6 border-t border-slate-200 text-sm leading-relaxed text-slate-600 space-y-4">
+                    <div className="max-w-xl mt-10 pt-6 border-t border-slate-200 text-sm leading-relaxed text-[#fffdef] space-y-4">
                         <p>
                             2022 онд байгуулагдсан “Урбан Уорлд” ХХК нь интерьер дизайны зөвлөгөө өгөх,
                             зураг төсөл боловсруулах, дотоод засал, тохижилт гүйцэтгэх чиглэлээр үйл

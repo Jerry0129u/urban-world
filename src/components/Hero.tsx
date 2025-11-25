@@ -24,33 +24,31 @@ export default function Hero() {
             {/* Content */}
             <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 md:px-16">
                 <div className="max-w-3xl space-y-6">
-                    <p className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.5em] text-gray-300">
+                    <p className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.5em] text-[#fffdef]">
                         <span className="h-px w-10 bg-gray-500" />
                         guided interior walk
                     </p>
 
-                    <h1 className="text-4xl font-light leading-tight md:text-6xl">
+                    <h1 className="text-4xl font-light leading-tight md:text-6xl text-[#fffdef]">
                         Imagine the space <br /> before it becomes reality.
                     </h1>
 
-                    <p className="max-w-xl text-gray-300 leading-relaxed text-base md:text-lg">
-                        Urban World LLC — Интерьер дизайн, зураг төсөл,
-                        дотоод засал, тохижилтын гүйцэтгэлийг цогцоор нь
-                        үзүүлдэг орчин үеийн интерьер студи.
+                    <p className="max-w-xl text-[#fffdef] leading-relaxed text-base md:text-lg">
+                        Urban World LLC - Интерьер дизайны зөвлөгөө өгөх, зураг төсөл боловсруулах, дотоод засал, тохижилт гүйцэтгэх цогц үйлчилгээ үзүүлэгч компани.
                     </p>
 
                     {/* CTA Buttons */}
                     <div className="flex gap-4 pt-4">
                         <Link
                             href="#services"
-                            className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-gray-200 transition"
+                            className="bg-[#444444] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-[#989898] transition"
                         >
                             View Services
                         </Link>
 
                         <Link
                             href="#projects"
-                            className="rounded-full border border-white/60 px-6 py-3 text-sm font-medium text-white hover:bg-white/20 transition"
+                            className="border border-[#fffdef] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-white/20 transition"
                         >
                             View Projects
                         </Link>
