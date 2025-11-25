@@ -28,6 +28,10 @@ export type Project = {
     id: string;
     title: string;
     location: string;
+    completed?: {
+        year: string;
+        month: string;
+    };
     description: string;
     cover: string;
     palette: string;
@@ -52,6 +56,7 @@ export const projects: Project[] = [
         id: "penthouse",
         title: "Penthouse glow",
         location: "СБД, UB",
+        completed: { year: "2024", month: "02" },
         description: "High-floor residence where we softened the daylight with layered sheers and graphite accents.",
         cover: "/apartment-2.jpg",
         palette: "from-amber-300/20 via-white/5 to-white/0",
@@ -93,6 +98,7 @@ export const projects: Project[] = [
         id: "lobby",
         title: "Lobby immersion",
         location: "Downtown",
+        completed: { year: "2023", month: "11" },
         description: "Reception loop built with polished stone, smoked glass, and kinetic lighting for brand arrivals.",
         cover: "/hotel-3.jpg",
         palette: "from-indigo-400/20 via-purple-200/10 to-transparent",
@@ -134,6 +140,7 @@ export const projects: Project[] = [
         id: "studio",
         title: "Studio hush",
         location: "Creative hub",
+        completed: { year: "2024", month: "04" },
         description: "Open office suite tuned for focus: ribbed glass, charcoal felt, and hidden linear light.",
         cover: "/office-4.jpg",
         palette: "from-cyan-300/20 via-white/5 to-transparent",
@@ -175,6 +182,7 @@ export const projects: Project[] = [
         id: "showflat",
         title: "Showflat sheen",
         location: "Ulaanbaatar",
+        completed: { year: "2023", month: "09" },
         description: "Model unit with crisp paint lines and warm staging.",
         cover: "/apartment-1.jpg",
         palette: "from-amber-200/20 via-white/5 to-transparent",
@@ -199,6 +207,7 @@ export const projects: Project[] = [
         id: "atrium",
         title: "Atrium glaze",
         location: "CBD",
+        completed: { year: "2022", month: "12" },
         description: "Public lobby with plastered curves and reflective glazing.",
         cover: "/hotel-3.jpg",
         palette: "from-indigo-300/20 via-white/5 to-transparent",
@@ -223,6 +232,7 @@ export const projects: Project[] = [
         id: "studio-lite",
         title: "Studio lite",
         location: "Tech park",
+        completed: { year: "2024", month: "01" },
         description: "Minimal office shell with crisp paint and floating light.",
         cover: "/office-1.jpg",
         palette: "from-cyan-200/20 via-white/5 to-transparent",
@@ -247,6 +257,7 @@ export const projects: Project[] = [
         id: "bar-lounge",
         title: "Bar lounge polish",
         location: "City center",
+        completed: { year: "2023", month: "06" },
         description: "Hospitality bar with plaster soffits and moody paint.",
         cover: "/hotel-6.jpg",
         palette: "from-amber-200/15 via-white/5 to-transparent",
@@ -271,6 +282,7 @@ export const projects: Project[] = [
         id: "loft-wash",
         title: "Loft wash",
         location: "Warehouse district",
+        completed: { year: "2023", month: "03" },
         description: "Artist loft with limewash walls and exposed structure.",
         cover: "/apartment-1.jpg",
         palette: "from-stone-200/20 via-white/5 to-transparent",
@@ -295,6 +307,7 @@ export const projects: Project[] = [
         id: "suite-quiet",
         title: "Suite quiet",
         location: "Luxury tower",
+        completed: { year: "2022", month: "09" },
         description: "Guest suite with layered paint tones and plaster coves.",
         cover: "/hotel-2.jpg",
         palette: "from-slate-200/20 via-white/5 to-transparent",
@@ -319,6 +332,7 @@ export const projects: Project[] = [
         id: "cafe-soft",
         title: "Cafe soft walls",
         location: "Corner block",
+        completed: { year: "2024", month: "03" },
         description: "Cafe refresh with creamy plaster and accent paint.",
         cover: "/hotel-6.jpg",
         palette: "from-amber-100/20 via-white/5 to-transparent",
