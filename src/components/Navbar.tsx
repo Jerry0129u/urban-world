@@ -28,7 +28,7 @@ export default function Navbar() {
         { href: "#contact", label: "Санал илгээх", variant: "cta" as const },
     ];
 
-    // scroll → active highlight
+    // Scroll → active highlight
     useEffect(() => {
         if (typeof window === "undefined") return;
 
@@ -38,7 +38,7 @@ export default function Navbar() {
 
             links.forEach((link, i) => {
                 const section = document.querySelector(link.href);
-                if (!(section instanceof HTMLElement)) return; // 🔹 type guard
+                if (!(section instanceof HTMLElement)) return;
 
                 if (scrollY >= section.offsetTop) newIndex = i;
             });
@@ -70,35 +70,36 @@ export default function Navbar() {
             {/* Floating toggle */}
             <button
                 onClick={() => setOpen(!open)}
-                className="fixed top-4 right-4 z-50 h-10 w-10 flex items-center justify-center rounded-full border border-slate-300 bg-white/80 shadow backdrop-blur"
+                className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/40 shadow-lg backdrop-blur-md"
             >
-                <div className="flex flex-col gap-1">
-                    <span className="w-4 h-[2px] bg-black" />
-                    <span className="w-4 h-[2px] bg-black" />
-                    <span className="w-4 h-[2px] bg-black" />
+                <div className="flex flex-col gap-1.5">
+                    <span className="h-[2px] w-4 bg-white" />
+                    <span className="h-[2px] w-4 bg-white" />
+                    <span className="h-[2px] w-4 bg-white" />
                 </div>
             </button>
 
             {open && (
-                <div className="fixed top-16 right-4 w-[min(100%-2rem,420px)] rounded-xl border border-slate-200 bg-white/95 shadow-xl backdrop-blur z-40 p-4 animate-in fade-in slide-in-from-top-2">
-
+                <div className="fixed top-16 right-4 z-40 w-[min(100%-2rem,420px)] rounded-2xl border border-white/15 bg-slate-900/85 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2">
                     {/* Logo + close */}
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
                         <Link
                             href="#home"
                             onClick={() => setOpen(false)}
                             className="flex items-center gap-3"
                         >
-                            <Image
-                                src="/urbanworld-logo.png"
-                                width={110}
-                                height={40}
-                                alt="UrbanWorld"
-                            />
+                            <div className="rounded-md bg-white p-1">
+                                <Image
+                                    src="/urbanworld-logo.png"
+                                    width={110}
+                                    height={40}
+                                    alt="UrbanWorld"
+                                />
+                            </div>
                         </Link>
                         <button
                             onClick={() => setOpen(false)}
-                            className="w-8 h-8 flex items-center justify-center rounded-md border border-slate-300 text-slate-500"
+                            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 text-sm text-gray-200 hover:bg-white/10"
                         >
                             ✕
                         </button>
@@ -106,23 +107,35 @@ export default function Navbar() {
 
                     {/* Minimal Vertical Menu */}
                     <nav>
-                        <ul className="flex flex-col gap-[6px]">
+                        <ul className="flex flex-col gap-1.5">
                             {navOptions.map((item, index) => {
                                 const active = activeIndex === index;
+
+                                const baseClasses =
+                                    "w-full text-left px-3 py-2 text-[11px] uppercase tracking-[0.22em] rounded-lg transition";
+                                const normalItem =
+                                    "border border-transparent bg-white/5 text-gray-100 hover:bg-white/10";
+                                const activeItem =
+                                    "border border-white bg-white text-slate-900 shadow-sm";
+                                const ctaItem =
+                                    "border border-sky-400/70 text-sky-100 bg-sky-500/10 hover:bg-sky-500/20";
 
                                 return (
                                     <li key={`${item.href}-${item.label}`}>
                                         <button
                                             onClick={() =>
-                                                handleNavSelect(item.href, index)
+                                                handleNavSelect(
+                                                    item.href,
+                                                    index,
+                                                )
                                             }
                                             className={[
-                                                "w-full text-left px-3 py-2 text-[12px] uppercase tracking-[0.2em] border rounded-md transition",
+                                                baseClasses,
                                                 active
-                                                    ? "border-slate-900 bg-slate-900 text-white"
-                                                    : "border-slate-200 hover:bg-slate-50",
+                                                    ? activeItem
+                                                    : normalItem,
                                                 item.variant === "cta"
-                                                    ? "border-sky-300 text-sky-700 hover:bg-sky-50"
+                                                    ? ctaItem
                                                     : "",
                                             ].join(" ")}
                                         >
