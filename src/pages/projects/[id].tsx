@@ -3,6 +3,7 @@ import Image from "next/image";
 import { type GetStaticPaths, type GetStaticProps, type InferGetStaticPropsType } from "next";
 import { useEffect, useMemo, useState } from "react";
 
+import Comparison from "@/components/Comparison";
 import Navbar from "@/components/Navbar";
 import { type Project, projects, type Shot } from "@/data/projects";
 import styles from "./ProjectDetail.module.css";
@@ -38,23 +39,39 @@ export default function ProjectDetail({
     }, [project]);
 
     const [index, setIndex] = useState(0);
+    const [showComparison, setShowComparison] = useState(false);
 
     useEffect(() => {
         setIndex(0);
+        setShowComparison(false);
     }, [project.id]);
 
     useEffect(() => {
-        if (slides.length <= 1) return undefined;
+        if (slides.length <= 1 || showComparison) return undefined;
 
         const timer = window.setInterval(() => {
             setIndex((current) => (current + 1) % slides.length);
         }, 6200);
 
         return () => window.clearInterval(timer);
-    }, [slides.length]);
+    }, [slides.length, showComparison]);
+
+    useEffect(() => {
+        if (!showComparison) return undefined;
+
+        const handleEsc = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setShowComparison(false);
+            }
+        };
+
+        window.addEventListener("keydown", handleEsc);
+        return () => window.removeEventListener("keydown", handleEsc);
+    }, [showComparison]);
 
     const prevIndex = (index - 1 + slides.length) % slides.length;
     const nextIndex = (index + 1) % slides.length;
+    const hasComparison = Boolean(project.beforeAfter);
 
     const formatCompletion = () => {
         if (!project.completed) return "Тун удахгүй";
@@ -88,6 +105,19 @@ export default function ProjectDetail({
 
                     <section className={styles.sliderSection} aria-label={`${project.title} slideshow`}>
                         <div className={styles.sliderShell}>
+                            {hasComparison && (
+                                <button
+                                    type="button"
+                                    className={styles.comparisonButton}
+                                    onClick={() => setShowComparison(true)}
+                                    aria-pressed={showComparison}
+                                    aria-label="Before and after comparison"
+                                    disabled={showComparison}
+                                >
+                                    <span aria-hidden="true">↔</span> Compare
+                                </button>
+                            )}
+
                             <div className={styles.sliderTrack}>
                                 {slides.map((shot, slideIndex) => {
                                     const state = slideState(slideIndex);
@@ -98,11 +128,11 @@ export default function ProjectDetail({
                                             key={`${project.id}-${shot.src}-${slideIndex}`}
                                             className={`${styles.slide} ${styles[`slide_${state}`]}`}
                                             aria-hidden={!isActive}
-                                            >
-                                                <div className={styles.slideImage}>
-                                                    <Image
-                                                        src={shot.src}
-                                                        alt={shot.alt}
+                                        >
+                                            <div className={styles.slideImage}>
+                                                <Image
+                                                    src={shot.src}
+                                                    alt={shot.alt}
                                                     fill
                                                     sizes="(min-width: 1024px) 80vw, 100vw"
                                                     className={styles.image}
@@ -143,6 +173,25 @@ export default function ProjectDetail({
                                     Next <span aria-hidden="true">→</span>
                                 </button>
                             </div>
+
+                            {hasComparison && showComparison && project.beforeAfter && (
+                                <div className={styles.comparisonOverlay} role="dialog" aria-label="Before and after comparison">
+                                    <div className={styles.comparisonCard}>
+                                        <div className={styles.overlayHeader}>
+                                            <p className={styles.overlayTitle}>Before / After</p>
+                                            <button
+                                                type="button"
+                                                className={styles.overlayClose}
+                                                onClick={() => setShowComparison(false)}
+                                                aria-label="Close comparison"
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                        <Comparison beforeAfter={project.beforeAfter} />
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </section>
 
