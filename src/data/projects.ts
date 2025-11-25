@@ -36,6 +36,7 @@ export type Project = {
     gallery: Shot[];
     beforeAfter?: BeforeAfter;
     highlight?: string;
+    tags?: string[];
 };
 
 export type ProjectCategory = {
@@ -58,6 +59,7 @@ export const projects: Project[] = [
             { label: "zone", value: "Residence" },
             { label: "scope", value: "Full fit-out" },
         ],
+        tags: ["Interior painting", "Plaster performance"],
         shots: [
             { src: "/apartment-1.jpg", alt: "Penthouse lounge", layout: "wide" },
             { src: "/apartment-2.jpg", alt: "Dining glow", layout: "square" },
@@ -98,6 +100,7 @@ export const projects: Project[] = [
             { label: "zone", value: "Hospitality" },
             { label: "scope", value: "Lighting + styling" },
         ],
+        tags: ["Interior painting"],
         shots: [
             { src: "/hotel-1.jpg", alt: "Lobby seating", layout: "wide" },
             { src: "/hotel-2.jpg", alt: "Ceiling detail", layout: "square" },
@@ -138,6 +141,7 @@ export const projects: Project[] = [
             { label: "zone", value: "Workspace" },
             { label: "scope", value: "Prototype" },
         ],
+        tags: ["Plaster performance"],
         shots: [
             { src: "/office-3.jpg", alt: "Studio overview", layout: "wide" },
             { src: "/office-2.jpg", alt: "Meeting room", layout: "square" },
@@ -166,6 +170,174 @@ export const projects: Project[] = [
             },
         },
         highlight: "A concealed linear spine keeps desks calm while the meeting room glows.",
+    },
+    {
+        id: "showflat",
+        title: "Showflat sheen",
+        location: "Ulaanbaatar",
+        description: "Model unit with crisp paint lines and warm staging.",
+        cover: "/apartment-1.jpg",
+        palette: "from-amber-200/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Residential" },
+            { label: "scope", value: "Staging" },
+        ],
+        tags: ["Interior painting"],
+        shots: [
+            { src: "/apartment-2.jpg", alt: "Living room staging", layout: "wide" },
+            { src: "/apartment-1.jpg", alt: "Dining edge", layout: "square" },
+            { src: "/apartment-4.jpg", alt: "Bed vignette", layout: "tall" },
+        ],
+        gallery: [
+            { src: "/apartment-1.jpg", alt: "Model living overview" },
+            { src: "/apartment-2.jpg", alt: "Paint transitions" },
+            { src: "/apartment-4.jpg", alt: "Bedroom paint tone" },
+        ],
+        highlight: "Neutral paint palette layered with soft lighting.",
+    },
+    {
+        id: "atrium",
+        title: "Atrium glaze",
+        location: "CBD",
+        description: "Public lobby with plastered curves and reflective glazing.",
+        cover: "/hotel-3.jpg",
+        palette: "from-indigo-300/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Lobby" },
+            { label: "scope", value: "Plaster finish" },
+        ],
+        tags: ["Plaster performance"],
+        shots: [
+            { src: "/hotel-1.jpg", alt: "Lobby curve", layout: "wide" },
+            { src: "/hotel-2.jpg", alt: "Ceiling wash", layout: "square" },
+            { src: "/hotel-3.jpg", alt: "Atrium glow", layout: "wide" },
+        ],
+        gallery: [
+            { src: "/hotel-3.jpg", alt: "Atrium overview" },
+            { src: "/hotel-1.jpg", alt: "Plaster detail" },
+            { src: "/hotel-2.jpg", alt: "Lighting on plaster" },
+        ],
+        highlight: "Satin plaster wraps the entry volumes.",
+    },
+    {
+        id: "studio-lite",
+        title: "Studio lite",
+        location: "Tech park",
+        description: "Minimal office shell with crisp paint and floating light.",
+        cover: "/office-1.jpg",
+        palette: "from-cyan-200/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Workspace" },
+            { label: "scope", value: "Paint + lighting" },
+        ],
+        tags: ["Interior painting"],
+        shots: [
+            { src: "/office-1.jpg", alt: "Desk run", layout: "square" },
+            { src: "/office-2.jpg", alt: "Meeting paint line", layout: "square" },
+            { src: "/office-3.jpg", alt: "Open plan", layout: "wide" },
+        ],
+        gallery: [
+            { src: "/office-1.jpg", alt: "Bench detail" },
+            { src: "/office-2.jpg", alt: "Conference wall" },
+            { src: "/office-3.jpg", alt: "Studio view" },
+        ],
+        highlight: "Clean paint breaks keep the space airy.",
+    },
+    {
+        id: "bar-lounge",
+        title: "Bar lounge polish",
+        location: "City center",
+        description: "Hospitality bar with plaster soffits and moody paint.",
+        cover: "/hotel-6.jpg",
+        palette: "from-amber-200/15 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Hospitality" },
+            { label: "scope", value: "Plaster + paint" },
+        ],
+        tags: ["Interior painting", "Plaster performance"],
+        shots: [
+            { src: "/hotel-6.jpg", alt: "Bar counter", layout: "wide" },
+            { src: "/hotel-3.jpg", alt: "Bar entry", layout: "square" },
+            { src: "/hotel-2.jpg", alt: "Ceiling plaster", layout: "square" },
+        ],
+        gallery: [
+            { src: "/hotel-6.jpg", alt: "Bar hero" },
+            { src: "/hotel-3.jpg", alt: "Entry lounge" },
+            { src: "/hotel-2.jpg", alt: "Plaster ceiling" },
+        ],
+        highlight: "Plaster soffits meet deep paint for contrast.",
+    },
+    {
+        id: "loft-wash",
+        title: "Loft wash",
+        location: "Warehouse district",
+        description: "Artist loft with limewash walls and exposed structure.",
+        cover: "/apartment-1.jpg",
+        palette: "from-stone-200/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Loft" },
+            { label: "scope", value: "Limewash" },
+        ],
+        tags: ["Plaster performance"],
+        shots: [
+            { src: "/apartment-1.jpg", alt: "Loft seating", layout: "wide" },
+            { src: "/before.jpg", alt: "Before state", layout: "square" },
+            { src: "/after.jpg", alt: "After limewash", layout: "square" },
+        ],
+        gallery: [
+            { src: "/apartment-1.jpg", alt: "Loft seating" },
+            { src: "/before.jpg", alt: "Before" },
+            { src: "/after.jpg", alt: "After" },
+        ],
+        highlight: "Limewash softens the industrial shell.",
+    },
+    {
+        id: "suite-quiet",
+        title: "Suite quiet",
+        location: "Luxury tower",
+        description: "Guest suite with layered paint tones and plaster coves.",
+        cover: "/hotel-2.jpg",
+        palette: "from-slate-200/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Suite" },
+            { label: "scope", value: "Paint + plaster" },
+        ],
+        tags: ["Interior painting", "Plaster performance"],
+        shots: [
+            { src: "/hotel-2.jpg", alt: "Suite ceiling", layout: "square" },
+            { src: "/hotel-1.jpg", alt: "Seating cove", layout: "wide" },
+            { src: "/hotel-5.jpg", alt: "Entry corridor", layout: "square" },
+        ],
+        gallery: [
+            { src: "/hotel-2.jpg", alt: "Ceiling detail" },
+            { src: "/hotel-1.jpg", alt: "Seating cove" },
+            { src: "/hotel-3.jpg", alt: "Entry corridor" },
+        ],
+        highlight: "Quiet tones and plaster coves for calm light.",
+    },
+    {
+        id: "cafe-soft",
+        title: "Cafe soft walls",
+        location: "Corner block",
+        description: "Cafe refresh with creamy plaster and accent paint.",
+        cover: "/hotel-6.jpg",
+        palette: "from-amber-100/20 via-white/5 to-transparent",
+        stats: [
+            { label: "zone", value: "Cafe" },
+            { label: "scope", value: "Refresh" },
+        ],
+        tags: ["Interior painting"],
+        shots: [
+            { src: "/hotel-6.jpg", alt: "Cafe seating", layout: "wide" },
+            { src: "/hotel-3.jpg", alt: "Bar detail", layout: "square" },
+            { src: "/hotel-6.jpg", alt: "Lighting mood", layout: "square" },
+        ],
+        gallery: [
+            { src: "/hotel-6.jpg", alt: "Cafe seating" },
+            { src: "/hotel-3.jpg", alt: "Bar detail" },
+            { src: "/hotel-6.jpg", alt: "Lighting mood" },
+        ],
+        highlight: "Soft plaster keeps the cafe warm and bright.",
     },
 ];
 

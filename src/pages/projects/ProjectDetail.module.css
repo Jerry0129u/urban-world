@@ -1,32 +1,48 @@
 .page {
+    --page-pad: clamp(1.5rem, 4vw, 3rem);
     min-height: 100vh;
-    background: #ffffff;
-    color: #000000;
+    background: #f8fafc;
+    color: #0f172a;
+    padding: var(--page-pad);
 }
 
 .main {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 0;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .hero {
     position: relative;
-    padding: clamp(1.5rem, 4vh, 2.5rem) 0 clamp(3rem, 8vh, 5rem);
+    --hero-side-pad: clamp(1.5rem, 4vw, 2.75rem);
+    --hero-top-pad: clamp(1.5rem, 4vh, 2.5rem);
+    --hero-bottom-pad: clamp(2.5rem, 7vh, 4.5rem);
+    --hero-margin: clamp(1rem, 2vw, 1.75rem);
+    padding: var(--hero-top-pad) var(--hero-side-pad) var(--hero-bottom-pad);
+    margin: var(--hero-margin) auto;
+    max-width: 1400px;
     overflow: hidden;
     background-image: var(--hero-cover, none);
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 2 * var(--page-pad) - 2 * var(--hero-margin));
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
+    border-radius: 18px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
 }
 
 .heroGradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.08));
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.08));
     pointer-events: none;
     z-index: 0;
 }
@@ -40,7 +56,7 @@
     align-items: flex-start;
     max-width: 1100px;
     width: 100%;
-    padding: 0 clamp(5rem, 5vw, 3rem);
+    padding: 0 clamp(1.5rem, 4vw, 2.75rem);
     margin-top: 0;
 }
 
@@ -55,28 +71,9 @@
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 
-.backLink {
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 0.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    padding: 0.4rem 0.8rem;
-    border-radius: 0;
-    background: transparent;
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
+.backLink,
 .heroBackWrap {
-    position: absolute;
-    top: clamp(1rem, 3vw, 2rem);
-    left: clamp(1.5rem, 5vw, 3rem);
-    z-index: 2;
-}
-
-.backLink:hover,
-.backLink:focus-visible {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.6);
+    display: none;
 }
 
 
@@ -154,6 +151,127 @@
     margin-top: 0.5rem;
 }
 
+.heroThumbGrid {
+    position: relative;
+    z-index: 2;
+    margin: clamp(1rem, 3vw, 1.5rem) auto 0;
+    width: auto;
+    max-width: calc(100% - 2 * clamp(1.5rem, 4vw, 2.75rem));
+    margin-left: clamp(1.5rem, 4vw, 2.75rem);
+    margin-right: clamp(1.5rem, 4vw, 2.75rem);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(90px, 1fr);
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    overflow-x: auto;
+}
+
+.heroThumbButton {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.heroThumbButton:hover,
+.heroThumbButton:focus-visible {
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 12px 26px rgba(0, 0, 0, 0.35);
+}
+
+.heroThumbInner {
+    position: relative;
+    width: 100%;
+    padding-top: 70%;
+}
+
+.heroThumbImage {
+    object-fit: cover;
+    filter: grayscale(1) brightness(0.85);
+    transition: filter 0.3s ease;
+}
+
+.heroThumbButton:hover .heroThumbImage,
+.heroThumbButton:focus-visible .heroThumbImage,
+.heroThumbActive .heroThumbImage {
+    filter: grayscale(0) brightness(1);
+}
+
+.heroThumbActive {
+    box-shadow:
+        inset 0 0 0 2px rgba(255, 255, 255, 0.9),
+        0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.heroNav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 clamp(1.25rem, 4vw, 2.75rem);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.heroNavButton {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.35);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    pointer-events: auto;
+}
+
+.heroNavButton:hover,
+.heroNavButton:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.65);
+    background: rgba(0, 0, 0, 0.55);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+}
+
+.scrollHint {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    border-radius: 999px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+    z-index: 2;
+}
+
+.scrollHintArrow {
+    font-size: 1.1rem;
+}
+
 .statLabel {
     text-transform: uppercase;
     letter-spacing: 0.36em;
@@ -177,16 +295,7 @@
 }
 
 .gallerySection {
-    padding-top: clamp(2rem, 5vw, 3rem);
-    padding-bottom: clamp(2rem, 5vw, 3rem);
-    background: #f8fafc;
-    color: #0f172a;
-    border-top: 1px solid rgba(15, 23, 42, 0.06);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: none;
 }
 
 .pogContainer {
@@ -311,14 +420,7 @@
 }
 
 .compareSection {
-    padding-bottom: clamp(3rem, 8vw, 4rem);
-    padding-top: clamp(2rem, 5vw, 3rem);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: linear-gradient(180deg, #f8fafc, #ffffff);
-    color: #0f172a;
+    display: none;
 }
 
 .compareShell {
