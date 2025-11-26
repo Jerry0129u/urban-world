@@ -1,47 +1,76 @@
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const services = [
     {
-        label: "ЗӨВЛӨГӨӨ",
-        title: "Мэргэжлийн зөвлөгөө",
+        label: { en: "CONSULT", mn: "ЗӨВЛӨГӨӨ" },
+        title: { en: "Professional consulting", mn: "Мэргэжлийн зөвлөгөө" },
         image: "/office-2.jpg",
-        summary: "Объектын судалгаа • Төлөвлөлтийн шийдэл",
-        details: [
-            "Объектын нөхцөл байдлын судалгаа",
-            "Төлөвлөлтийн зөвлөгөө",
-            "Шийдэл санал болгох",
-        ],
+        summary: { en: "Site study • Planning solution", mn: "Объектын судалгаа • Төлөвлөлтийн шийдэл" },
+        details: {
+            en: [
+                "Site and condition survey",
+                "Planning consultation",
+                "Solution proposals",
+            ],
+            mn: [
+                "Объектын нөхцөл байдлын судалгаа",
+                "Төлөвлөлтийн зөвлөгөө",
+                "Шийдэл санал болгох",
+            ],
+        },
     },
     {
-        label: "ДИЗАЙН",
-        title: "Интерьер дизайн ба зураг",
+        label: { en: "DESIGN", mn: "ДИЗАЙН" },
+        title: { en: "Interior design & drawings", mn: "Интерьер дизайн ба зураг" },
         image: "/apartment-4.jpg",
-        summary: "2D / 3D зураглал • Техникийн шийдэл",
-        details: [
-            "Талбайн хэмжилт хийх",
-            "Төлөвлөлтийн зураг (2D зураглал)",
-            "3D интерьер зураглал",
-            "Гэрэлтүүлэг, агааржуулалт",
-            "Тавилгын төлөвлөлт",
-            "Ажлын нарийвчилсан зураг",
-        ],
+        summary: { en: "2D / 3D visuals • Technical detailing", mn: "2D / 3D зураглал • Техникийн шийдэл" },
+        details: {
+            en: [
+                "On-site measurement",
+                "Space planning (2D layouts)",
+                "3D interior renderings",
+                "Lighting and HVAC coordination",
+                "Furniture planning",
+                "Detailed construction drawings",
+            ],
+            mn: [
+                "Талбайн хэмжилт хийх",
+                "Төлөвлөлтийн зураг (2D зураглал)",
+                "3D интерьер зураглал",
+                "Гэрэлтүүлэг, агааржуулалт",
+                "Тавилгын төлөвлөлт",
+                "Ажлын нарийвчилсан зураг",
+            ],
+        },
     },
     {
-        label: "ГҮЙЦЭТГЭЛ",
-        title: "Дотоод засал, тохижилт",
+        label: { en: "BUILD", mn: "ГҮЙЦЭТГЭЛ" },
+        title: { en: "Fit-out & furnishing", mn: "Дотоод засал, тохижилт" },
         image: "/hotel-6.jpg",
-        summary: "Материал • Угсралт • Тавилга",
-        details: [
-            "Чанартай материал санал болгох",
-            "Инженжрийн төлөвлөлт, угсралт",
-            "Дотоод засал, тохижилт",
-            "Тавилга угсралт",
-            "Хог хаягдлын менежмент",
-        ],
+        summary: { en: "Materials • Installation • Furniture", mn: "Материал • Угсралт • Тавилга" },
+        details: {
+            en: [
+                "Quality material recommendations",
+                "MEP coordination and install",
+                "Interior fit-out and styling",
+                "Furniture build and install",
+                "Waste management",
+            ],
+            mn: [
+                "Чанартай материал санал болгох",
+                "Инженжрийн төлөвлөлт, угсралт",
+                "Дотоод засал, тохижилт",
+                "Тавилга угсралт",
+                "Хог хаягдлын менежмент",
+            ],
+        },
     },
 ];
 
 export default function Services() {
+    const { language } = useLanguage();
+
     return (
         <section
             id="services"
@@ -51,13 +80,13 @@ export default function Services() {
                 {/* Section Header */}
                 <div className="flex flex-col mb-12">
                     <p className="text-[11px] uppercase tracking-[0.4em] text-[#fffdef] mb-3">
-                        Service
+                        {language === "mn" ? "Үйлчилгээ" : "Service"}
                     </p>
                     <h2 className="text-5xl lg:text-4xl leading-tight font-light text-[#fffdef] mb-4">
                         URBAN W0RLD LLC
                     </h2>
                     <p className="text-[11px] uppercase tracking-[0.35em] text-[#fffdef] mb-8">
-                        consult • design • build
+                        {language === "mn" ? "зөвлөгөө • дизайн • гүйцэтгэл" : "consult • design • build"}
                     </p>
                 </div>
 
@@ -65,13 +94,13 @@ export default function Services() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {services.map((service) => (
                         <div
-                            key={service.title}
+                            key={service.title.en}
                             className="group relative aspect-[4/5] w-full overflow-hidden bg-slate-900"
                         >
                             {/* Background Image */}
                             <Image
                                 src={service.image}
-                                alt={service.title}
+                                alt={service.title[language]}
                                 fill
                                 priority
                                 className="object-cover object-center transition-all duration-[1400ms] group-hover:scale-105"
@@ -83,13 +112,13 @@ export default function Services() {
                             {/* Static bottom text */}
                             <div className="absolute bottom-5 left-5 right-5 space-y-1.5">
                                 <p className="text-[10px] uppercase tracking-[0.4em] text-white/60">
-                                    {service.label}
+                                    {service.label[language]}
                                 </p>
                                 <h3 className="text-xl font-light md:text-2xl">
-                                    {service.title}
+                                    {service.title[language]}
                                 </h3>
                                 <p className="text-xs text-white/70">
-                                    {service.summary}
+                                    {service.summary[language]}
                                 </p>
                             </div>
 
@@ -104,7 +133,7 @@ export default function Services() {
                                 "
                             >
                                 <ul className="list-disc list-inside space-y-1.5">
-                                    {service.details.map((item) => (
+                                    {service.details[language].map((item) => (
                                         <li
                                             key={item}
                                             className="text-[11px] leading-snug"

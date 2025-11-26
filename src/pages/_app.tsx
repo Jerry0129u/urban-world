@@ -2,6 +2,8 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import "@/styles/globals.css";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -26,5 +28,10 @@ export default function App({ Component, pageProps }: AppProps) {
         };
     }, [router.events]);
 
-    return <Component {...pageProps} />;
+    return (
+        <LanguageProvider>
+            <LanguageToggle />
+            <Component {...pageProps} />
+        </LanguageProvider>
+    );
 }

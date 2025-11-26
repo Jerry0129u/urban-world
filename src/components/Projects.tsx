@@ -2,17 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { projects } from "@/data/projects";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { projects, type LocalizedText, type ProjectTag } from "@/data/projects";
 import styles from "./Projects.module.css";
 
-const FILTERS = ["All", "Interior painting", "Plaster performance"] as const;
-type Filter = (typeof FILTERS)[number];
+type Filter = "all" | ProjectTag;
+
+const FILTERS: { id: Filter; label: LocalizedText }[] = [
+    { id: "all", label: { en: "All", mn: "Бүгд" } },
+    { id: "interior-painting", label: { en: "Interior painting", mn: "Интерьер будгийн ажил" } },
+    { id: "plaster-performance", label: { en: "Plaster performance", mn: "Шавардлагын ажил" } },
+];
 
 export default function Projects() {
-    const [filter, setFilter] = useState<Filter>("All");
+    const { language } = useLanguage();
+    const [filter, setFilter] = useState<Filter>("all");
 
     const filtered = useMemo(() => {
-        if (filter === "All") return projects;
+        if (filter === "all") return projects;
         return projects.filter((project) => project.tags?.includes(filter));
     }, [filter]);
 
@@ -23,27 +30,29 @@ export default function Projects() {
         >
             <div className="w-full px-6 py-16 flex flex-col items-center text-center">
                 <p className="text-[11px] uppercase tracking-[0.55em] text-[#fffdef]/70">
-                    Projects
+                    {language === "mn" ? "Төслүүд" : "Projects"}
                 </p>
 
                 <h2 className="mt-3 text-3xl md:text-4xl font-light leading-tight text-[#fffdef]">
-                    Rooms, lobbies, and studios we’ve finished.
+                    {language === "mn"
+                        ? "Бид гүйцэтгэсэн өрөө, лобби, студи."
+                        : "Rooms, lobbies, and studios we’ve finished."}
                 </h2>
                 <div className="mt-6 flex flex-wrap justify-center gap-3">
                     {FILTERS.map((item) => {
-                        const isActive = item === filter;
+                        const isActive = item.id === filter;
                         return (
                             <button
-                                key={item}
+                                key={item.id}
                                 type="button"
-                                onClick={() => setFilter(item)}
+                                onClick={() => setFilter(item.id)}
                                 className={`rounded-full border px-4 py-2 text-sm transition ${
                                     isActive
                                         ? "border-[#444444] bg-[#444444] text-[#fffdef] shadow-sm hover:bg-[#989898] hover:border-[#989898]"
                                         : "border-[#444444] bg-transparent text-[#fffdef] hover:bg-[#444444]/80 hover:border-[#989898]"
                                 }`}
                             >
-                                {item}
+                                {item.label[language]}
                             </button>
                         );
                     })}
@@ -60,22 +69,24 @@ export default function Projects() {
                         >
                             <Image
                                 src={project.cover}
-                                alt={project.title}
+                                alt={project.title[language]}
                                 fill
                                 sizes="(min-width: 1024px) 30vw, 100vw"
                                 className="object-cover object-center"
                             />
                             <div className={styles.galleryCaption}>
                                 <p className="text-[10px] uppercase tracking-[0.35em] text-white/80">
-                                    {project.location}
+                                    {project.location[language]}
                                 </p>
-                                <p className={styles.galleryCaptionTitle}>{project.title}</p>
+                                <p className={styles.galleryCaptionTitle}>{project.title[language]}</p>
                             </div>
                         </Link>
                     ))}
                 </div>
                 {filtered.length === 0 && (
-                    <p className="mt-8 text-center text-sm text-[#fffdef]/70">No projects match this filter.</p>
+                    <p className="mt-8 text-center text-sm text-[#fffdef]/70">
+                        {language === "mn" ? "Энэ шүүлтүүрт тохирох төсөл алга." : "No projects match this filter."}
+                    </p>
                 )}
             </div>
         </section>

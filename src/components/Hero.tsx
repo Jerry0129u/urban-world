@@ -1,7 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero() {
+    const { language } = useLanguage();
+
+    const copy = {
+        tagline: {
+            en: "interior",
+            mn: "интерьер",
+        },
+        title: {
+            en: ["Imagine the space", "before it becomes reality."],
+            mn: ["Төсөөллөөс төгс шийдэл."],
+        },
+        description: {
+            en: "Urban World LLC — full-service studio for interior consulting, design documentation, fit-out, and furnishing.",
+            mn: "Urban World LLC — интерьер дизайны зөвлөгөө, зураг төсөл, дотоод засал, тохижилтын цогц үйлчилгээ үзүүлэгч компани.",
+        },
+        servicesCta: {
+            en: "View Services",
+            mn: "Үйлчилгээ үзэх",
+        },
+        projectsCta: {
+            en: "View Projects",
+            mn: "Төслүүд үзэх",
+        },
+    };
+
+    const titleLines = copy.title[language];
+
     return (
         <section
             id="home"
@@ -26,15 +54,22 @@ export default function Hero() {
                 <div className="max-w-3xl space-y-6">
                     <p className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.5em] text-[#fffdef]">
                         <span className="h-px w-10 bg-gray-500" />
-                        guided interior walk
+                        {copy.tagline[language]}
                     </p>
 
                     <h1 className="text-4xl font-light leading-tight md:text-6xl text-[#fffdef]">
-                        Imagine the space <br /> before it becomes reality.
+                        {titleLines.map((line) => (
+                            <span
+                                key={line}
+                                className="block whitespace-normal md:whitespace-nowrap"
+                            >
+                                {line}
+                            </span>
+                        ))}
                     </h1>
 
                     <p className="max-w-xl text-[#fffdef] leading-relaxed text-base md:text-lg">
-                        Urban World LLC - Интерьер дизайны зөвлөгөө өгөх, зураг төсөл боловсруулах, дотоод засал, тохижилт гүйцэтгэх цогц үйлчилгээ үзүүлэгч компани.
+                        {copy.description[language]}
                     </p>
 
                     {/* CTA Buttons */}
@@ -43,14 +78,14 @@ export default function Hero() {
                             href="#services"
                             className="bg-[#444444] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-[#989898] transition"
                         >
-                            View Services
+                            {copy.servicesCta[language]}
                         </Link>
 
                         <Link
                             href="#projects"
                             className="border border-[#fffdef] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-white/20 transition"
                         >
-                            View Projects
+                            {copy.projectsCta[language]}
                         </Link>
                     </div>
                 </div>

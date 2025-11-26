@@ -1,6 +1,7 @@
 "use client";
 
 import { type CSSProperties, type FormEvent } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const InstagramIcon = () => (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
@@ -50,6 +51,23 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+    const { language } = useLanguage();
+
+    const copy = {
+        heading: { en: "Contact Us", mn: "Холбоо барих" },
+        social: { en: "SOCIAL", mn: "СОШИАЛ" },
+        name: { en: "Name", mn: "Нэр" },
+        email: { en: "Email", mn: "И-мэйл" },
+        brief: { en: "Project notes", mn: "Төслийн товч" },
+        send: { en: "Send", mn: "Илгээх" },
+        subject: { en: "Urban World project inquiry", mn: "Urban World төслийн санал" },
+        intro: { en: "New inquiry via urbanworld.mn", mn: "urbanworld.mn-ээс ирсэн шинэ хүсэлт" },
+        openMap: {
+            en: "Open River Tower in Google Maps",
+            mn: "River Tower байршлыг Google Maps-ээр нээх",
+        },
+    };
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -59,13 +77,13 @@ export default function Contact() {
         const email = (data.get("email") as string | null)?.trim() ?? "";
         const brief = (data.get("brief") as string | null)?.trim() ?? "";
 
-        const subject = encodeURIComponent("Urban World project inquiry");
+        const subject = encodeURIComponent(copy.subject[language]);
 
         const bodyLines = [
-            "New inquiry via urbanworld.mn",
-            name && `Name: ${name}`,
-            email && `Email: ${email}`,
-            brief && `Project notes: ${brief}`,
+            copy.intro[language],
+            name && `${copy.name[language]}: ${name}`,
+            email && `${copy.email[language]}: ${email}`,
+            brief && `${copy.brief[language]}: ${brief}`,
         ].filter(Boolean);
 
         const body = encodeURIComponent(bodyLines.join("\n"));
@@ -87,7 +105,7 @@ export default function Contact() {
         >
             <div className="mx-auto w-full max-w-7xl px-8 py-32">
                 <h2 className="mb-16 text-3xl md:text-4xl font-light tracking-wide">
-                    Contact Us
+                    {copy.heading[language]}
                 </h2>
 
                 <div className="grid gap-12 lg:grid-cols-[420px_1fr]">
@@ -102,7 +120,7 @@ export default function Contact() {
                         {/* SOCIAL LINKS */}
                         <div className="mt-12">
                             <p className="text-xs uppercase tracking-[0.4em] text-[#fffdef]">
-                                SOCIAL
+                                {copy.social[language]}
                             </p>
 
                             <div className="mt-5 space-y-3">
@@ -146,7 +164,7 @@ export default function Contact() {
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Нэр"
+                                placeholder={copy.name[language]}
                                 className="
                                     w-full bg-white/5 px-5 py-3
                                     border border-white/10
@@ -159,7 +177,7 @@ export default function Contact() {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="И-мэйл"
+                                placeholder={copy.email[language]}
                                 className="
                                     w-full bg-white/5 px-5 py-3
                                     border border-white/10
@@ -172,7 +190,7 @@ export default function Contact() {
                             <textarea
                                 rows={3}
                                 name="brief"
-                                placeholder="Төслийн товч"
+                                placeholder={copy.brief[language]}
                                 className="
                                     w-full bg-white/5 px-5 py-3
                                     border border-white/10
@@ -192,7 +210,7 @@ export default function Contact() {
                                     shadow-lg
                                 "
                             >
-                                SEND
+                                {copy.send[language].toUpperCase()}
                             </button>
                         </form>
                     </div>
@@ -212,11 +230,11 @@ export default function Contact() {
                             target="_blank"
                             rel="noreferrer"
                             className="absolute inset-0 z-20"
-                            aria-label="Open River Tower in Google Maps"
+                            aria-label={copy.openMap[language]}
                         />
 
                         <iframe
-                            title="River Tower location"
+                            title={copy.openMap[language]}
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"
                             className="h-full w-full"
                             style={{ border: 0 } as CSSProperties}
