@@ -3,27 +3,39 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type NavLink = {
     href: string;
-    label: string;
+    label: {
+        en: string;
+        mn: string;
+    };
     variant?: "cta";
 };
 
 const links: NavLink[] = [
-    { href: "/#home", label: "Нүүр" },
-    { href: "/#about", label: "Бидний тухай" },
-    { href: "/#services", label: "Үйлчилгээ" },
-    { href: "/#projects", label: "Төслүүд" },
-    { href: "/#contact", label: "Холбоо барих" },
+    { href: "/#home", label: { en: "Home", mn: "Нүүр" } },
+    { href: "/#about", label: { en: "About", mn: "Бидний тухай" } },
+    { href: "/#services", label: { en: "Services", mn: "Үйлчилгээ" } },
+    { href: "/#projects", label: { en: "Projects", mn: "Төслүүд" } },
+    { href: "/#contact", label: { en: "Contact", mn: "Холбоо барих" } },
 ];
 
 export default function Navbar() {
+    const { language } = useLanguage();
     const [open, setOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const activeIndexRef = useRef(0);
 
-    const navOptions = [...links, { href: "/#contact", label: "Санал илгээх", variant: "cta" as const }];
+    const navOptions = [
+        ...links,
+        {
+            href: "/#contact",
+            label: { en: "Send inquiry", mn: "Санал илгээх" },
+            variant: "cta" as const,
+        },
+    ];
 
     // Track active link by scroll
     useEffect(() => {
@@ -101,7 +113,7 @@ export default function Navbar() {
                     {/* HEADER */}
                     <div className="mb-5 flex items-center justify-between border-b border-white/15 pb-3">
                         <span className="text-xs tracking-[0.3em] uppercase opacity-80">
-                            MENU
+                            {language === "mn" ? "Цэс" : "Menu"}
                         </span>
 
                         <button
@@ -141,7 +153,7 @@ export default function Navbar() {
                                                 item.variant === "cta" ? cta : "",
                                             ].join(" ")}
                                         >
-                                            {item.label}
+                                            {item.label[language]}
                                         </button>
                                     </li>
                                 );
