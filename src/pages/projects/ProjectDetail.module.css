@@ -77,6 +77,24 @@
     overflow: visible;
 }
 
+.overlayText {
+    position: absolute;
+    top: 20px;
+    left: 22px;
+    z-index: 5;
+    max-width: min(520px, 60vw);
+    color: #fffdef;
+    text-shadow: 0 8px 26px rgba(0, 0, 0, 0.38);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.overlayEyebrow {
+    color: rgba(255, 255, 255, 0.7);
+}
+
 .comparisonButton {
     position: absolute;
     top: 12px;
@@ -128,10 +146,10 @@
     transform: translateY(20px) scale(0.9);
     filter: saturate(0.7) blur(1px);
     transition:
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.65s ease,
-        filter 0.9s ease,
-        box-shadow 0.8s ease;
+        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.9s ease,
+        filter 1s ease,
+        box-shadow 1s ease;
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.48),
         inset 0 0 0 1px rgba(255, 255, 255, 0.02);
@@ -147,13 +165,13 @@
 
 .slide_prev {
     opacity: 0.82;
-    transform: translateX(-34%) rotateY(14deg) scale(0.9);
+    transform: translateX(-28%) rotateY(12deg) scale(0.9);
     z-index: 2;
 }
 
 .slide_next {
     opacity: 0.82;
-    transform: translateX(34%) rotateY(-14deg) scale(0.9);
+    transform: translateX(28%) rotateY(-12deg) scale(0.9);
     z-index: 2;
 }
 
@@ -161,6 +179,11 @@
     opacity: 0;
     transform: translateY(40px) scale(0.8);
     pointer-events: none;
+}
+
+.slide_active .overlayText {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .slideImage {
@@ -325,6 +348,12 @@
         padding: 78px 16px 90px;
     }
 
+    .overlayText {
+        top: 40px;
+        left: 24px;
+        max-width: min(420px, 70vw);
+    }
+
     .comparisonButton {
         top: 28px;
         right: 22px;
@@ -345,17 +374,23 @@
     }
 
     .slide_prev {
-        transform: translateX(-24%) rotateY(10deg) scale(0.92);
+        transform: translateX(-20%) rotateY(9deg) scale(0.92);
     }
 
     .slide_next {
-        transform: translateX(24%) rotateY(-10deg) scale(0.92);
+        transform: translateX(20%) rotateY(-9deg) scale(0.92);
     }
 }
 
 @media (max-width: 768px) {
     .sliderShell {
         padding: 18px 12px 80px;
+    }
+
+    .overlayText {
+        top: 18px;
+        left: 16px;
+        max-width: min(320px, 82vw);
     }
 
     .sliderTrack {
@@ -371,7 +406,7 @@
     .slide_prev,
     .slide_next {
         opacity: 0;
-        transform: translateY(20px) scale(0.88);
+        transform: translateY(14px) scale(0.9);
     }
 
     .controls {

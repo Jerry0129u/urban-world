@@ -51,7 +51,7 @@ export default function ProjectDetail({
 
         const timer = window.setInterval(() => {
             setIndex((current) => (current + 1) % slides.length);
-        }, 6200);
+        }, 8200);
 
         return () => window.clearInterval(timer);
     }, [slides.length, showComparison]);
@@ -96,13 +96,6 @@ export default function ProjectDetail({
                 <Navbar />
                 <div className={styles.backdrop} aria-hidden="true" />
                 <main className={styles.content}>
-                    <header className={styles.header}>
-                        <p className={styles.eyebrow}>Project focus</p>
-                        <h1 className={styles.title}>{project.title}</h1>
-                        <p className={styles.subtitle}>{project.location}</p>
-                        <p className={styles.lead}>{project.description}</p>
-                    </header>
-
                     <section className={styles.sliderSection} aria-label={`${project.title} slideshow`}>
                         <div className={styles.sliderShell}>
                             {hasComparison && (
@@ -138,6 +131,12 @@ export default function ProjectDetail({
                                                     className={styles.image}
                                                     priority={slideIndex === 0}
                                                 />
+                                            </div>
+                                            <div className={styles.overlayText}>
+                                                <p className={`${styles.eyebrow} ${styles.overlayEyebrow}`}>Project focus</p>
+                                                <h1 className={styles.title}>{project.title}</h1>
+                                                <p className={styles.subtitle}>{project.location}</p>
+                                                <p className={styles.lead}>{project.description}</p>
                                             </div>
                                         </article>
                                     );
@@ -197,11 +196,15 @@ export default function ProjectDetail({
 
                     <div className={styles.bottomMeta}>
                         <div className={styles.bottomCard}>
-                            <p className={styles.bottomLabel}>Highlight</p>
-                            <p className={styles.bottomValue}>{project.highlight ?? "Layered finish and lighting sequence."}</p>
+                            <p className={styles.bottomLabel}>Төслийн нэр</p>
+                            <p className={styles.bottomValue}>{project.title}</p>
                         </div>
                         <div className={styles.bottomCard}>
-                            <p className={styles.bottomLabel}>Сүүлд шинэчилсэн</p>
+                            <p className={styles.bottomLabel}>Байршил</p>
+                            <p className={styles.bottomValue}>{project.location}</p>
+                        </div>
+                        <div className={styles.bottomCard}>
+                            <p className={styles.bottomLabel}>Гүйцэтгэсэн он, сар</p>
                             <p className={styles.bottomValue}>{formatCompletion()}</p>
                         </div>
                     </div>

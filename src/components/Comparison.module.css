@@ -8,7 +8,7 @@
 .frame {
     --pos: 50%;
     position: relative;
-    height: clamp(320px, 50vh, 540px);
+    height: clamp(360px, 60vh, 680px);
     border: 1px solid #3a3a3a;
     background: linear-gradient(180deg, #0e0e0e, #161616);
     overflow: hidden;
@@ -129,7 +129,7 @@
 
 @media (max-width: 768px) {
     .frame {
-        height: 280px;
+        height: 340px;
     }
 
     .range::-webkit-slider-thumb,
