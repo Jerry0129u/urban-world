@@ -103,15 +103,15 @@ export default function Contact() {
             id="contact"
             className="relative min-h-screen w-full bg-[#222222] text-[#fffdef] scroll-mt-24"
         >
-            <div className="mx-auto w-full max-w-7xl px-8 py-32">
-                <h2 className="mb-16 text-3xl md:text-4xl font-light tracking-wide">
+            <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 py-24 md:py-32">
+                <h2 className="mb-12 md:mb-16 text-center md:text-left text-3xl md:text-4xl font-light tracking-wide">
                     {copy.heading[language]}
                 </h2>
 
-                <div className="grid gap-12 lg:grid-cols-[420px_1fr]">
+                <div className="grid grid-cols-1 justify-items-center md:justify-items-stretch gap-12 md:gap-14 lg:grid-cols-[420px_1fr]">
                     {/* LEFT CONTACT CARD */}
-                    <div className="bg-white/5 p-10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
-                        <div className="space-y-2 text-sm tracking-wide text-[#fffdef]">
+                    <div className="w-full bg-white/5 p-10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
+                        <div className="space-y-2 text-sm tracking-wide text-[#fffdef] text-center md:text-left">
                             <p>+976 8888 7675</p>
                             <p>info@urbanworld.mn</p>
                             <p>River Plaza 1403 · Хан-Уул</p>
@@ -119,7 +119,7 @@ export default function Contact() {
 
                         {/* SOCIAL LINKS */}
                         <div className="mt-12">
-                            <p className="text-xs uppercase tracking-[0.4em] text-[#fffdef]">
+                            <p className="text-xs uppercase tracking-[0.28em] sm:tracking-[0.34em] text-[#fffdef] text-center md:text-left">
                                 {copy.social[language]}
                             </p>
 
@@ -136,24 +136,27 @@ export default function Contact() {
                                             px-4 py-3
                                             hover:bg-white/10
                                             transition
+                                            w-full
                                         "
                                     >
                                         <span className="flex h-10 w-10 items-center justify-center bg-white text-black">
                                             <Icon />
                                         </span>
 
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] uppercase tracking-[0.4em] text-slate-400">
-                                                {name}
-                                            </span>
-                                            <span className="text-sm tracking-[0.2em]">
-                                                {username}
+                                        <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-[10px] uppercase tracking-[0.26em] sm:tracking-[0.32em] text-slate-400">
+                                                    {name}
+                                                </span>
+                                                <span className="text-sm tracking-[0.12em] sm:tracking-[0.2em]">
+                                                    {username}
+                                                </span>
+                                            </div>
+
+                                            <span className="text-base text-[#fffdef] shrink-0">
+                                                →
                                             </span>
                                         </div>
-
-                                        <span className="ml-auto text-base text-[#fffdef]">
-                                            →
-                                        </span>
                                     </a>
                                 ))}
                             </div>
@@ -218,7 +221,7 @@ export default function Contact() {
                     {/* RIGHT MAP CARD – CLICK = OPEN GOOGLE MAPS */}
                     <div
                         className="
-                            relative overflow-hidden
+                            relative w-full overflow-hidden
                             bg-white/5 backdrop-blur-xl
                             shadow-[0_16px_40px_rgba(0,0,0,0.35)]
                             min-h-[440px]
