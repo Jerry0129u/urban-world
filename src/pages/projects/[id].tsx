@@ -32,12 +32,22 @@ export const getStaticProps: GetStaticProps<ProjectDetailProps> = async ({ param
 };
 
 export default function ProjectDetail({
-    project,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+                                          project,
+                                      }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { language } = useLanguage();
+
+    // --- 1. Slides: shots → gallery → cover (fallback) ---
     const slides = useMemo<LocalizedShot[]>(() => {
         if (project.shots && project.shots.length > 0) return project.shots;
-        return project.gallery;
+        if (project.gallery && project.gallery.length > 0) return project.gallery;
+
+        // Fallback: cover-ийг нэг слайд болгон ашиглана
+        return [
+            {
+                src: project.cover,
+                alt: project.title,
+            } as LocalizedShot,
+        ];
     }, [project]);
 
     const [index, setIndex] = useState(0);
@@ -48,6 +58,7 @@ export default function ProjectDetail({
         setShowComparison(false);
     }, [project.id]);
 
+    // Автомат слайд солигдох (1-ээс дээш зурагтай үед)
     useEffect(() => {
         if (slides.length <= 1 || showComparison) return undefined;
 
@@ -58,6 +69,7 @@ export default function ProjectDetail({
         return () => window.clearInterval(timer);
     }, [slides.length, showComparison]);
 
+    // ESC дарж Comparison хаах
     useEffect(() => {
         if (!showComparison) return undefined;
 
@@ -86,7 +98,7 @@ export default function ProjectDetail({
         bottom: {
             title: { en: "Project title", mn: "Төслийн нэр" },
             location: { en: "Location", mn: "Байршил" },
-            completed: { en: "Completed", mn: "Гүйцэтгэсэн он, сар" },
+            completed: { en: "Completed", mn: "Гүйцэтгэсэн хугацаа" },
         },
         comingSoon: { en: "Coming soon", mn: "Тун удахгүй" },
         jumpTo: (position: number) =>
@@ -97,28 +109,12 @@ export default function ProjectDetail({
                 : `${project.title[language]} slideshow`,
     };
 
-    const formatCompletion = () => {
-        if (!project.completed) return copy.comingSoon[language];
-        const monthIndex = Math.max(0, Math.min(11, Number(project.completed.month) - 1));
-        const monthNames: Record<Language, string[]> = {
-            en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            mn: [
-                "1-р сар",
-                "2-р сар",
-                "3-р сар",
-                "4-р сар",
-                "5-р сар",
-                "6-р сар",
-                "7-р сар",
-                "8-р сар",
-                "9-р сар",
-                "10-р сар",
-                "11-р сар",
-                "12-р сар",
-            ],
-        };
-        const month = monthNames[language][monthIndex] ?? project.completed.month;
-        return `${project.completed.year} · ${month}`;
+    // --- 2. Completed → duration руу уясан format ---
+    const formatDuration = () => {
+        if (project.duration) {
+            return project.duration[language];
+        }
+        return copy.comingSoon[language];
     };
 
     const slideState = (slideIndex: number) => {
@@ -138,8 +134,26 @@ export default function ProjectDetail({
                 <Navbar />
                 <div className={styles.backdrop} aria-hidden="true" />
                 <main className={styles.content}>
+                    {/* --- ДЭЭД ТАЛД 3 МЭДЭЭЛЛИЙН БЛОК --- */}
+                    <div className={styles.bottomMeta}>
+                        <div className={styles.bottomCard}>
+                            <p className={styles.bottomLabel}>{copy.bottom.title[language]}</p>
+                            <p className={styles.bottomValue}>{project.title[language]}</p>
+                        </div>
+                        <div className={styles.bottomCard}>
+                            <p className={styles.bottomLabel}>{copy.bottom.location[language]}</p>
+                            <p className={styles.bottomValue}>{project.location[language]}</p>
+                        </div>
+                        <div className={styles.bottomCard}>
+                            <p className={styles.bottomLabel}>{copy.bottom.completed[language]}</p>
+                            <p className={styles.bottomValue}>{formatDuration()}</p>
+                        </div>
+                    </div>
+
+                    {/* --- HERO SLIDER --- */}
                     <section className={styles.sliderSection} aria-label={copy.sliderLabel}>
                         <div className={styles.sliderShell}>
+                            {/* Харьцуулалт (байхгүй бол харагдахгүй) */}
                             {hasComparison && (
                                 <button
                                     type="button"
@@ -187,6 +201,7 @@ export default function ProjectDetail({
                                 })}
                             </div>
 
+                            {/* --- CONTROLS --- */}
                             <div className={styles.controls}>
                                 <button
                                     type="button"
@@ -196,17 +211,21 @@ export default function ProjectDetail({
                                 >
                                     <span aria-hidden="true">←</span> {copy.previous[language]}
                                 </button>
+
                                 <div className={styles.progress}>
                                     {slides.map((shot, dotIndex) => (
                                         <button
                                             key={`${project.id}-dot-${shot.src}-${dotIndex}`}
                                             type="button"
-                                            className={`${styles.progressDot} ${dotIndex === index ? styles.progressDotActive : ""}`}
+                                            className={`${styles.progressDot} ${
+                                                dotIndex === index ? styles.progressDotActive : ""
+                                            }`}
                                             aria-label={copy.jumpTo(dotIndex + 1)}
                                             onClick={() => setIndex(dotIndex)}
                                         />
                                     ))}
                                 </div>
+
                                 <button
                                     type="button"
                                     onClick={() => setIndex(nextIndex)}
@@ -217,6 +236,7 @@ export default function ProjectDetail({
                                 </button>
                             </div>
 
+                            {/* --- COMPARISON OVERLAY --- */}
                             {hasComparison && showComparison && project.beforeAfter && (
                                 <div
                                     className={styles.comparisonOverlay}
@@ -230,7 +250,11 @@ export default function ProjectDetail({
                                                 type="button"
                                                 className={styles.overlayClose}
                                                 onClick={() => setShowComparison(false)}
-                                                aria-label={language === "mn" ? "Харьцуулалтыг хаах" : "Close comparison"}
+                                                aria-label={
+                                                    language === "mn"
+                                                        ? "Харьцуулалтыг хаах"
+                                                        : "Close comparison"
+                                                }
                                             >
                                                 {copy.close[language]}
                                             </button>
@@ -241,21 +265,6 @@ export default function ProjectDetail({
                             )}
                         </div>
                     </section>
-
-                    <div className={styles.bottomMeta}>
-                        <div className={styles.bottomCard}>
-                            <p className={styles.bottomLabel}>{copy.bottom.title[language]}</p>
-                            <p className={styles.bottomValue}>{project.title[language]}</p>
-                        </div>
-                        <div className={styles.bottomCard}>
-                            <p className={styles.bottomLabel}>{copy.bottom.location[language]}</p>
-                            <p className={styles.bottomValue}>{project.location[language]}</p>
-                        </div>
-                        <div className={styles.bottomCard}>
-                            <p className={styles.bottomLabel}>{copy.bottom.completed[language]}</p>
-                            <p className={styles.bottomValue}>{formatCompletion()}</p>
-                        </div>
-                    </div>
                 </main>
             </div>
         </>
