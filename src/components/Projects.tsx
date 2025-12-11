@@ -28,6 +28,8 @@ export default function Projects() {
     const { language } = useLanguage();
     const [filter, setFilter] = useState<Filter>("all");
 
+    const withNumberSpacing = (text: string) => text.replace(/(\d)(\p{L})/gu, "$1 $2");
+
     const filtered = useMemo(() => {
         if (filter === "all") return projects;
         return projects.filter((project) => project.tags?.includes(filter));
@@ -72,41 +74,50 @@ export default function Projects() {
 
             <div className="px-6 pb-16">
                 <div className="grid w-full max-w-6xl mx-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {filtered.map((project) => (
-                        <Link
-                            key={project.id}
-                            href={`/projects/${project.id}`}
-                            className={styles.galleryItem}
-                        >
-                            <Image
-                                src={project.cover}
-                                alt={project.title[language]}
-                                fill
-                                sizes="(min-width: 1024px) 30vw, 100vw"
-                                className="object-cover object-center"
-                            />
+                    {filtered.map((project) => {
+                        const durationStat = project.stats.find(
+                            (stat) =>
+                                stat.label.en === "Duration" || stat.label.mn === "Гүйцэтгэсэн хугацаа",
+                        );
+                        const durationText = durationStat?.value[language];
+                        const formattedDuration = durationText ? withNumberSpacing(durationText) : null;
 
-                            <div className={styles.galleryCaption}>
-                                {/* 1 — Байршил */}
-                                <p className="text-sm text-white/85 mb-3">
-                                    {project.location[language]}
-                                </p>
+                        return (
+                            <Link
+                                key={project.id}
+                                href={`/projects/${project.id}`}
+                                className={styles.galleryItem}
+                            >
+                                <Image
+                                    src={project.cover}
+                                    alt={project.title[language]}
+                                    fill
+                                    sizes="(min-width: 1024px) 30vw, 100vw"
+                                    className="object-cover object-center"
+                                />
 
-                                {/* 2 — Төслийн нэр */}
-                                <p className="text-lg font-semibold leading-snug mb-4">
-                                    {project.title[language]}
-                                </p>
-
-                                {/* 3 — Гүйцэтгэсэн хугацаа */}
-                                {project.duration && (
-                                    <p className="text-sm text-white/70">
-                                        {project.duration[language]}
+                                <div className={styles.galleryCaption}>
+                                    {/* 1 — Байршил */}
+                                    <p className="text-sm text-white/85 mb-3">
+                                        {project.location[language]}
                                     </p>
-                                )}
-                            </div>
 
-                        </Link>
-                    ))}
+                                    {/* 2 — Төслийн нэр */}
+                                    <p className="text-lg font-semibold leading-snug mb-4">
+                                        {project.title[language]}
+                                    </p>
+
+                                    {/* 3 — Гүйцэтгэсэн хугацаа */}
+                                    {formattedDuration && (
+                                        <p className="text-sm text-white/70">
+                                            {formattedDuration}
+                                        </p>
+                                    )}
+                                </div>
+
+                            </Link>
+                        );
+                    })}
                 </div>
 
                 {filtered.length === 0 && (

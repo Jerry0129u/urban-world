@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import Navbar from "@/components/Navbar";
 import Comparison from "@/components/Comparison";
-import { useLanguage, type Language } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { type BeforeAfter, type LocalizedShot, type Project, projects } from "@/data/projects";
 import styles from "./ProjectDetail.module.css";
 
@@ -120,6 +120,8 @@ export default function ProjectDetail({
 
     const slides = sliderShots;
 
+    const withNumberSpacing = (text: string) => text.replace(/(\d)(\p{L})/gu, "$1 $2");
+
     const copy = {
         selection: { en: "Select a project", mn: "Төсөл сонгох" },
         galleryAria: { en: "Project images", mn: "Төслийн зургууд" },
@@ -135,27 +137,11 @@ export default function ProjectDetail({
     };
 
     const formatCompletion = (target: Project) => {
-        if (!target.completed) return copy.comingSoon[language];
-        const monthIndex = Math.max(0, Math.min(11, Number(target.completed.month) - 1));
-        const monthNames: Record<Language, string[]> = {
-            en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            mn: [
-                "1-р сар",
-                "2-р сар",
-                "3-р сар",
-                "4-р сар",
-                "5-р сар",
-                "6-р сар",
-                "7-р сар",
-                "8-р сар",
-                "9-р сар",
-                "10-р сар",
-                "11-р сар",
-                "12-р сар",
-            ],
-        };
-        const month = monthNames[language][monthIndex] ?? target.completed.month;
-        return `${target.completed.year} · ${month}`;
+        const durationStat = target.stats.find(
+            (stat) => stat.label.en === "Duration" || stat.label.mn === "Гүйцэтгэсэн хугацаа",
+        );
+        if (durationStat) return withNumberSpacing(durationStat.value[language]);
+        return copy.comingSoon[language];
     };
 
     const galleryLayoutClass = (shotIndex: number) => {
