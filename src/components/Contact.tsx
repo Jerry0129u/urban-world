@@ -92,6 +92,7 @@ export default function Contact() {
     };
 
     return (
+
         <section id="contact" className="bg-[#222] text-[#fffdef] min-h-screen py-32">
             <div className="max-w-7xl mx-auto px-8 grid gap-12 lg:grid-cols-[420px_1fr]">
 
@@ -138,6 +139,68 @@ export default function Contact() {
                                 <span>{copyAddress[language].line1}</span>
                                 <span>{copyAddress[language].line2}</span>
                                 <span>{copyAddress[language].line3}</span>
+
+        <section
+            id="contact"
+            className="relative min-h-screen w-full bg-[#222222] text-[#fffdef] scroll-mt-24"
+        >
+            <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 py-24 md:py-32">
+                <h2 className="mb-12 md:mb-16 text-center md:text-left text-3xl md:text-4xl font-light tracking-wide">
+                    {copy.heading[language]}
+                </h2>
+
+                <div className="grid grid-cols-1 justify-items-center md:justify-items-stretch gap-12 md:gap-14 lg:grid-cols-[420px_1fr]">
+                    {/* LEFT CONTACT CARD */}
+                    <div className="w-full bg-white/5 p-10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
+                        <div className="space-y-2 text-sm tracking-wide text-[#fffdef] text-center md:text-left">
+                            <p>+976 8888 7675</p>
+                            <p>info@urbanworld.mn</p>
+                            <p>River Plaza 1403 · Хан-Уул</p>
+                        </div>
+
+                        {/* SOCIAL LINKS */}
+                        <div className="mt-12">
+                            <p className="text-xs uppercase tracking-[0.28em] sm:tracking-[0.34em] text-[#fffdef] text-center md:text-left">
+                                {copy.social[language]}
+                            </p>
+
+                            <div className="mt-5 space-y-3">
+                                {socialLinks.map(({ name, username, url, Icon }) => (
+                                    <a
+                                        key={name}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="
+                                            flex items-center gap-4
+                                            bg-white/5 border border-white/10
+                                            px-4 py-3
+                                            hover:bg-white/10
+                                            transition
+                                            w-full
+                                        "
+                                    >
+                                        <span className="flex h-10 w-10 items-center justify-center bg-white text-black">
+                                            <Icon />
+                                        </span>
+
+                                        <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-[10px] uppercase tracking-[0.26em] sm:tracking-[0.32em] text-slate-400">
+                                                    {name}
+                                                </span>
+                                                <span className="text-sm tracking-[0.12em] sm:tracking-[0.2em]">
+                                                    {username}
+                                                </span>
+                                            </div>
+
+                                            <span className="text-base text-[#fffdef] shrink-0">
+                                                →
+                                            </span>
+                                        </div>
+                                    </a>
+                                ))}
+
                             </div>
                         </div>
                     </div>
@@ -161,13 +224,29 @@ export default function Contact() {
                             ))}
                         </div>
                     </div>
-
-                    {/* FORM */}
+                 
                     <form onSubmit={handleSubmit} className="mt-12 space-y-5">
                         <input
                             name="name"
                             placeholder={copy.name[language]}
                             className="w-full bg-white/5 px-5 py-3 border border-white/10 outline-none"
+
+                    <div
+                        className="
+                            relative w-full overflow-hidden
+                            bg-white/5 backdrop-blur-xl
+                            shadow-[0_16px_40px_rgba(0,0,0,0.35)]
+                            min-h-[440px]
+                        "
+                    >
+                        {/* Бүх картыг дармагц Google Maps нээгдэнэ */}
+                        <a
+                            href="https://www.google.com/maps?q=River+Tower+Ulaanbaatar"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="absolute inset-0 z-20"
+                            aria-label={copy.openMap[language]}
+
                         />
                         <input
                             name="email"
