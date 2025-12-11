@@ -10,8 +10,18 @@ type Filter = "all" | ProjectTag;
 
 const FILTERS: { id: Filter; label: LocalizedText }[] = [
     { id: "all", label: { en: "All", mn: "Бүгд" } },
-    { id: "interior-painting", label: { en: "Interior painting", mn: "Интерьер будгийн ажил" } },
-    { id: "plaster-performance", label: { en: "Plaster performance", mn: "Шавардлагын ажил" } },
+    {
+        id: "interior-painting",
+        label: { en: "Interior design", mn: "Интерьер дизайн" },
+    },
+    {
+        id: "plaster-performance",
+        label: { en: "Interior fit-out", mn: "Дотоод засал" },
+    },
+    {
+        id: "plaster-performance",
+        label: { en: "Solutions", mn: "Шийдэл" },
+    },
 ];
 
 export default function Projects() {
@@ -30,14 +40,15 @@ export default function Projects() {
         >
             <div className="w-full px-6 py-16 flex flex-col items-center text-center">
                 <p className="text-[11px] uppercase tracking-[0.55em] text-[#fffdef]/70">
-                    {language === "mn" ? "Төслүүд" : "Projects"}
+                    {language === "mn" ? "Гүйцэтгэсэн ажил" : "Completed projects"}
                 </p>
 
                 <h2 className="mt-3 text-3xl md:text-4xl font-light leading-tight text-[#fffdef]">
                     {language === "mn"
-                        ? "Бид гүйцэтгэсэн өрөө, лобби, студи."
-                        : "Rooms, lobbies, and studios we’ve finished."}
+                        ? "БИДНИЙ ХИЙЖ ГҮЙЦЭТГЭСЭН ТӨСЛҮҮД."
+                        : "PROJECTS WE’VE COMPLETED."}
                 </h2>
+
                 <div className="mt-6 flex flex-wrap justify-center gap-3">
                     {FILTERS.map((item) => {
                         const isActive = item.id === filter;
@@ -46,7 +57,7 @@ export default function Projects() {
                                 key={item.id}
                                 type="button"
                                 onClick={() => setFilter(item.id)}
-                                className={`rounded-full border px-4 py-2 text-sm transition ${
+                                className={`border px-4 py-2 text-sm transition ${
                                     isActive
                                         ? "border-[#444444] bg-[#444444] text-[#fffdef] shadow-sm hover:bg-[#989898] hover:border-[#989898]"
                                         : "border-[#444444] bg-transparent text-[#fffdef] hover:bg-[#444444]/80 hover:border-[#989898]"
@@ -74,18 +85,35 @@ export default function Projects() {
                                 sizes="(min-width: 1024px) 30vw, 100vw"
                                 className="object-cover object-center"
                             />
+
                             <div className={styles.galleryCaption}>
-                                <p className="text-[10px] uppercase tracking-[0.35em] text-white/80">
+                                {/* 1 — Байршил */}
+                                <p className="text-sm text-white/85 mb-3">
                                     {project.location[language]}
                                 </p>
-                                <p className={styles.galleryCaptionTitle}>{project.title[language]}</p>
+
+                                {/* 2 — Төслийн нэр */}
+                                <p className="text-lg font-semibold leading-snug mb-4">
+                                    {project.title[language]}
+                                </p>
+
+                                {/* 3 — Гүйцэтгэсэн хугацаа */}
+                                {project.duration && (
+                                    <p className="text-sm text-white/70">
+                                        {project.duration[language]}
+                                    </p>
+                                )}
                             </div>
+
                         </Link>
                     ))}
                 </div>
+
                 {filtered.length === 0 && (
                     <p className="mt-8 text-center text-sm text-[#fffdef]/70">
-                        {language === "mn" ? "Энэ шүүлтүүрт тохирох төсөл алга." : "No projects match this filter."}
+                        {language === "mn"
+                            ? "Энэ шүүлтүүрт тохирох төсөл алга."
+                            : "No projects match this filter."}
                     </p>
                 )}
             </div>

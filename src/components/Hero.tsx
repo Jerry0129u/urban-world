@@ -1,51 +1,91 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+// ⬇ энд background-д ашиглах зургуудынхаа замыг өөрөө тааруулж солиорой
+const BG_IMAGES = [
+    "/mojon.jpg",
+    "/.jpg",
+    "/.jpg",
+    "/.jpg",
+];
 
 export default function Hero() {
     const { language } = useLanguage();
+    const [currentBg, setCurrentBg] = useState(0);
 
     const copy = {
         tagline: {
-            en: "interior",
-            mn: "интерьер",
+            en: "Interior design",
+            mn: "Интерьер дизайн",
         },
         title: {
-            en: ["Imagine the space", "before it becomes reality."],
-            mn: ["Төсөөллөөс төгс шийдэл."],
+            en: ["Transforming Imagination into", "a Perfect Outcome."],
+            mn: ["Төсөөллөөс төгс гүйцэтгэл."],
         },
         description: {
             en: "Urban World LLC — full-service studio for interior consulting, design documentation, fit-out, and furnishing.",
-            mn: "Urban World LLC — интерьер дизайны зөвлөгөө, зураг төсөл, дотоод засал, тохижилтын цогц үйлчилгээ үзүүлэгч компани.",
+            mn: "Urban World LLC — Интерьер дизайны зөвлөгөө, зураг төсөл, дотоод засал, тохижилтын цогц үйлчилгээ үзүүлэгч компани.",
         },
         servicesCta: {
-            en: "View Services",
-            mn: "Үйлчилгээ үзэх",
+            en: "Services",
+            mn: "Үйлчилгээ",
         },
         projectsCta: {
-            en: "View Projects",
-            mn: "Төслүүд үзэх",
+            en: "Executed Projects",
+            mn: "Гүйцэтгэсэн төслүүд",
         },
     };
 
     const titleLines = copy.title[language];
+
+    // ⬇  background зургаа 18 секунд тутам солих (zoom animation-тай тааруулсан)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentBg((prev) => (prev + 1) % BG_IMAGES.length);
+        }, 18000); // 18s = slowZoom хугацаа
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <section
             id="home"
             className="relative min-h-screen w-full overflow-hidden bg-black text-white"
         >
-            {/* Background */}
+            {/* Background carousel */}
             <div className="absolute inset-0">
-                <Image
-                    src="/mojon.jpg"
-                    alt="Urban World walkthrough"
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover object-center scale-105 animate-slowZoom"
-                />
-                {/* Soft cinematic gradient */}
+                {BG_IMAGES.map((src, index) => {
+                    const isActive = index === currentBg;
+
+                    return (
+                        <div
+                            key={src}
+                            className={`
+                                absolute inset-0
+                                transition-opacity duration-1000
+                                ${isActive ? "opacity-100" : "opacity-0"}
+                            `}
+                        >
+                            <Image
+                                src={src}
+                                alt="Urban World walkthrough"
+                                fill
+                                priority={index === 0}
+                                sizes="100vw"
+                                className={`
+                                    object-cover object-center
+                                    ${isActive ? "animate-slowZoom" : ""}
+                                `}
+                            />
+                        </div>
+                    );
+                })}
+
+                {/* Soft cinematic gradient давхарга */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </div>
 
@@ -57,7 +97,7 @@ export default function Hero() {
                         {copy.tagline[language]}
                     </p>
 
-                    <h1 className="text-4xl font-light leading-tight md:text-6xl text-[#fffdef]">
+                    <h1 className="text-4xl font-semibold leading-tight md:text-6xl text-[#fffdef]">
                         {titleLines.map((line) => (
                             <span
                                 key={line}
@@ -102,7 +142,7 @@ export default function Hero() {
                     }
                 }
                 .animate-slowZoom {
-                    animation: slowZoom 18s ease-in-out infinite alternate;
+                    animation: slowZoom 18s ease-in-out forwards;
                 }
             `}</style>
         </section>
