@@ -174,6 +174,7 @@ export default function ProjectDetail({
         return "idle";
     };
 
+
     const [showComparison, setShowComparison] = useState(false);
     const hasComparison = Boolean(computedBeforeAfter);
 
@@ -228,18 +229,28 @@ export default function ProjectDetail({
                                             src={shot.src}
                                             alt={shot.alt[language]}
                                             fill
-                                            sizes="(min-width: 1200px) 1100px, (min-width: 768px) 92vw, 100vw"
                                             className={styles.galleryImage}
-                                            priority={isHero}
+                                            priority={shotIndex === 0}
                                         />
-                                        <figcaption className={styles.caption}>{shot.alt[language]}</figcaption>
+
+                                        {/* Hero overlay текст */}
+                                        {shotIndex === 0 && (
+                                            <div className={styles.heroTextGroup}>
+                                                <h1 className={styles.heroTitleInHero}>
+                                                    {activeProject.title[language]}
+                                                </h1>
+
+                                                <p className={styles.heroSubtitleBadge}>
+                                                    ИНТЕРЬЕРИЙН ЗУРАГ ТӨСӨЛ
+                                                </p>
+                                            </div>
+                                        )}
+
                                         {isHero && hasComparison && (
                                             <button
                                                 type="button"
                                                 className={styles.comparisonButton}
                                                 onClick={() => setShowComparison(true)}
-                                                aria-pressed={showComparison}
-                                                aria-label={language === "mn" ? "Өмнө ба дараах харьцуулах" : "Open comparison"}
                                             >
                                                 ↔ {language === "mn" ? "Харьцуулах" : "Compare"}
                                             </button>
@@ -253,7 +264,6 @@ export default function ProjectDetail({
                     <section className={styles.sliderSection} aria-label={copy.sliderLabel[language]}>
                         <div className={styles.selectorHeader}>
                             <p className={styles.selectorLabel}>{copy.selection[language]}</p>
-                            <p className={styles.selectorHint}>{activeProject.location[language]}</p>
                         </div>
                         <div className={styles.sliderShell}>
                             <div className={styles.sliderTrack}>
