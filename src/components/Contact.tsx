@@ -49,20 +49,6 @@ const LinkedinIcon = () => (
     </svg>
 );
 
-// ADDRESS COPY
-const copyAddress = {
-    en: {
-        line1: "Khan-Uul District",
-        line2: "River Plaza, 14th floor",
-        line3: "Suite 1403",
-    },
-    mn: {
-        line1: "Хан-Уул дүүрэг",
-        line2: "Ривер Плаза, 14 давхар",
-        line3: "1403 тоот",
-    },
-};
-
 const MailIcon = GmailIcon;
 
 /* ------------ SOCIAL ICON LIST ------------ */
@@ -92,7 +78,6 @@ export default function Contact() {
     };
 
     return (
-
         <section id="contact" className="bg-[#222] text-[#fffdef] min-h-screen py-32">
             <div className="max-w-7xl mx-auto px-8 grid gap-12 lg:grid-cols-[420px_1fr]">
 
@@ -133,75 +118,9 @@ export default function Contact() {
                         </div>
 
                         {/* ADDRESS */}
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-center gap-3">
                             <LocationIcon />
-                            <div className="flex flex-col leading-tight">
-                                <span>{copyAddress[language].line1}</span>
-                                <span>{copyAddress[language].line2}</span>
-                                <span>{copyAddress[language].line3}</span>
-
-        <section
-            id="contact"
-            className="relative min-h-screen w-full bg-[#222222] text-[#fffdef] scroll-mt-24"
-        >
-            <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 py-24 md:py-32">
-                <h2 className="mb-12 md:mb-16 text-center md:text-left text-3xl md:text-4xl font-light tracking-wide">
-                    {copy.heading[language]}
-                </h2>
-
-                <div className="grid grid-cols-1 justify-items-center md:justify-items-stretch gap-12 md:gap-14 lg:grid-cols-[420px_1fr]">
-                    {/* LEFT CONTACT CARD */}
-                    <div className="w-full bg-white/5 p-10 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
-                        <div className="space-y-2 text-sm tracking-wide text-[#fffdef] text-center md:text-left">
-                            <p>+976 8888 7675</p>
-                            <p>info@urbanworld.mn</p>
                             <p>River Plaza 1403 · Хан-Уул</p>
-                        </div>
-
-                        {/* SOCIAL LINKS */}
-                        <div className="mt-12">
-                            <p className="text-xs uppercase tracking-[0.28em] sm:tracking-[0.34em] text-[#fffdef] text-center md:text-left">
-                                {copy.social[language]}
-                            </p>
-
-                            <div className="mt-5 space-y-3">
-                                {socialLinks.map(({ name, username, url, Icon }) => (
-                                    <a
-                                        key={name}
-                                        href={url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="
-                                            flex items-center gap-4
-                                            bg-white/5 border border-white/10
-                                            px-4 py-3
-                                            hover:bg-white/10
-                                            transition
-                                            w-full
-                                        "
-                                    >
-                                        <span className="flex h-10 w-10 items-center justify-center bg-white text-black">
-                                            <Icon />
-                                        </span>
-
-                                        <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
-                                            <div className="flex flex-col min-w-0">
-                                                <span className="text-[10px] uppercase tracking-[0.26em] sm:tracking-[0.32em] text-slate-400">
-                                                    {name}
-                                                </span>
-                                                <span className="text-sm tracking-[0.12em] sm:tracking-[0.2em]">
-                                                    {username}
-                                                </span>
-                                            </div>
-
-                                            <span className="text-base text-[#fffdef] shrink-0">
-                                                →
-                                            </span>
-                                        </div>
-                                    </a>
-                                ))}
-
-                            </div>
                         </div>
                     </div>
 
@@ -224,29 +143,13 @@ export default function Contact() {
                             ))}
                         </div>
                     </div>
-                 
+
+                    {/* FORM */}
                     <form onSubmit={handleSubmit} className="mt-12 space-y-5">
                         <input
                             name="name"
                             placeholder={copy.name[language]}
                             className="w-full bg-white/5 px-5 py-3 border border-white/10 outline-none"
-
-                    <div
-                        className="
-                            relative w-full overflow-hidden
-                            bg-white/5 backdrop-blur-xl
-                            shadow-[0_16px_40px_rgba(0,0,0,0.35)]
-                            min-h-[440px]
-                        "
-                    >
-                        {/* Бүх картыг дармагц Google Maps нээгдэнэ */}
-                        <a
-                            href="https://www.google.com/maps?q=River+Tower+Ulaanbaatar"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="absolute inset-0 z-20"
-                            aria-label={copy.openMap[language]}
-
                         />
                         <input
                             name="email"
@@ -267,7 +170,7 @@ export default function Contact() {
                 </div>
 
                 {/* RIGHT — MAP (4 талаасаа 1cm багассан эффект) */}
-                <div className="relative  min-h-[300px] p-6">
+                <div className="relative  min-h-[350px] p-4">
                     <iframe
                         className="h-full w-full"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"
