@@ -66,21 +66,15 @@ const makeShot = (src: string, en: string, mn: string, layout?: ShotLayout): Loc
     return base;
 };
 
-const baseGallery = [
-    makeShot("/apartment-1.jpg", "Space overview", "Нийтлэг харагдац"),
-    makeShot("/apartment-2.jpg", "Feature wall", "Онцлох хана"),
-    makeShot("/apartment-4.jpg", "Lighting detail", "Гэрлийн деталь"),
-    makeShot("/hotel-1.jpg", "Seating zone", "Суудлын хэсэг"),
-    makeShot("/hotel-2.jpg", "Ceiling accent", "Таазны акцент"),
-    makeShot("/hotel-6.jpg", "Warm vignette", "Дулаан хэсэг"),
-];
-
 const durationStat = (textEn: string, textMn: string): ProjectStat => ({
     label: { en: "Duration", mn: "Гүйцэтгэсэн хугацаа" },
     value: { en: textEn, mn: textMn },
 });
 
-export const projects: Project[] = [
+const comingSoonShot = makeShot("/coming-soon.svg", "Coming soon", "Тун удахгүй");
+const comingSoonGallery = [comingSoonShot];
+
+const unsortedProjects: Project[] = [
     {
         id: "dragon-terminal",
         title: { en: "Shine Ulaanbaatar Dragon Terminal", mn: "Шинэ Улаанбаатар Драгон терминал" },
@@ -90,15 +84,48 @@ export const projects: Project[] = [
             en: "New Dragon terminal fit-out coordinated across districts.",
             mn: "Драгон терминалын шинэчлэл, олон дүүрэг дамнасан гүйцэтгэл.",
         },
-        cover: "/hotel-3.jpg",
+        cover: "/new dragon/T3.jpg",
         palette: "from-amber-300/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
         shots: [
-            makeShot("/hotel-3.jpg", "Terminal lobby", "Терминал лобби", "wide"),
-            makeShot("/hotel-1.jpg", "Waiting zone", "Хүлээлгийн хэсэг", "square"),
-            makeShot("/hotel-2.jpg", "Lighting spine", "Гэрлийн шугам", "square"),
+            makeShot("/new dragon/T3.jpg", "Terminal entry hall", "Терминалын орох танхим", "wide"),
+            makeShot(
+                "/new dragon/CORRIDOR.jpg",
+                "Glass corridor lighting",
+                "Шилэн коридор, гэрэлтүүлэг",
+                "square",
+            ),
+            makeShot(
+                "/new dragon/485741995_634016859605681_1354489228861073968_n.jpg",
+                "Passenger lounge seating",
+                "Зорчигчдын хүлээлгийн суудал",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/new dragon/T3.jpg", "Terminal entry hall", "Терминалын орох танхим"),
+            makeShot("/new dragon/CORRIDOR.jpg", "Glass corridor lighting", "Шилэн коридор, гэрэлтүүлэг"),
+            makeShot(
+                "/new dragon/485741995_634016859605681_1354489228861073968_n.jpg",
+                "Passenger lounge seating",
+                "Зорчигчдын хүлээлгийн суудал",
+            ),
+            makeShot(
+                "/new dragon/484850189_634016686272365_2178969295659040394_n.jpg",
+                "Waiting lounge perspective",
+                "Хүлээлгийн танхимын харагдац",
+            ),
+            makeShot(
+                "/new dragon/Screenshot 2025-12-19 at 16.11.02.png",
+                "Gate and ceiling detail",
+                "Гарц ба таазны деталь",
+            ),
+            makeShot(
+                "/new dragon/Screenshot 2025-12-19 at 16.11.57.png",
+                "Ticketing perspective",
+                "Тасалбарын хэсгийн харагдац",
+            ),
+        ],
     },
     {
         id: "ic-tower",
@@ -109,15 +136,11 @@ export const projects: Project[] = [
             en: "Full interior build-out across fifteen floors.",
             mn: "15 давхарын иж бүрэн дотоод засал.",
         },
-        cover: "/office-4.jpg",
+        cover: comingSoonShot.src,
         palette: "from-cyan-300/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
-        shots: [
-            makeShot("/office-4.jpg", "Tower lobby", "Цамхгийн лобби", "wide"),
-            makeShot("/office-2.jpg", "Conference", "Хурлын өрөө", "square"),
-            makeShot("/office-3.jpg", "Open office", "Нээлттэй оффис", "square"),
-        ],
-        gallery: baseGallery,
+        shots: comingSoonGallery,
+        gallery: comingSoonGallery,
     },
     {
         id: "byd-showroom",
@@ -128,15 +151,42 @@ export const projects: Project[] = [
             en: "Showroom interior tuned for EV display.",
             mn: "Электро машины үзүүлэнгийн танхимын интерьер.",
         },
-        cover: "/hotel-6.jpg",
+        cover: "/BYD/F17.png",
         palette: "from-indigo-300/20 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
-            makeShot("/hotel-6.jpg", "Showroom front", "Үзүүлэнгийн урд тал", "wide"),
-            makeShot("/hotel-1.jpg", "Lounge corner", "Лоунжийн булан", "square"),
-            makeShot("/hotel-2.jpg", "Ceiling wash", "Таазны гэрэл", "square"),
+            makeShot("/BYD/F17.png", "Showroom hero view", "Үзүүлэнгийн танхимын харагдац", "wide"),
+            makeShot(
+                "/BYD/Enscape_2025-06-12-12-03-46_12.png",
+                "Vehicle display lane",
+                "Машины үзүүлэнгийн эгнээ",
+                "square",
+            ),
+            makeShot(
+                "/BYD/Enscape_2025-06-12-12-06-42_6.png",
+                "Reception and lounge",
+                "Хүлээн авалт ба лоунж",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/BYD/F17.png", "Showroom hero view", "Үзүүлэнгийн танхимын харагдац"),
+            makeShot(
+                "/BYD/Enscape_2025-06-12-12-03-46_12.png",
+                "Vehicle display lane",
+                "Машины үзүүлэнгийн эгнээ",
+            ),
+            makeShot(
+                "/BYD/Enscape_2025-06-12-12-06-42_6.png",
+                "Reception and lounge",
+                "Хүлээн авалт ба лоунж",
+            ),
+            makeShot(
+                "/BYD/Enscape_2025-05-30-17-11-10_8.png",
+                "Lighting over EV display",
+                "Электро машины үзүүлэнгийн гэрэлтүүлэг",
+            ),
+        ],
     },
     {
         id: "misheel-office-genesis",
@@ -147,15 +197,21 @@ export const projects: Project[] = [
             en: "Office interior for Genesis camp at Misheel center.",
             mn: "Мишээл төв дэх Genesis camp-ийн оффисын интерьер.",
         },
-        cover: "/office-3.jpg",
+        cover: "/Genesis/Scene_4.JPG",
         palette: "from-amber-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [
-            makeShot("/office-3.jpg", "Workspace overview", "Ажлын хэсгийн харагдац", "wide"),
-            makeShot("/office-2.jpg", "Meeting room", "Хурлын өрөө", "square"),
-            makeShot("/office-1.jpg", "Bench detail", "Вандангийн деталь", "square"),
+            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай", "wide"),
+            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг", "square"),
+            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө", "square"),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг"),
+            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө"),
+            makeShot("/Genesis/Scene_7.JPG", "Workspace row", "Ажлын ширээний эгнээ"),
+            makeShot("/Genesis/Scene_8.JPG", "Breakout seating", "Амрах хэсгийн суудал"),
+        ],
     },
     {
         id: "private-house-interior",
@@ -166,15 +222,56 @@ export const projects: Project[] = [
             en: "Tailored interior for a private house.",
             mn: "Хувийн хаусны захиалгат интерьер.",
         },
-        cover: "/apartment-2.jpg",
+        cover: "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 9.png",
         palette: "from-amber-300/15 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
-            makeShot("/apartment-2.jpg", "Living room", "Зочны өрөө", "wide"),
-            makeShot("/apartment-1.jpg", "Dining edge", "Зоогийн хэсэг", "square"),
-            makeShot("/apartment-4.jpg", "Bedroom corner", "Унтлагын булан", "square"),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 9.png",
+                "Living room panorama",
+                "Зочны өрөөний харагдац",
+                "wide",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 3.png",
+                "Open living area",
+                "Нээлттэй зочны хэсэг",
+                "square",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 6.png",
+                "Dining and kitchen view",
+                "Гал тогоо, зоогийн хэсэг",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 9.png",
+                "Living room panorama",
+                "Зочны өрөөний харагдац",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 3.png",
+                "Open living area",
+                "Нээлттэй зочны хэсэг",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 6.png",
+                "Dining and kitchen view",
+                "Гал тогоо, зоогийн хэсэг",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 1.png",
+                "Entry perspective",
+                "Орох хэсгийн харагдац",
+            ),
+            makeShot(
+                "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 8.png",
+                "Bedroom corner",
+                "Унтлагын өрөөний булан",
+            ),
+        ],
     },
     {
         id: "emart-hypermarket",
@@ -185,15 +282,51 @@ export const projects: Project[] = [
             en: "Large-format retail interior refresh.",
             mn: "Том худалдааны талбайн шинэчлэл.",
         },
-        cover: "/hotel-1.jpg",
+        cover: "/emart/Screenshot 2025-12-19 at 15.55.33.png",
         palette: "from-indigo-200/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
         shots: [
-            makeShot("/hotel-1.jpg", "Entry aisle", "Орох хэсэг", "wide"),
-            makeShot("/hotel-2.jpg", "Lighting lane", "Гэрлийн эгнээ", "square"),
-            makeShot("/hotel-6.jpg", "Checkout zone", "Тооцооны хэсэг", "square"),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.55.33.png",
+                "Hypermarket central aisle",
+                "Хайпермаркетын төв коридор",
+                "wide",
+            ),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.54.54.png",
+                "Checkout perspective",
+                "Тооцооны хэсгийн харагдац",
+                "square",
+            ),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.55.19.png",
+                "Ceiling lighting grid",
+                "Таазны гэрэлтүүлгийн тор",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.55.33.png",
+                "Hypermarket central aisle",
+                "Хайпермаркетын төв коридор",
+            ),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.54.54.png",
+                "Checkout perspective",
+                "Тооцооны хэсгийн харагдац",
+            ),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.55.19.png",
+                "Ceiling lighting grid",
+                "Таазны гэрэлтүүлгийн тор",
+            ),
+            makeShot(
+                "/emart/Screenshot 2025-12-19 at 15.55.40.png",
+                "Retail display run",
+                "Барааны тавиурын эгнээ",
+            ),
+        ],
     },
     {
         id: "gong-cha",
@@ -204,15 +337,11 @@ export const projects: Project[] = [
             en: "Tea brand cafe interior with warm palette.",
             mn: "Цайны брэндийн кафе интерьер, дулаан өнгөлгөөтэй.",
         },
-        cover: "/hotel-6.jpg",
+        cover: comingSoonShot.src,
         palette: "from-amber-200/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
-        shots: [
-            makeShot("/hotel-6.jpg", "Cafe seating", "Кафены суудал", "wide"),
-            makeShot("/hotel-3.jpg", "Bar detail", "Баарны деталь", "square"),
-            makeShot("/hotel-2.jpg", "Ceiling mood", "Таазны уур", "square"),
-        ],
-        gallery: baseGallery,
+        shots: comingSoonGallery,
+        gallery: comingSoonGallery,
     },
     {
         id: "misheel-office-aaa",
@@ -223,15 +352,20 @@ export const projects: Project[] = [
             en: "Office build for AAA & S at Misheel complex.",
             mn: "Мишээл цогцолборт AAA & S компанийн оффисын гүйцэтгэл.",
         },
-        cover: "/office-2.jpg",
+        cover: "/aaa%26c/SCENE_4.JPG",
         palette: "from-cyan-200/20 via-white/5 to-white/0",
         stats: [durationStat("4 months", "4 сар")],
         shots: [
-            makeShot("/office-2.jpg", "Meeting zone", "Хурлын хэсэг", "square"),
-            makeShot("/office-1.jpg", "Work desk line", "Ширээний эгнээ", "square"),
-            makeShot("/office-3.jpg", "Reception", "Хүлээн авалт", "wide"),
+            makeShot("/aaa%26c/SCENE_4.JPG", "Office overview", "Оффисын ерөнхий төлөв", "wide"),
+            makeShot("/aaa%26c/SCENE_1.JPG", "Reception lounge", "Хүлээн авах хэсэг", "square"),
+            makeShot("/aaa%26c/SCENE_6.JPG", "Workstation row", "Ажлын ширээний эгнээ", "square"),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/aaa%26c/SCENE_4.JPG", "Office overview", "Оффисын ерөнхий төлөв"),
+            makeShot("/aaa%26c/SCENE_1.JPG", "Reception lounge", "Хүлээн авах хэсэг"),
+            makeShot("/aaa%26c/SCENE_6.JPG", "Workstation row", "Ажлын ширээний эгнээ"),
+            makeShot("/aaa%26c/SCENE_3.JPG", "Meeting corner", "Хурал, уулзалтын булан"),
+        ],
     },
     {
         id: "caff-cafe",
@@ -242,15 +376,56 @@ export const projects: Project[] = [
             en: "Cozy cafe design for Caff shop.",
             mn: "Caff кафе шопын дулаан интерьер.",
         },
-        cover: "/hotel-3.jpg",
+        cover: "/caff cafe/viber_image_2025-10-23_17-33-16-963.jpg",
         palette: "from-amber-100/20 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
-            makeShot("/hotel-3.jpg", "Cafe overview", "Кафены ерөнхий", "wide"),
-            makeShot("/hotel-1.jpg", "Seating", "Суудал", "square"),
-            makeShot("/hotel-2.jpg", "Lighting detail", "Гэрлийн деталь", "square"),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-16-963.jpg",
+                "Cafe seating overview",
+                "Кафены суудлын харагдац",
+                "wide",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-18-019.jpg",
+                "Coffee bar view",
+                "Кофены баарны харагдац",
+                "square",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-18-695.jpg",
+                "Booth seating",
+                "Лоунж суудал",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-16-963.jpg",
+                "Cafe seating overview",
+                "Кафены суудлын харагдац",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-18-019.jpg",
+                "Coffee bar view",
+                "Кофены баарны харагдац",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-18-695.jpg",
+                "Booth seating",
+                "Лоунж суудал",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-33-17-707.jpg",
+                "Barista counter",
+                "Баристагийн хэсэг",
+            ),
+            makeShot(
+                "/caff cafe/viber_image_2025-10-23_17-34-14-271.jpg",
+                "Front window seating",
+                "Цонхны дагуух суудал",
+            ),
+        ],
     },
     {
         id: "moujonjon",
@@ -264,15 +439,26 @@ export const projects: Project[] = [
             en: "Playful retail interior for a childrenswear brand.",
             mn: "Хүүхдийн хувцасны брэндийн хөгжилтэй интерьер.",
         },
-        cover: "/apartment-1.jpg",
+        cover: "/moujonjon/Scene_3_UNGU-2.JPG",
         palette: "from-stone-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [
-            makeShot("/apartment-1.jpg", "Store entry", "Дэлгүүрийн орц", "wide"),
-            makeShot("/apartment-2.jpg", "Display wall", "Дисплей хана", "square"),
-            makeShot("/apartment-4.jpg", "Fitting corner", "Хувцас солих булан", "square"),
+            makeShot("/moujonjon/Scene_3_UNGU-2.JPG", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац", "wide"),
+            makeShot("/moujonjon/Scene_5-3_UNGU-2.JPG", "Display wall", "Дисплей хана", "square"),
+            makeShot("/moujonjon/Scene_6_UNGU-2.JPG", "Cash wrap and shelving", "Кассын хэсэг, тавиур", "square"),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/moujonjon/Scene_3_UNGU-2.JPG", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац"),
+            makeShot("/moujonjon/Scene_5-3_UNGU-2.JPG", "Display wall", "Дисплей хана"),
+            makeShot("/moujonjon/Scene_6_UNGU-2.JPG", "Cash wrap and shelving", "Кассын хэсэг, тавиур"),
+            makeShot("/moujonjon/Scene_2_UNGU-2.png", "Entrance arch", "Орох хэсгийн нум"),
+            makeShot("/moujonjon/IMG_2502.jpg", "Built store photo", "Дэлгүүрийн зураг"),
+            makeShot(
+                "/moujonjon/viber_image_2025-04-11_18-15-16-372.jpg",
+                "Colorful shelving detail",
+                "Өнгөлөг тавиурын деталь",
+            ),
+        ],
     },
     {
         id: "mongol-china-expo",
@@ -283,15 +469,11 @@ export const projects: Project[] = [
             en: "Exhibition design bridging two cultures.",
             mn: "Хоёр орныг холбосон үзэсгэлэнгийн дизайн.",
         },
-        cover: "/hotel-2.jpg",
+        cover: comingSoonShot.src,
         palette: "from-indigo-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
-        shots: [
-            makeShot("/hotel-2.jpg", "Exhibit hall", "Үзэсгэлэнгийн танхим", "wide"),
-            makeShot("/hotel-3.jpg", "Graphic wall", "График ханын хэсэг", "square"),
-            makeShot("/hotel-6.jpg", "Lighting mood", "Гэрлийн уур", "square"),
-        ],
-        gallery: baseGallery,
+        shots: comingSoonGallery,
+        gallery: comingSoonGallery,
     },
     {
         id: "misheel-office-akaru",
@@ -302,15 +484,47 @@ export const projects: Project[] = [
             en: "Office interior for Akaru at Misheel complex.",
             mn: "Мишээл цогцолборт Akaru компанийн оффисын интерьер.",
         },
-        cover: "/office-1.jpg",
+        cover: "/akura/viber_image_2025-04-11_17-52-03-809.jpg",
         palette: "from-cyan-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [
-            makeShot("/office-1.jpg", "Workspace", "Ажлын хэсэг", "square"),
-            makeShot("/office-2.jpg", "Meeting", "Хурлын өрөө", "square"),
-            makeShot("/office-3.jpg", "Breakout", "Амралтын хэсэг", "wide"),
+            makeShot(
+                "/akura/viber_image_2025-04-11_17-52-03-809.jpg",
+                "Office lounge",
+                "Оффисын лоунж",
+                "wide",
+            ),
+            makeShot(
+                "/akura/viber_image_2025-04-11_17-48-22-000.jpg",
+                "Workspace perspective",
+                "Ажлын хэсгийн харагдац",
+                "square",
+            ),
+            makeShot(
+                "/akura/viber_image_2025-04-11_17-52-04-358.jpg",
+                "Reception and meeting nook",
+                "Хүлээн авах, уулзалтын булан",
+                "square",
+            ),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/akura/viber_image_2025-04-11_17-52-03-809.jpg", "Office lounge", "Оффисын лоунж"),
+            makeShot(
+                "/akura/viber_image_2025-04-11_17-48-22-000.jpg",
+                "Workspace perspective",
+                "Ажлын хэсгийн харагдац",
+            ),
+            makeShot(
+                "/akura/viber_image_2025-04-11_17-52-04-358.jpg",
+                "Reception and meeting nook",
+                "Хүлээн авах, уулзалтын булан",
+            ),
+            makeShot(
+                "/akura/viber_image_2025-04-11_18-08-20-912.jpg",
+                "Breakout seating",
+                "Амрах, уулзалтын суудал",
+            ),
+        ],
     },
     {
         id: "private-apartment-interior",
@@ -321,15 +535,22 @@ export const projects: Project[] = [
             en: "Calm apartment interior tailored to the owner.",
             mn: "Эзэндээ тохируулсан тайван орон сууцны интерьер.",
         },
-        cover: "/apartment-4.jpg",
+        cover: "/personal apartment/4.jpg",
         palette: "from-amber-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [
-            makeShot("/apartment-4.jpg", "Bedroom", "Унтлагын өрөө", "tall"),
-            makeShot("/apartment-1.jpg", "Living area", "Зочны хэсэг", "wide"),
-            makeShot("/apartment-2.jpg", "Dining", "Зоогийн хэсэг", "square"),
+            makeShot("/personal apartment/4.jpg", "Living room focus", "Зочны өрөөний деталь", "wide"),
+            makeShot("/personal apartment/11.png", "Kitchen and dining", "Гал тогоо, зоогийн хэсэг", "square"),
+            makeShot("/personal apartment/18.png", "Bedroom perspective", "Унтлагын өрөөний харагдац", "square"),
         ],
-        gallery: baseGallery,
+        gallery: [
+            makeShot("/personal apartment/4.jpg", "Living room focus", "Зочны өрөөний деталь"),
+            makeShot("/personal apartment/11.png", "Kitchen and dining", "Гал тогоо, зоогийн хэсэг"),
+            makeShot("/personal apartment/18.png", "Bedroom perspective", "Унтлагын өрөөний харагдац"),
+            makeShot("/personal apartment/1.png", "Entry view", "Орох хэсгийн харагдац"),
+            makeShot("/personal apartment/3.jpg", "Open plan overview", "Нээлттэй зохион байгуулалт"),
+            makeShot("/personal apartment/20.png", "Accent lighting", "Гэрэлтүүлгийн деталь"),
+        ],
     },
     {
         id: "bread-cafe",
@@ -343,15 +564,11 @@ export const projects: Project[] = [
             en: "Inclusive cafe designed for accessibility.",
             mn: "Хөгжлийн бэрхшээлтэй иргэдэд хүртээмжтэй кафе.",
         },
-        cover: "/hotel-6.jpg",
+        cover: comingSoonShot.src,
         palette: "from-amber-100/20 via-white/5 to-white/0",
         stats: [durationStat("2 weeks", "2 долоо хоног")],
-        shots: [
-            makeShot("/hotel-6.jpg", "Cafe interior", "Кафены интерьер", "wide"),
-            makeShot("/hotel-1.jpg", "Seating", "Суудал", "square"),
-            makeShot("/hotel-2.jpg", "Lighting", "Гэрэлтүүлэг", "square"),
-        ],
-        gallery: baseGallery,
+        shots: comingSoonGallery,
+        gallery: comingSoonGallery,
     },
     {
         id: "we-love-fruit",
@@ -362,17 +579,36 @@ export const projects: Project[] = [
             en: "Fresh fruit store interior with bright accents.",
             mn: "Жимсний дэлгүүрийн интерьер, гэгээлэг өнгөлгөөтэй.",
         },
-        cover: "/hotel-3.jpg",
+        cover: comingSoonShot.src,
         palette: "from-amber-200/20 via-white/5 to-white/0",
         stats: [durationStat("2 weeks", "2 долоо хоног")],
-        shots: [
-            makeShot("/hotel-3.jpg", "Storefront", "Дэлгүүрийн нүүр", "wide"),
-            makeShot("/hotel-6.jpg", "Display tables", "Дисплей тавцан", "square"),
-            makeShot("/hotel-2.jpg", "Ceiling accent", "Таазны акцент", "square"),
-        ],
-        gallery: baseGallery,
+        shots: comingSoonGallery,
+        gallery: comingSoonGallery,
     },
 ];
+
+const projectsWithPlaceholderComparison: Project[] = unsortedProjects.map((project) => ({
+    ...project,
+    beforeAfter: {
+        before: {
+            image: comingSoonShot.src,
+            title: comingSoonShot.alt,
+            detail: { en: "", mn: "" },
+        },
+        after: {
+            image: comingSoonShot.src,
+            title: comingSoonShot.alt,
+            detail: { en: "", mn: "" },
+        },
+    },
+}));
+
+export const projects: Project[] = [...projectsWithPlaceholderComparison].sort((a, b) => {
+    const aComingSoon = a.cover === comingSoonShot.src;
+    const bComingSoon = b.cover === comingSoonShot.src;
+    if (aComingSoon === bComingSoon) return 0;
+    return aComingSoon ? 1 : -1;
+});
 
 export const projectCategories: ProjectCategory[] = [
     {
