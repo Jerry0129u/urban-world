@@ -81,7 +81,6 @@ export default function Projects() {
                         );
                         const durationText = durationStat?.value[language];
                         const formattedDuration = durationText ? withNumberSpacing(durationText) : null;
-
                         return (
                             <Link
                                 key={project.id}
