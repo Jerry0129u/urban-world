@@ -23,7 +23,7 @@ export default function Navbar() {
     const [activeIndex, setActiveIndex] = useState(0);
     const activeIndexRef = useRef(0);
 
-    // Scroll tracking
+
     useEffect(() => {
         if (typeof window === "undefined") return;
         if (window.location.pathname !== "/") return;
