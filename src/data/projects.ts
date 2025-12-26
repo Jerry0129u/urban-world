@@ -84,7 +84,7 @@ const unsortedProjects: Project[] = [
             en: "New Dragon terminal fit-out coordinated across districts.",
             mn: "Драгон терминалын шинэчлэл, олон дүүрэг дамнасан гүйцэтгэл.",
         },
-        cover: "/new dragon/T3.jpg",
+        cover: "/new dragon/Screenshot 2025-12-19 at 16.11.57.png",
         palette: "from-amber-300/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
         shots: [
@@ -103,17 +103,17 @@ const unsortedProjects: Project[] = [
             ),
         ],
         gallery: [
+            makeShot(
+                "/new dragon/484850189_634016686272365_2178969295659040394_n.jpg",
+                "Waiting lounge perspective",
+                "Хүлээлгийн танхимын харагдац",
+            ),
             makeShot("/new dragon/T3.jpg", "Terminal entry hall", "Терминалын орох танхим"),
             makeShot("/new dragon/CORRIDOR.jpg", "Glass corridor lighting", "Шилэн коридор, гэрэлтүүлэг"),
             makeShot(
                 "/new dragon/485741995_634016859605681_1354489228861073968_n.jpg",
                 "Passenger lounge seating",
                 "Зорчигчдын хүлээлгийн суудал",
-            ),
-            makeShot(
-                "/new dragon/484850189_634016686272365_2178969295659040394_n.jpg",
-                "Waiting lounge perspective",
-                "Хүлээлгийн танхимын харагдац",
             ),
             makeShot(
                 "/new dragon/Screenshot 2025-12-19 at 16.11.02.png",
@@ -151,7 +151,7 @@ const unsortedProjects: Project[] = [
             en: "Showroom interior tuned for EV display.",
             mn: "Электро машины үзүүлэнгийн танхимын интерьер.",
         },
-        cover: "/BYD/F17.png",
+        cover: "/BYD/Enscape_2025-06-12-12-03-46_12.png",
         palette: "from-indigo-300/20 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
@@ -222,7 +222,7 @@ const unsortedProjects: Project[] = [
             en: "Tailored interior for a private house.",
             mn: "Хувийн хаусны захиалгат интерьер.",
         },
-        cover: "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 9.png",
+        cover: "/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 1.png",
         palette: "from-amber-300/15 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
@@ -282,7 +282,7 @@ const unsortedProjects: Project[] = [
             en: "Large-format retail interior refresh.",
             mn: "Том худалдааны талбайн шинэчлэл.",
         },
-        cover: "/emart/Screenshot 2025-12-19 at 15.55.33.png",
+        cover: "/emart/Screenshot 2025-12-19 at 15.55.19.png",
         palette: "from-indigo-200/20 via-white/5 to-white/0",
         stats: [durationStat("6 months", "6 сар")],
         shots: [
@@ -352,7 +352,7 @@ const unsortedProjects: Project[] = [
             en: "Office build for AAA & S at Misheel complex.",
             mn: "Мишээл цогцолборт AAA & S компанийн оффисын гүйцэтгэл.",
         },
-        cover: "/aaa%26c/SCENE_4.JPG",
+        cover: "/aaa%26c/SCENE_1.JPG",
         palette: "from-cyan-200/20 via-white/5 to-white/0",
         stats: [durationStat("4 months", "4 сар")],
         shots: [
@@ -376,7 +376,7 @@ const unsortedProjects: Project[] = [
             en: "Cozy cafe design for Caff shop.",
             mn: "Caff кафе шопын дулаан интерьер.",
         },
-        cover: "/caff cafe/viber_image_2025-10-23_17-33-16-963.jpg",
+        cover: "/caff cafe/viber_image_2025-10-23_17-33-18-695.jpg",
         palette: "from-amber-100/20 via-white/5 to-white/0",
         stats: [durationStat("1 month", "1 сар")],
         shots: [
@@ -439,7 +439,7 @@ const unsortedProjects: Project[] = [
             en: "Playful retail interior for a childrenswear brand.",
             mn: "Хүүхдийн хувцасны брэндийн хөгжилтэй интерьер.",
         },
-        cover: "/moujonjon/Scene_3_UNGU-2.JPG",
+        cover: "/moujonjon/IMG_2502.jpg",
         palette: "from-stone-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [
@@ -484,7 +484,7 @@ const unsortedProjects: Project[] = [
             en: "Office interior for Akaru at Misheel complex.",
             mn: "Мишээл цогцолборт Akaru компанийн оффисын интерьер.",
         },
-        cover: "/akura/viber_image_2025-04-11_17-52-03-809.jpg",
+        cover: "/akura/viber_image_2025-04-11_18-08-20-912.jpg",
         palette: "from-cyan-200/20 via-white/5 to-white/0",
         stats: [durationStat("3 months", "3 сар")],
         shots: [

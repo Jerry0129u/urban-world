@@ -5,12 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// ⬇ энд background-д ашиглах зургуудынхаа замыг өөрөө тааруулж солиорой
+
 const BG_IMAGES = [
     "/mojon.jpg",
-    "/.jpg",
-    "/.jpg",
-    "/.jpg",
+    "/caff cafe/viber_image_2025-10-23_17-33-18-695.jpg",
+    "/personal apartment/4.jpg"
 ];
 
 export default function Hero() {
@@ -71,15 +70,16 @@ export default function Hero() {
                             `}
                         >
                             <Image
+                                key={`${src}-${currentBg}`}
                                 src={src}
                                 alt="Urban World walkthrough"
                                 fill
                                 priority={index === 0}
                                 sizes="100vw"
                                 className={`
-                                    object-cover object-center
-                                    ${isActive ? "animate-slowZoom" : ""}
-                                `}
+    object-cover object-center
+    ${isActive ? "animate-slowZoom" : ""}
+  `}
                             />
                         </div>
                     );
