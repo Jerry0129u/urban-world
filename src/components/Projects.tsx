@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -8,6 +10,7 @@ import styles from "./Projects.module.css";
 
 type Filter = "all" | ProjectTag;
 
+// Дараа нь идэвхжүүлэхэд бэлэн шүүлтүүрийн массив
 const FILTERS: { id: Filter; label: LocalizedText }[] = [
     { id: "all", label: { en: "All", mn: "Бүгд" } },
     {
@@ -17,10 +20,6 @@ const FILTERS: { id: Filter; label: LocalizedText }[] = [
     {
         id: "plaster-performance",
         label: { en: "Interior fit-out", mn: "Дотоод засал" },
-    },
-    {
-        id: "plaster-performance",
-        label: { en: "Solutions", mn: "Шийдэл" },
     },
 ];
 
@@ -51,6 +50,7 @@ export default function Projects() {
                         : "PROJECTS WE’VE COMPLETED."}
                 </h2>
 
+                {/* ШҮҮЛТҮҮРИЙН ТОВЧНУУД - ТҮР ИДЭВХГҮЙ БОЛГОСОН
                 <div className="mt-6 flex flex-wrap justify-center gap-3">
                     {FILTERS.map((item) => {
                         const isActive = item.id === filter;
@@ -70,17 +70,12 @@ export default function Projects() {
                         );
                     })}
                 </div>
+                */}
             </div>
 
-            <div className="px-6 pb-16">
+            <div className="px-6 pb-24">
                 <div className="grid w-full max-w-6xl mx-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {filtered.map((project) => {
-                        const durationStat = project.stats.find(
-                            (stat) =>
-                                stat.label.en === "Duration" || stat.label.mn === "Гүйцэтгэсэн хугацаа",
-                        );
-                        const durationText = durationStat?.value[language];
-                        const formattedDuration = durationText ? withNumberSpacing(durationText) : null;
                         return (
                             <Link
                                 key={project.id}
@@ -96,24 +91,11 @@ export default function Projects() {
                                 />
 
                                 <div className={styles.galleryCaption}>
-                                    {/* 1 — Байршил */}
-                                    <p className="text-sm text-white/85 mb-3">
-                                        {project.location[language]}
-                                    </p>
-
-                                    {/* 2 — Төслийн нэр */}
-                                    <p className="text-lg font-semibold leading-snug mb-4">
+                                    {/* Зөвхөн төслийн нэрийг үлдээв */}
+                                    <h3 className="text-lg font-medium text-white">
                                         {project.title[language]}
-                                    </p>
-
-                                    {/* 3 — Гүйцэтгэсэн хугацаа */}
-                                    {formattedDuration && (
-                                        <p className="text-sm text-white/70">
-                                            {formattedDuration}
-                                        </p>
-                                    )}
+                                    </h3>
                                 </div>
-
                             </Link>
                         );
                     })}

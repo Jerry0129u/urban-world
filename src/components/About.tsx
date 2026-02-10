@@ -9,7 +9,7 @@ const journey = [
         stop: "01",
         label: { en: "Vision", mn: "Алсын хараа" },
         description: { en: "Vision", mn: "Алсын хараа" },
-        image: "/office-1.jpg",
+        image: "/",
         text: {
             en: "Set a new standard for interiors that merge quality, precision, and intelligent design.",
             mn: "Чанар, төгс шийдэл, ухаалаг дизайныг хослуулан интерьерийн ШИНЭ СТАНДАРТ ТОГТООХ.",
@@ -19,17 +19,17 @@ const journey = [
         stop: "02",
         label: { en: "Mission", mn: "Эрхэм зорилго" },
         description: { en: "Mission", mn: "Эрхэм зорилго" },
-        image: "/apartment-1.jpg",
+        image: "/",
         text: {
             en: "Turn every client vision into a built environment with creative, high-quality execution.",
-            mn: "Захиалагчдын төсөөллийг чанартай, бүтээлч гүйцэтгэлээр бодит орчиныг цогцлоож ШИНЭЛЭГ ИНТЕРЬЕРИЙН ШИЙДЭЛ санал болгоно.",
+            mn: "Захиалагчдын төсөөллийг чанартай, бүтээлч гүйцэтгэлээр ШИНЭЛЭГ ИНТЕРЬЕРИЙН ШИЙДЭЛ санал болгоно.",
         },
     },
     {
         stop: "03",
         label: { en: "Goals", mn: "Зорилт" },
         description: { en: "Goals", mn: "Зорилт" },
-        image: "/hotel-3.jpg",
+        image: "",
         text: {
             en: "Grow our portfolio of successful builds and expand our position in the market.",
             mn: "Амжилттай хэрэгжүүлсэн төслүүдийн тоог нэмэгдүүлж, зах зээлд БАЙР СУУРИА ӨРГӨЖҮҮЛЭХ.",
@@ -55,7 +55,7 @@ export default function About() {
     return (
         <section
             id="about"
-            className="relative overflow-hidden bg-[#222222] pt-28 text-[#fffdef]"
+            className="relative overflow-hidden bg-[#222222] pt-32 pb-12 text-[#fffdef] min-h-screen flex flex-col justify-center"
         >
             <div className="container mx-auto flex max-w-7xl flex-col items-start gap-20 px-6 lg:flex-row lg:items-start">
                 {/* LEFT TEXT */}
@@ -123,16 +123,16 @@ export default function About() {
                                     className={
                                         "relative cursor-pointer overflow-hidden transition-all duration-[550ms] ease-[cubic-bezier(.25,.1,.25,1)] " +
                                         (isActive
-                                            ? "flex-[5] scale-[1.02]"
-                                            : "flex-[2.2] scale-[0.99]")
+                                            ? "flex-[5] scale-[1.02] bg-[#3a3a3a]"
+                                            : "flex-[2.2] scale-[0.99] bg-[#2a2a2a]")
                                     }
                                 >
-                                    <Image
+                                    {/* <Image
                                         src={item.image}
                                         alt={item.label[language]}
                                         fill
                                         className="object-cover"
-                                    />
+                                    /> */}
 
                                     {/* Gradient for text readability */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />

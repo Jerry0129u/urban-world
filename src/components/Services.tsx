@@ -8,7 +8,7 @@ const services = [
             en: "PROFESSIONAL CONSULTING",
             mn: "МЭРГЭЖЛИЙН ЗӨВЛӨГӨӨ & <br/> ТӨЛӨВЛӨЛТИЙН ШИЙДЭЛ",
         },
-        image: "/office-2.jpg",
+        image: "/service23.jpg",
         summary: { en: "", mn: "" },
         details: {
             en: [
@@ -29,7 +29,7 @@ const services = [
             en: "INTERIOR DESIGN & DRAWINGS",
             mn: "ИНТЕРЬЕР ДИЗАЙН & <br/> ЗУРАГ ТӨСӨЛ",
         },
-        image: "/apartment-4.jpg",
+        image: "/service20.jpg",
         summary: { en: "", mn: "" },
         details: {
             en: [
@@ -56,7 +56,7 @@ const services = [
             en: "FIT-OUT & FURNISHING",
             mn: "ДОТООД ЗАСАЛ & <br/> ТОХИЖИЛТЫН АЖИЛ",
         },
-        image: "/hotel-6.jpg",
+        image: "/apartment-4.jpg",
         summary: { en: "", mn: "" },
         details: {
             en: [

@@ -23,7 +23,7 @@ export default function Navbar() {
     const [activeIndex, setActiveIndex] = useState(0);
     const activeIndexRef = useRef(0);
 
-    // Scroll tracking
+
     useEffect(() => {
         if (typeof window === "undefined") return;
         if (window.location.pathname !== "/") return;
@@ -70,7 +70,7 @@ export default function Navbar() {
             <div className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 py-3">
 
                 <Link href="/" className="flex items-center gap-2">
-                    <img src="/uw.png" className="h-10 w-auto" />
+                    <img src="/uw-logo.png" className="h-6 w-auto" />
                 </Link>
 
                 <div className="flex items-center gap-3">
