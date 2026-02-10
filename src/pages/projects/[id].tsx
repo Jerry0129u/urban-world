@@ -32,8 +32,8 @@ export const getStaticProps: GetStaticProps<ProjectDetailProps> = async ({ param
 };
 
 export default function ProjectDetail({
-    project,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+                                          project,
+                                      }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { language } = useLanguage();
     type ProjectSlide = { projectId: string; shot: LocalizedShot };
 
@@ -120,8 +120,6 @@ export default function ProjectDetail({
 
     const slides = sliderShots;
 
-    const withNumberSpacing = (text: string) => text.replace(/(\d)(\p{L})/gu, "$1 $2");
-
     const copy = {
         selection: { en: "Select a project", mn: "Төсөл сонгох" },
         galleryAria: { en: "Project images", mn: "Төслийн зургууд" },
@@ -130,18 +128,7 @@ export default function ProjectDetail({
         next: { en: "Next", mn: "Дараах" },
         bottom: {
             title: { en: "Project title", mn: "Төслийн нэр" },
-            location: { en: "Location", mn: "Байршил" },
-            completed: { en: "Completed", mn: "Гүйцэтгэсэн хугацаа" },
         },
-        comingSoon: { en: "Coming soon", mn: "Тун удахгүй" },
-    };
-
-    const formatCompletion = (target: Project) => {
-        const durationStat = target.stats.find(
-            (stat) => stat.label.en === "Duration" || stat.label.mn === "Гүйцэтгэсэн хугацаа",
-        );
-        if (durationStat) return withNumberSpacing(durationStat.value[language]);
-        return copy.comingSoon[language];
     };
 
     const galleryLayoutClass = (shotIndex: number) => {
@@ -187,18 +174,12 @@ export default function ProjectDetail({
                 <Navbar />
                 <div className={styles.backdrop} aria-hidden="true" />
                 <main className={styles.content}>
+
+                    {/* МЕТА МЭДЭЭЛЭЛ: Зөвхөн төслийн нэр харагдана */}
                     <div className={styles.metaRow}>
                         <div className={styles.metaCard}>
                             <p className={styles.metaLabel}>{copy.bottom.title[language]}</p>
                             <p className={styles.metaValue}>{activeProject.title[language]}</p>
-                        </div>
-                        <div className={styles.metaCard}>
-                            <p className={styles.metaLabel}>{copy.bottom.location[language]}</p>
-                            <p className={styles.metaValue}>{activeProject.location[language]}</p>
-                        </div>
-                        <div className={styles.metaCard}>
-                            <p className={styles.metaLabel}>{copy.bottom.completed[language]}</p>
-                            <p className={styles.metaValue}>{formatCompletion(activeProject)}</p>
                         </div>
                     </div>
 
@@ -219,7 +200,6 @@ export default function ProjectDetail({
                                             priority={shotIndex === 0}
                                         />
 
-                                        {/* Hero overlay текст */}
                                         {shotIndex === 0 && (
                                             <div className={styles.heroTextGroup}>
                                                 <h1 className={styles.heroTitleInHero}>

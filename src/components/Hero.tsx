@@ -5,11 +5,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-
 const BG_IMAGES = [
-    "/mojon.jpg",
-    "/caff cafe/viber_image_2025-10-23_17-33-18-695.jpg",
-    "/personal apartment/4.jpg"
+    "/enhanced-Enscape_2026-01-19-05-07-35.png",
+    "/Enscape_2026-01-30-18-16-34.png",
+    "/Screenshot 2025-12-19 at 15.54.54.png",
+];
+
+const BG_COLORS = [
+    "bg-[#1e293b]", // Slate 800 - Цэнхэрдүү бараан саарал
+    "bg-[#18181b]", // Zinc 900 - Цэвэр бараан саарал
+    "bg-[#1c1917]", // Stone 900 - Бордуу бараан саарал
 ];
 
 export default function Hero() {
@@ -41,11 +46,10 @@ export default function Hero() {
 
     const titleLines = copy.title[language];
 
-    // ⬇  background зургаа 18 секунд тутам солих (zoom animation-тай тааруулсан)
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentBg((prev) => (prev + 1) % BG_IMAGES.length);
-        }, 18000); // 18s = slowZoom хугацаа
+        }, 5000); // Өнгө солигдохыг хурдан харахын тулд түр 5сек болгов (хүсвэл 18000 болгоорой)
 
         return () => clearInterval(interval);
     }, []);
@@ -55,38 +59,35 @@ export default function Hero() {
             id="home"
             className="relative min-h-screen w-full overflow-hidden bg-black text-white"
         >
-            {/* Background carousel */}
+            {/* Background Color Carousel */}
             <div className="absolute inset-0">
-                {BG_IMAGES.map((src, index) => {
+                {BG_COLORS.map((colorClass, index) => {
                     const isActive = index === currentBg;
 
                     return (
                         <div
-                            key={src}
+                            key={index}
                             className={`
                                 absolute inset-0
-                                transition-opacity duration-1000
+                                transition-opacity duration-1000 ease-in-out
                                 ${isActive ? "opacity-100" : "opacity-0"}
+                                ${colorClass}
                             `}
                         >
-                            <Image
-                                key={`${src}-${currentBg}`}
-                                src={src}
-                                alt="Urban World walkthrough"
+                            {/* <Image
+                                src={BG_IMAGES[index]}
+                                alt="Background"
                                 fill
-                                priority={index === 0}
-                                sizes="100vw"
-                                className={`
-    object-cover object-center
-    ${isActive ? "animate-slowZoom" : ""}
-  `}
+                                className={`object-cover ${isActive ? "animate-slowZoom" : ""}`}
                             />
+                            */}
                         </div>
                     );
                 })}
 
-                {/* Soft cinematic gradient давхарга */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+                {/* Cinematic Gradient - Өнгөн дээр илүү гүн харагдуулна */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
+                <div className="absolute inset-0 bg-black/20" /> {/* Нэмэлт зөөлөн давхарга */}
             </div>
 
             {/* Content */}
@@ -98,32 +99,28 @@ export default function Hero() {
                     </p>
 
                     <h1 className="text-4xl font-semibold leading-tight md:text-6xl text-[#fffdef]">
-                        {titleLines.map((line) => (
-                            <span
-                                key={line}
-                                className="block whitespace-normal md:whitespace-nowrap"
-                            >
+                        {titleLines.map((line, i) => (
+                            <span key={i} className="block whitespace-normal md:whitespace-nowrap">
                                 {line}
                             </span>
                         ))}
                     </h1>
 
-                    <p className="max-w-xl text-[#fffdef] leading-relaxed text-base md:text-lg">
+                    <p className="max-w-xl text-[#fffdef]/90 leading-relaxed text-base md:text-lg">
                         {copy.description[language]}
                     </p>
 
-                    {/* CTA Buttons */}
                     <div className="flex gap-4 pt-4">
                         <Link
                             href="#services"
-                            className="bg-[#444444] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-[#989898] transition"
+                            className="bg-[#444444] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-[#989898] transition-all"
                         >
                             {copy.servicesCta[language]}
                         </Link>
 
                         <Link
                             href="#projects"
-                            className="border border-[#fffdef] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-white/20 transition"
+                            className="border border-[#fffdef] px-6 py-3 text-sm font-medium text-[#fffdef] hover:bg-white/10 transition-all"
                         >
                             {copy.projectsCta[language]}
                         </Link>
@@ -131,15 +128,10 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* Zoom animation */}
             <style jsx>{`
                 @keyframes slowZoom {
-                    0% {
-                        transform: scale(1);
-                    }
-                    100% {
-                        transform: scale(1.2);
-                    }
+                    0% { transform: scale(1); }
+                    100% { transform: scale(1.05); }
                 }
                 .animate-slowZoom {
                     animation: slowZoom 18s ease-in-out forwards;
