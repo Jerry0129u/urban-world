@@ -5,18 +5,29 @@
     width: 100%;
 }
 
+/* ================= SINGLE COMPARISON ================= */
+
 .frame {
     --pos: 50%;
     position: relative;
     height: clamp(360px, 60vh, 680px);
-    border: 1px solid #3a3a3a;
-    background: linear-gradient(180deg, #0e0e0e, #161616);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(180deg, #f7f5f0, #ece8e1);
     overflow: hidden;
     box-shadow:
-        0 22px 60px rgba(0, 0, 0, 0.45),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+            0 18px 44px rgba(0, 0, 0, 0.08),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     display: grid;
     grid-template-areas: "stack";
+}
+
+html.dark .frame {
+    border: 1px solid #3a3a3a;
+    background: linear-gradient(180deg, #0e0e0e, #161616);
+    box-shadow:
+            0 22px 60px rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .frame > * {
@@ -60,8 +71,12 @@
 }
 
 .range:focus-visible {
-    outline: 1px dashed rgba(255, 255, 255, 0.4);
+    outline: 1px dashed rgba(0, 0, 0, 0.28);
     outline-offset: 6px;
+}
+
+html.dark .range:focus-visible {
+    outline: 1px dashed rgba(255, 255, 255, 0.4);
 }
 
 .range::-webkit-slider-runnable-track {
@@ -75,11 +90,19 @@
     -webkit-appearance: none;
     width: 10px;
     height: 100%;
+    background-color: rgba(17, 17, 17, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.1),
+            0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+html.dark .range::-webkit-slider-thumb {
     background-color: rgba(255, 255, 255, 0.86);
     border: 1px solid rgba(0, 0, 0, 0.35);
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.24),
-        0 14px 30px rgba(0, 0, 0, 0.5);
+            0 0 0 1px rgba(255, 255, 255, 0.24),
+            0 14px 30px rgba(0, 0, 0, 0.5);
 }
 
 .range::-moz-range-track {
@@ -93,12 +116,57 @@
     appearance: none;
     width: 10px;
     height: 100%;
+    background-color: rgba(17, 17, 17, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.1),
+            0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+html.dark .range::-moz-range-thumb {
     background-color: rgba(255, 255, 255, 0.86);
     border: 1px solid rgba(0, 0, 0, 0.35);
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.24),
-        0 14px 30px rgba(0, 0, 0, 0.5);
+            0 0 0 1px rgba(255, 255, 255, 0.24),
+            0 14px 30px rgba(0, 0, 0, 0.5);
 }
+
+/* ================= GRID ================= */
+
+.gridWrapper {
+    width: 100%;
+    padding: 6px 0 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 22px 22px 24px;
+    align-items: start;
+}
+
+.cell {
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+html.dark .cell {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+/* 4 comparison дотор frame жижиг байх ёстой */
+.grid .frame {
+    height: clamp(220px, 28vh, 320px);
+    border-radius: 14px;
+}
+
+/* ================= CAPTION ================= */
 
 .captionRow {
     display: grid;
@@ -107,9 +175,14 @@
 }
 
 .captionCard {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.72);
+    padding: 12px 14px;
+}
+
+html.dark .captionCard {
     border: 1px solid #3a3a3a;
     background: #1c1c1c;
-    padding: 12px 14px;
 }
 
 .captionLabel {
@@ -117,14 +190,36 @@
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
+    color: rgba(17, 17, 17, 0.55);
+}
+
+html.dark .captionLabel {
     color: rgba(255, 255, 255, 0.72);
 }
 
 .captionText {
     margin: 0;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(17, 17, 17, 0.82);
     line-height: 1.5;
+}
+
+html.dark .captionText {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 18px 16px 20px;
+    }
+
+    .grid .frame {
+        height: clamp(240px, 42vh, 340px);
+    }
 }
 
 @media (max-width: 768px) {

@@ -2,6 +2,7 @@
 
 import { type CSSProperties, type FormEvent } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 /* ------------ ICONS ------------ */
 
@@ -61,6 +62,9 @@ const socialLinks = [
 
 export default function Contact() {
     const { language } = useLanguage();
+    const { theme } = useTheme();
+
+    const isDark = theme === "dark";
 
     const copy = {
         social: { en: "SOCIAL", mn: "СОШИАЛ" },
@@ -78,65 +82,88 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="bg-[#222] text-[#fffdef] min-h-screen py-32">
-            <div className="max-w-7xl mx-auto px-8 grid gap-12 lg:grid-cols-[420px_1fr]">
-
-                {/* LEFT CARD */}
-                <div className="bg-white/5 p-12 backdrop-blur-2xl shadow-xl">
-                    {/* HEADING – өмнөх стиль */}
-                    <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#fffdef]/80">
+        <section
+            id="contact"
+            className={`min-h-screen py-32 ${
+                isDark ? "bg-[#222] text-[#fffdef]" : "bg-[#ece8e1] text-[#111111]"
+            }`}
+        >
+            <div className="mx-auto grid max-w-7xl gap-12 px-8 lg:grid-cols-[420px_1fr]">
+                <div
+                    className={`p-12 ${
+                        isDark
+                            ? "bg-white/5 shadow-xl backdrop-blur-2xl"
+                            : "border border-black/8 bg-[rgba(248,245,239,0.76)] shadow-[0_14px_36px_rgba(0,0,0,0.07)] backdrop-blur-2xl"
+                    }`}
+                >
+                    <p
+                        className={`mb-4 text-xs uppercase tracking-[0.35em] ${
+                            isDark ? "text-[#fffdef]/80" : "text-[#111111]/62"
+                        }`}
+                    >
                         {copy.connect[language]}
                     </p>
 
-                    {/* CONTACT INFO + ICONS */}
                     <div className="space-y-4 text-base">
-                        {/* PHONE NUMBERS */}
                         <div className="flex items-center gap-3">
                             <PhoneIcon />
-                            <a href="tel:+97688887675" className="hover:text-white/70 transition">
+                            <a
+                                href="tel:+97688887675"
+                                className={`transition ${isDark ? "hover:text-white/70" : "hover:text-black/60"}`}
+                            >
                                 +976 8888 7675
                             </a>
                         </div>
+
                         <div className="flex items-center gap-3">
                             <PhoneIcon />
-                            <a href="tel:+97698067777" className="hover:text-white/70 transition">
+                            <a
+                                href="tel:+97698067777"
+                                className={`transition ${isDark ? "hover:text-white/70" : "hover:text-black/60"}`}
+                            >
                                 +976 9806 7777
                             </a>
                         </div>
 
-                        {/* EMAIL */}
                         <div className="flex items-center gap-3">
                             <GmailIcon />
                             <a
                                 href="https://mail.google.com/mail/?view=cm&fs=1&to=info@urbanworld.mn"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hover:text-white/70 transition"
+                                className={`transition ${isDark ? "hover:text-white/70" : "hover:text-black/60"}`}
                             >
                                 info@urbanworld.mn
                             </a>
                         </div>
 
-                        {/* ADDRESS */}
                         <div className="flex items-center gap-3">
                             <LocationIcon />
                             <p>River Plaza 1403 · Хан-Уул</p>
                         </div>
                     </div>
 
-                    {/* SOCIAL ICONS */}
                     <div className="mt-10">
-                        <p className="text-xs uppercase tracking-[0.35em] text-white/60">
+                        <p
+                            className={`text-xs uppercase tracking-[0.35em] ${
+                                isDark ? "text-white/60" : "text-[#111111]/55"
+                            }`}
+                        >
                             {copy.social[language]}
                         </p>
-                        <div className="flex gap-4 mt-4">
+
+                        <div className="mt-4 flex gap-4">
                             {socialLinks.map(({ name, url, Icon }) => (
                                 <a
                                     key={name}
                                     href={url}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="h-12 w-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center hover:bg-white hover:text-black transition"
+                                    className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
+                                        isDark
+                                            ? "border border-white/20 bg-white/10 hover:bg-white hover:text-black"
+                                            : "border border-black/10 bg-[#f4f1eb] text-[#111111] shadow-[0_4px_14px_rgba(0,0,0,0.05)] hover:bg-[#ece8e1] hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
+                                    }`}
                                 >
                                     <Icon />
                                 </a>
@@ -144,33 +171,58 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    {/* FORM */}
                     <form onSubmit={handleSubmit} className="mt-12 space-y-5">
                         <input
                             name="name"
                             placeholder={copy.name[language]}
-                            className="w-full bg-white/5 px-5 py-3 border border-white/10 outline-none"
+                            className={`w-full border px-5 py-3 outline-none transition ${
+                                isDark
+                                    ? "border-white/10 bg-white/5 text-[#fffdef] placeholder:text-white/40"
+                                    : "border-black/10 bg-[#f8f5ef] text-[#111111] placeholder:text-black/35 shadow-[0_4px_14px_rgba(0,0,0,0.05)] focus:border-black/20"
+                            }`}
                         />
+
                         <input
                             name="email"
                             type="email"
                             placeholder={copy.email[language]}
-                            className="w-full bg-white/5 px-5 py-3 border border-white/10 outline-none"
+                            className={`w-full border px-5 py-3 outline-none transition ${
+                                isDark
+                                    ? "border-white/10 bg-white/5 text-[#fffdef] placeholder:text-white/40"
+                                    : "border-black/10 bg-[#f8f5ef] text-[#111111] placeholder:text-black/35 shadow-[0_4px_14px_rgba(0,0,0,0.05)] focus:border-black/20"
+                            }`}
                         />
+
                         <textarea
                             name="brief"
                             rows={3}
                             placeholder={copy.brief[language]}
-                            className="w-full bg-white/5 px-5 py-3 border border-white/10 outline-none"
+                            className={`w-full border px-5 py-3 outline-none transition ${
+                                isDark
+                                    ? "border-white/10 bg-white/5 text-[#fffdef] placeholder:text-white/40"
+                                    : "border-black/10 bg-[#f8f5ef] text-[#111111] placeholder:text-black/35 shadow-[0_4px_14px_rgba(0,0,0,0.05)] focus:border-black/20"
+                            }`}
                         />
-                        <button className="w-full bg-[#444] py-3 tracking-[0.3em] hover:bg-[#777] transition">
+
+                        <button
+                            className={`w-full py-3 tracking-[0.3em] transition ${
+                                isDark
+                                    ? "bg-[#444] text-[#fffdef] hover:bg-[#777]"
+                                    : "border border-black/10 bg-[#f4f1eb] text-[#111111] shadow-[0_4px_14px_rgba(0,0,0,0.05)] hover:bg-[#ece8e1] hover:shadow-[0_8px_22px_rgba(0,0,0,0.07)]"
+                            }`}
+                        >
                             {copy.send[language].toUpperCase()}
                         </button>
                     </form>
                 </div>
 
-                {/* RIGHT — MAP (4 талаасаа 1cm багассан эффект) */}
-                <div className="relative  min-h-[350px] p-4">
+                <div
+                    className={`relative min-h-[350px] p-4 ${
+                        isDark
+                            ? ""
+                            : "border border-black/8 bg-[rgba(246,242,235,0.62)] shadow-[0_14px_36px_rgba(0,0,0,0.07)]"
+                    }`}
+                >
                     <iframe
                         className="h-full w-full"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"

@@ -1,183 +1,207 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
-const journey = [
+const cols = [
     {
-        stop: "01",
-        label: { en: "Vision", mn: "Алсын хараа" },
-        description: { en: "Vision", mn: "Алсын хараа" },
-        image: "/",
-        text: {
-            en: "Set a new standard for interiors that merge quality, precision, and intelligent design.",
-            mn: "Чанар, төгс шийдэл, ухаалаг дизайныг хослуулан интерьерийн ШИНЭ СТАНДАРТ ТОГТООХ.",
+        top: {
+            mn: "Стандартаас дээгүүр\nЖИШИГ ТОГТООХ",
+            en: "SETTING A NEW\nBENCHMARK",
         },
+        bottom: { mn: "АЛСЫН ХАРАА", en: "VISION" },
     },
     {
-        stop: "02",
-        label: { en: "Mission", mn: "Эрхэм зорилго" },
-        description: { en: "Mission", mn: "Эрхэм зорилго" },
-        image: "/",
-        text: {
-            en: "Turn every client vision into a built environment with creative, high-quality execution.",
-            mn: "Захиалагчдын төсөөллийг чанартай, бүтээлч гүйцэтгэлээр ШИНЭЛЭГ ИНТЕРЬЕРИЙН ШИЙДЭЛ санал болгоно.",
+        top: {
+            mn:
+                "Төсөөллөөс бодит гүйцэтгэл\nхүртэлх бүхий л үйл явцыг\nдэвшилтэт аргачилал ашиглан\nмэргэжлийн ур чадвартай хамт олон\nхийж гүйцэтгэдэг.\n\nЧАНАР, ХЭРЭГЛЭЭ,\nДИЗАЙНЫ тэнцвэрийг бүрдүүлж\nсэтгэл ханамжийг бий болгох",
+            en:
+                "From concept to completion,\nwe deliver every stage using\nadvanced methodologies.\n\nBalancing QUALITY, FUNCTION,\nand DESIGN for full satisfaction.",
         },
+        bottom: { mn: "ЭРХЭМ ЗОРИЛГО", en: "MISSION" },
     },
     {
-        stop: "03",
-        label: { en: "Goals", mn: "Зорилт" },
-        description: { en: "Goals", mn: "Зорилт" },
-        image: "",
-        text: {
-            en: "Grow our portfolio of successful builds and expand our position in the market.",
-            mn: "Амжилттай хэрэгжүүлсэн төслүүдийн тоог нэмэгдүүлж, зах зээлд БАЙР СУУРИА ӨРГӨЖҮҮЛЭХ.",
+        top: {
+            mn:
+                "Эерэг хандлагаар нэгдэн\nмэргэжлийн багийн хүчээр,\nбид сэтгэл ханамжийг\nстандарт бус, харин\nжишиг болтол нь бүтээдэг",
+            en:
+                "United by a positive mindset\nand professional teamwork,\nwe build satisfaction not as\na standard — but a benchmark.",
         },
+        bottom: { mn: "ҮНЭТ ЗҮЙЛ", en: "VALUES" },
+    },
+    {
+        top: {
+            mn:
+                "2022 онд байгуулагдсан “Урбан Уорлд” ХХК\nнь интерьер дизайны зөвлөгөө, зураг төсөл,\nдотоод засал, тохижилт гүйцэтгэх чиглэлээр\nүйл ажиллагаа явуулдаг үндэсний компани.",
+            en:
+                "Founded in 2022, Urban World LLC\ndelivers interior consulting, design\nand fit-out as a Mongolian practice.",
+        },
+        bottom: { mn: "ТАНИЛЦУУЛГА", en: "INTRO" },
     },
 ];
 
 export default function About() {
     const { language } = useLanguage();
-    const [active, setActive] = useState<number>(0);
-    const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const { theme } = useTheme();
+    const [active, setActive] = useState<number | null>(null);
 
-    const handleEnter = (index: number) => {
-        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-        hoverTimeout.current = setTimeout(() => setActive(index), 100);
-    };
-
-    const handleLeave = () => {
-        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-        setActive(0);
-    };
+    const isDark = theme === "dark";
 
     return (
         <section
             id="about"
-            className="relative overflow-hidden bg-[#222222] pt-32 pb-12 text-[#fffdef] min-h-screen flex flex-col justify-center"
+            className={`relative overflow-hidden py-28 scroll-mt-24 ${
+                isDark ? "bg-[#181818] text-[#fffdef]" : "bg-[#ece8e1] text-[#111111]"
+            }`}
         >
-            <div className="container mx-auto flex max-w-7xl flex-col items-start gap-20 px-6 lg:flex-row lg:items-start">
-                {/* LEFT TEXT */}
-                <div className="flex flex-1 flex-col justify-start">
-                    <p className="mb-3 text-[11px] uppercase tracking-[0.4em]">
-                        {language === "mn" ? "Бидний тухай" : "About us"}
+            <div
+                className={`pointer-events-none absolute inset-0 ${
+                    isDark
+                        ? "bg-gradient-to-b from-black/10 via-transparent to-black/20"
+                        : "bg-gradient-to-b from-[rgba(244,241,235,0.20)] via-transparent to-black/[0.02]"
+                }`}
+            />
+
+            <div className="relative container mx-auto max-w-7xl px-6">
+                <div className="mb-24">
+                    <p
+                        className={`mb-3 text-[11px] uppercase tracking-[0.4em] ${
+                            isDark ? "text-white" : "text-[#111111]/68"
+                        }`}
+                    >
+                        {language === "mn" ? "БИДНИЙ ТУХАЙ" : "ABOUT"}
                     </p>
 
-                    <h2 className="mb-6 text-5xl leading-tight text-[#fffdef] lg:text-4xl">
-                        URBAN W0RLD LLC
+                    <h2
+                        className={`text-4xl lg:text-5xl leading-tight font-light ${
+                            isDark ? "text-white" : "text-[#111111]"
+                        }`}
+                    >
+                        URBAN WORLD LLC
                     </h2>
+                </div>
 
-                    {/* Dynamic vision / mission / goal text with animation */}
-                    <div className="max-w-xl">
+                <div className="relative">
+                    {/* background logo */}
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                         <div
-                            key={`${language}-${active}`}
-                            className="fade-slide-up space-y-3"
+                            className={`relative w-full aspect-[16/7] ${
+                                isDark ? "opacity-[0.06]" : "opacity-[0.08]"
+                            }`}
                         >
-                            <p className="text-[11px] uppercase tracking-[0.35em] text-[#fffdef]">
-                                {journey[active].description[language]}
-                            </p>
-                            <p className="text-lg font-light leading-relaxed text-[#fffdef]">
-                                {journey[active].text[language]}
-                            </p>
+                            <Image
+                                src={isDark ? "/uw-logo-Photoroom.png" : "/Unknown-3-Photoroom.png"}
+                                alt="logo"
+                                fill
+                                priority
+                                className="object-contain"
+                            />
                         </div>
                     </div>
 
-                    {/* Static company description – always visible */}
                     <div
-                        className={` mt-10 max-w-xl space-y-4 border-t border-slate-200 pt-6 leading-relaxed
-                        ${language === "mn" ? "text-sm " : "text-base"}
-                    `}
+                        className="relative grid grid-cols-1 gap-6 md:grid-cols-4"
+                        onMouseLeave={() => setActive(null)}
                     >
-                        <p>
-                            {language === "mn"
-                                ? "2022 онд байгуулагдсан “Урбан Уорлд” ХХК нь интерьер дизайны зөвлөгөө өгөх, зураг төсөл боловсруулах, дотоод засал, тохижилт гүйцэтгэх чиглэлээр үйл ажиллагаа явуулдаг үндэсний компани юм. Бид богино хугацаанд салбартаа байр сууриа эзэлж, мэргэжлийн бүтээлч залуу багийн хүчээр өсөн дэвшиж байна."
-                                : "Urban World LLC was founded in 2022 as a Mongolian interior design practice delivering consulting, design documentation, fit-out, and furnishing. In a short time, our young, creative team has built a strong position in the market."}
-                        </p>
-
-                        <p>
-                            {language === "mn"
-                                ? "Манай компани нь архитектор, интерьер тавилгын дизайнер болон инженер, техникийн ажилчид зэрэг чиглэл бүрээр мэргэшсэн 20 гаруй мэргэжилтнээс бүрддэг."
-                                : "Our company is composed of more than 20 highly skilled professionals, including architects, interior and furniture designers, as well as engineers and technical specialists."}
-                        </p>
-
-                        <p>
-                            {language === "mn"
-                                ? "Өнгөрсөн хугацаанд бид том, жижиг нийлсэн 30 гаруй төслийг амжилттай гүйцэтгэсэн туршлагатай."
-                                : "To date we have completed more than 30 projects of all scales with a focus on quality delivery."}
-                        </p>
-                    </div>
-                </div>
-
-                {/* RIGHT — LARGE CARDS */}
-                <div className="w-full flex-1">
-                    <div className="flex h-[440px] w-full gap-6 md:h-[520px]">
-                        {journey.map((item, index) => {
-                            const isActive = index === active;
+                        {cols.map((c, i) => {
+                            const isActive = active === i;
 
                             return (
                                 <div
-                                    key={item.stop}
-                                    onMouseEnter={() => handleEnter(index)}
-                                    onMouseLeave={handleLeave}
-                                    className={
-                                        "relative cursor-pointer overflow-hidden transition-all duration-[550ms] ease-[cubic-bezier(.25,.1,.25,1)] " +
-                                        (isActive
-                                            ? "flex-[5] scale-[1.02] bg-[#3a3a3a]"
-                                            : "flex-[2.2] scale-[0.99] bg-[#2a2a2a]")
-                                    }
+                                    key={i}
+                                    onMouseEnter={() => setActive(i)}
+                                    onClick={() => setActive(active === i ? null : i)}
+                                    className="relative flex min-h-[420px] flex-col items-center justify-center"
                                 >
-                                    {/* <Image
-                                        src={item.image}
-                                        alt={item.label[language]}
-                                        fill
-                                        className="object-cover"
-                                    /> */}
+                                    {/* hover card only */}
+                                    <div
+                                        className={[
+                                            "absolute inset-0 rounded-[28px] transition-all duration-500 ease-out",
+                                            isActive
+                                                ? isDark
+                                                    ? "border border-white/16 bg-white/[0.05] shadow-[0_20px_60px_rgba(0,0,0,0.30)] backdrop-blur-[2px] opacity-100"
+                                                    : "border border-black/8 bg-[rgba(248,245,239,0.70)] shadow-[0_14px_36px_rgba(0,0,0,0.06)] backdrop-blur-[2px] opacity-100"
+                                                : "border border-transparent bg-transparent opacity-0",
+                                        ].join(" ")}
+                                    />
 
-                                    {/* Gradient for text readability */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                                    {/* vertical label */}
+                                    <div
+                                        className={[
+                                            "absolute inset-0 flex items-center justify-center transition-all duration-500",
+                                            i === 0
+                                                ? "translate-x-5 md:translate-x-6"
+                                                : "",
+                                            isActive
+                                                ? "pointer-events-none scale-95 opacity-0 blur-sm"
+                                                : "scale-100 opacity-100",
+                                        ].join(" ")}
+                                    >
+                                        <p
+                                            className={`text-[11px] md:text-[12px] tracking-[0.32em] md:tracking-[0.42em] ${
+                                                isDark ? "text-white/55" : "text-[#111111]/38"
+                                            } ${
+                                                active === i
+                                                    ? "whitespace-normal md:whitespace-nowrap"
+                                                    : "whitespace-normal md:whitespace-nowrap"
+                                            } rotate-0 md:rotate-90`}
+                                        >
+                                            {c.bottom[language]}
+                                        </p>
+                                    </div>
 
-                                    {isActive ? (
-                                        <div className="absolute bottom-6 left-6 right-6 text-white drop-shadow-xl">
-                                            <p className="text-[10px] uppercase tracking-[0.35em] text-white/70">
-                                                {item.stop}
-                                            </p>
-                                            <h3 className="mt-2 text-2xl font-light tracking-tight md:text-3xl lg:text-4xl">
-                                                {item.label[language]}
-                                            </h3>
-                                            <p className="mt-3 text-[10px] uppercase tracking-[0.35em] text-white/80">
-                                                {item.description[language]}
+                                    {/* hover content */}
+                                    <div
+                                        className={[
+                                            "absolute inset-0 flex items-center justify-center px-8 transition-all duration-500",
+                                            isActive
+                                                ? "translate-y-0 opacity-100"
+                                                : "pointer-events-none translate-y-4 opacity-0",
+                                        ].join(" ")}
+                                    >
+                                        <div className="max-w-[230px]">
+                                            <p
+                                                className={`whitespace-pre-line text-center text-[13px] leading-[2.05] tracking-[0.015em] font-light ${
+                                                    isDark ? "text-white" : "text-[#111111]"
+                                                }`}
+                                                style={{ textWrap: "pretty" }}
+                                            >
+                                                {c.top[language]}
                                             </p>
                                         </div>
-                                    ) : (
-                                        <p className="absolute bottom-14 left-1/2 -translate-x-1/2 rotate-90 text-xl font-light tracking-[0.32em] text-white/75 drop-shadow">
-                                            {item.label[language]}
-                                        </p>
-                                    )}
+                                    </div>
+
+                                    {/* top line */}
+                                    <div
+                                        className={[
+                                            "pointer-events-none absolute left-6 right-6 top-8 h-px transition-all duration-500",
+                                            isActive
+                                                ? isDark
+                                                    ? "bg-white/10"
+                                                    : "bg-black/10"
+                                                : "bg-transparent opacity-0",
+                                        ].join(" ")}
+                                    />
+
+                                    {/* bottom line */}
+                                    <div
+                                        className={[
+                                            "pointer-events-none absolute bottom-8 left-6 right-6 h-px transition-all duration-500",
+                                            isActive
+                                                ? isDark
+                                                    ? "bg-white/10"
+                                                    : "bg-black/10"
+                                                : "bg-transparent opacity-0",
+                                        ].join(" ")}
+                                    />
                                 </div>
                             );
                         })}
                     </div>
                 </div>
             </div>
-
-            {/* Animation styles */}
-            <style jsx>{`
-                @keyframes fadeSlideUp {
-                    0% {
-                        opacity: 0;
-                        transform: translateY(14px);
-                    }
-                    100% {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-
-                .fade-slide-up {
-                    animation: fadeSlideUp 1.2s ease-out;
-                }
-            `}</style>
         </section>
     );
 }
