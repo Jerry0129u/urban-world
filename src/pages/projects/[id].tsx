@@ -1,12 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
-import { type GetStaticPaths, type GetStaticProps, type InferGetStaticPropsType } from "next";
+import {
+    type GetStaticPaths,
+    type GetStaticProps,
+    type InferGetStaticPropsType,
+} from "next";
 import { useEffect, useMemo, useState } from "react";
 
 import Navbar from "@/components/Navbar";
 import Comparison from "@/components/Comparison";
+import ComparisonGrid from "@/components/ComparisionGrid";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { type BeforeAfter, type LocalizedShot, type Project, projects } from "@/data/projects";
+import { useTheme } from "@/contexts/ThemeContext";
+import {
+    type BeforeAfter,
+    type LocalizedShot,
+    type Project,
+    projects,
+} from "@/data/projects";
 import styles from "./ProjectDetail.module.css";
 
 type ProjectDetailProps = {
@@ -20,6 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => ({
 
 export const getStaticProps: GetStaticProps<ProjectDetailProps> = async ({ params }) => {
     const project = projects.find((item) => item.id === params?.id);
+
     if (!project) {
         return { notFound: true };
     }
@@ -35,6 +47,9 @@ export default function ProjectDetail({
                                           project,
                                       }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { language } = useLanguage();
+    const { theme } = useTheme();
+    const isDark = theme === "dark";
+
     type ProjectSlide = { projectId: string; shot: LocalizedShot };
 
     const sliderShots = useMemo<ProjectSlide[]>(() => {
@@ -42,6 +57,7 @@ export default function ProjectDetail({
             .map((item) => {
                 const primary = item.cover ?? item.gallery?.[0]?.src ?? item.shots?.[0]?.src;
                 if (!primary) return null;
+
                 return {
                     projectId: item.id,
                     shot: {
@@ -67,17 +83,15 @@ export default function ProjectDetail({
     const slideCount = sliderShots.length;
     const safeIndex = slideCount > 0 ? ((index % slideCount) + slideCount) % slideCount : 0;
 
-    const activeProject = useMemo(
-        () => {
-            const activeId = slideCount > 0 ? sliderShots[safeIndex].projectId : project.id;
-            return projects.find((item) => item.id === activeId) ?? project;
-        },
-        [project, safeIndex, slideCount, sliderShots],
-    );
+    const activeProject = useMemo(() => {
+        const activeId = slideCount > 0 ? sliderShots[safeIndex].projectId : project.id;
+        return projects.find((item) => item.id === activeId) ?? project;
+    }, [project, safeIndex, slideCount, sliderShots]);
 
     const galleryShots = useMemo<LocalizedShot[]>(() => {
         const seen = new Set<string>();
         const combined = [...(activeProject.gallery ?? []), ...(activeProject.shots ?? [])];
+
         const deduped = combined.filter((shot) => {
             if (seen.has(shot.src)) return false;
             seen.add(shot.src);
@@ -102,8 +116,10 @@ export default function ProjectDetail({
     const computedBeforeAfter: BeforeAfter | null = useMemo(() => {
         if (activeProject.beforeAfter) return activeProject.beforeAfter;
         if (galleryShots.length < 2) return null;
+
         const beforeShot = galleryShots[0];
         const afterShot = galleryShots[1];
+
         return {
             before: {
                 image: beforeShot.src,
@@ -147,19 +163,20 @@ export default function ProjectDetail({
         return "idle";
     };
 
-
     const [showComparison, setShowComparison] = useState(false);
-    const hasComparison = Boolean(computedBeforeAfter);
+    const hasComparison = Boolean(activeProject.comparisons?.length || computedBeforeAfter);
 
     useEffect(() => {
         setShowComparison(false);
-    }, [activeProject.id, computedBeforeAfter]);
+    }, [activeProject.id, computedBeforeAfter, activeProject.comparisons?.length]);
 
     useEffect(() => {
         if (!showComparison) return undefined;
+
         const handleEsc = (event: KeyboardEvent) => {
             if (event.key === "Escape") setShowComparison(false);
         };
+
         window.addEventListener("keydown", handleEsc);
         return () => window.removeEventListener("keydown", handleEsc);
     }, [showComparison]);
@@ -168,18 +185,48 @@ export default function ProjectDetail({
         <>
             <Head>
                 <title>{`${activeProject.title[language]} — Urban World`}</title>
-                <meta name="description" content={activeProject.description[language]} />
             </Head>
-            <div className={styles.page}>
-                <Navbar />
-                <div className={styles.backdrop} aria-hidden="true" />
-                <main className={styles.content}>
 
-                    {/* МЕТА МЭДЭЭЛЭЛ: Зөвхөн төслийн нэр харагдана */}
+            <div
+                className={styles.page}
+                style={{
+                    background: isDark ? "#111111" : "#ece8e1",
+                    color: isDark ? "#fffdef" : "#111111",
+                }}
+            >
+                <Navbar />
+
+                <div
+                    className={styles.backdrop}
+                    aria-hidden="true"
+                    style={{
+                        opacity: isDark ? 1 : 0.22,
+                    }}
+                />
+
+                <main className={styles.content}>
                     <div className={styles.metaRow}>
-                        <div className={styles.metaCard}>
-                            <p className={styles.metaLabel}>{copy.bottom.title[language]}</p>
-                            <p className={styles.metaValue}>{activeProject.title[language]}</p>
+                        <div
+                            className={styles.metaCard}
+                            style={{
+                                background: isDark ? undefined : "rgba(248,245,239,0.74)",
+                                borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                boxShadow: isDark ? undefined : "0 14px 36px rgba(0,0,0,0.07)",
+                            }}
+                        >
+                            <p
+                                className={styles.metaLabel}
+                                style={{ color: isDark ? undefined : "rgba(17,17,17,0.52)" }}
+                            >
+                                {copy.bottom.title[language]}
+                            </p>
+
+                            <p
+                                className={styles.metaValue}
+                                style={{ color: isDark ? undefined : "#111111" }}
+                            >
+                                {activeProject.title[language]}
+                            </p>
                         </div>
                     </div>
 
@@ -187,10 +234,15 @@ export default function ProjectDetail({
                         <div className={styles.galleryGrid}>
                             {galleryShots.map((shot, shotIndex) => {
                                 const isHero = shotIndex === 0;
+
                                 return (
                                     <figure
                                         key={`${activeProject.id}-${shot.src}-${shotIndex}`}
                                         className={`${styles.galleryItem} ${galleryLayoutClass(shotIndex)}`}
+                                        style={{
+                                            background: isDark ? undefined : "#e3dfd7",
+                                            boxShadow: isDark ? undefined : "0 14px 36px rgba(0,0,0,0.07)",
+                                        }}
                                     >
                                         <Image
                                             src={shot.src}
@@ -202,11 +254,15 @@ export default function ProjectDetail({
 
                                         {shotIndex === 0 && (
                                             <div className={styles.heroTextGroup}>
-                                                <h1 className={styles.heroTitleInHero}>
-                                                    {activeProject.title[language]}
-                                                </h1>
-
-                                                <p className={styles.heroSubtitleBadge}>
+                                                <p
+                                                    className={styles.heroSubtitleBadge}
+                                                    style={{
+                                                        color: isDark ? undefined : "#111111",
+                                                        background: isDark ? undefined : "rgba(248,245,239,0.76)",
+                                                        border: isDark ? undefined : "1px solid rgba(0,0,0,0.06)",
+                                                        boxShadow: isDark ? undefined : "0 8px 22px rgba(0,0,0,0.06)",
+                                                    }}
+                                                >
                                                     ИНТЕРЬЕРИЙН ЗУРАГ ТӨСӨЛ
                                                 </p>
                                             </div>
@@ -217,6 +273,12 @@ export default function ProjectDetail({
                                                 type="button"
                                                 className={styles.comparisonButton}
                                                 onClick={() => setShowComparison(true)}
+                                                style={{
+                                                    background: isDark ? undefined : "rgba(248,245,239,0.84)",
+                                                    color: isDark ? undefined : "#111111",
+                                                    borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                                    boxShadow: isDark ? undefined : "0 10px 24px rgba(0,0,0,0.08)",
+                                                }}
                                             >
                                                 ↔ {language === "mn" ? "Харьцуулах" : "Compare"}
                                             </button>
@@ -229,13 +291,20 @@ export default function ProjectDetail({
 
                     <section className={styles.sliderSection} aria-label={copy.sliderLabel[language]}>
                         <div className={styles.selectorHeader}>
-                            <p className={styles.selectorLabel}>{copy.selection[language]}</p>
+                            <p
+                                className={styles.selectorLabel}
+                                style={{ color: isDark ? undefined : "rgba(17,17,17,0.66)" }}
+                            >
+                                {copy.selection[language]}
+                            </p>
                         </div>
+
                         <div className={styles.sliderShell}>
                             <div className={styles.sliderTrack}>
                                 {slides.map((slide, slideIndex) => {
                                     const state = slideState(slideIndex);
                                     const isActive = state === "active";
+
                                     return (
                                         <article
                                             key={`${slide.projectId}-${slide.shot.src}-${slideIndex}`}
@@ -250,6 +319,10 @@ export default function ProjectDetail({
                                                     setIndex(slideIndex);
                                                 }
                                             }}
+                                            style={{
+                                                background: isDark ? undefined : "#e3dfd7",
+                                                boxShadow: isDark ? undefined : "0 12px 30px rgba(0,0,0,0.06)",
+                                            }}
                                         >
                                             <div className={styles.slideImage}>
                                                 <Image
@@ -261,8 +334,21 @@ export default function ProjectDetail({
                                                     priority={slideIndex === 0}
                                                 />
                                             </div>
-                                            <div className={styles.overlay}>
-                                                <p className={styles.slideCaption}>{slide.shot.alt[language]}</p>
+
+                                            <div
+                                                className={styles.overlay}
+                                                style={{
+                                                    background: isDark
+                                                        ? undefined
+                                                        : "linear-gradient(to top, rgba(244,241,235,0.84), rgba(244,241,235,0.14), transparent)",
+                                                }}
+                                            >
+                                                <p
+                                                    className={styles.slideCaption}
+                                                    style={{ color: isDark ? undefined : "#111111" }}
+                                                >
+                                                    {slide.shot.alt[language]}
+                                                </p>
                                             </div>
                                         </article>
                                     );
@@ -276,15 +362,24 @@ export default function ProjectDetail({
                                     className={styles.controlButton}
                                     disabled={slides.length <= 1}
                                     aria-label={language === "mn" ? "Өмнөх зураг" : "Previous image"}
+                                    style={{
+                                        background: isDark ? undefined : "rgba(248,245,239,0.84)",
+                                        color: isDark ? undefined : "#111111",
+                                        borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                        boxShadow: isDark ? undefined : "0 8px 20px rgba(0,0,0,0.05)",
+                                    }}
                                 >
                                     <span aria-hidden="true">←</span> {copy.previous[language]}
                                 </button>
+
                                 <div className={styles.progress}>
                                     {slides.map((slide, dotIndex) => (
                                         <button
                                             key={`progress-${slide.projectId}-${dotIndex}`}
                                             type="button"
-                                            className={`${styles.progressDot} ${dotIndex === safeIndex ? styles.progressDotActive : ""}`}
+                                            className={`${styles.progressDot} ${
+                                                dotIndex === safeIndex ? styles.progressDotActive : ""
+                                            }`}
                                             aria-label={
                                                 language === "mn"
                                                     ? `${dotIndex + 1}-р зураг руу очих`
@@ -294,12 +389,19 @@ export default function ProjectDetail({
                                         />
                                     ))}
                                 </div>
+
                                 <button
                                     type="button"
                                     onClick={() => setIndex(nextIndex)}
                                     className={styles.controlButton}
                                     disabled={slides.length <= 1}
                                     aria-label={language === "mn" ? "Дараагийн зураг" : "Next image"}
+                                    style={{
+                                        background: isDark ? undefined : "rgba(248,245,239,0.84)",
+                                        color: isDark ? undefined : "#111111",
+                                        borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                        boxShadow: isDark ? undefined : "0 8px 20px rgba(0,0,0,0.05)",
+                                    }}
                                 >
                                     {copy.next[language]} <span aria-hidden="true">→</span>
                                 </button>
@@ -307,23 +409,62 @@ export default function ProjectDetail({
                         </div>
                     </section>
 
-                    {hasComparison && showComparison && computedBeforeAfter && (
-                        <div className={styles.comparisonOverlay} role="dialog" aria-label={language === "mn" ? "Өмнө ба дараах харьцуулалт" : "Before and after comparison"}>
-                            <div className={styles.comparisonCard}>
+                    {hasComparison && showComparison && (
+                        <div
+                            className={styles.comparisonOverlay}
+                            role="dialog"
+                            aria-label={
+                                language === "mn"
+                                    ? "Өмнө ба дараах харьцуулалт"
+                                    : "Before and after comparison"
+                            }
+                            style={{
+                                background: isDark
+                                    ? "rgba(0,0,0,0.68)"
+                                    : "rgba(236,232,225,0.78)",
+                                backdropFilter: "blur(8px)",
+                            }}
+                        >
+                            <div
+                                className={styles.comparisonCard}
+                                style={{
+                                    background: isDark ? undefined : "rgba(248,245,239,0.78)",
+                                    borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                    boxShadow: isDark ? undefined : "0 18px 44px rgba(0,0,0,0.08)",
+                                }}
+                            >
                                 <div className={styles.overlayHeader}>
-                                    <p className={styles.overlayTitle}>
+                                    <p
+                                        className={styles.overlayTitle}
+                                        style={{ color: isDark ? undefined : "#111111" }}
+                                    >
                                         {language === "mn" ? "Өмнө / Дараа" : "Before / After"}
                                     </p>
+
                                     <button
                                         type="button"
                                         className={styles.overlayClose}
                                         onClick={() => setShowComparison(false)}
-                                        aria-label={language === "mn" ? "Харьцуулалтыг хаах" : "Close comparison"}
+                                        aria-label={
+                                            language === "mn"
+                                                ? "Харьцуулалтыг хаах"
+                                                : "Close comparison"
+                                        }
+                                        style={{
+                                            background: isDark ? undefined : "rgba(248,245,239,0.9)",
+                                            color: isDark ? undefined : "#111111",
+                                            borderColor: isDark ? undefined : "rgba(0,0,0,0.08)",
+                                        }}
                                     >
                                         {language === "mn" ? "Хаах" : "Close"}
                                     </button>
                                 </div>
-                                <Comparison beforeAfter={computedBeforeAfter} />
+
+                                {activeProject.comparisons?.length ? (
+                                    <ComparisonGrid items={activeProject.comparisons} />
+                                ) : computedBeforeAfter ? (
+                                    <Comparison beforeAfter={computedBeforeAfter} />
+                                ) : null}
                             </div>
                         </div>
                     )}

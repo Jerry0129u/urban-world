@@ -8,6 +8,7 @@ export type LocalizedShot = {
     src: string;
     alt: LocalizedText;
     layout?: ShotLayout;
+    positionY?: string;
 };
 
 export type ProjectStat = {
@@ -28,6 +29,10 @@ export type BeforeAfter = {
     };
 };
 
+export type ComparisonPair = BeforeAfter & {
+    id: string;
+};
+
 export type ProjectTag = "interior-painting" | "plaster-performance";
 
 export type Project = {
@@ -45,6 +50,7 @@ export type Project = {
     shots: LocalizedShot[];
     gallery: LocalizedShot[];
     beforeAfter?: BeforeAfter;
+    comparisons?: ComparisonPair[];
     highlight?: LocalizedText;
     tags?: ProjectTag[];
 };
@@ -57,11 +63,17 @@ export type ProjectCategory = {
     accent?: string;
 };
 
-const makeShot = (src: string, en: string, mn: string, layout?: ShotLayout): LocalizedShot => {
+const makeShot = (
+    src: string,
+    en: string,
+    mn: string,
+    layout?: ShotLayout
+): LocalizedShot => {
     const base: LocalizedShot = {
         src,
         alt: { en, mn },
     };
+
     if (layout) base.layout = layout;
     return base;
 };
@@ -72,44 +84,161 @@ const comingSoonGallery = [comingSoonShot];
 const unsortedProjects: Project[] = [
     {
         id: "dragon-terminal",
-        title: { en: "Shine Ulaanbaatar Dragon Terminal", mn: "Шинэ Улаанбаатар Драгон терминал" },
+        title: {
+            en: "Shine Ulaanbaatar Dragon Terminal",
+            mn: "Шинэ Улаанбаатар Драгон терминал",
+        },
         location: { en: "", mn: "" },
         description: {
             en: "New Dragon terminal fit-out coordinated across districts.",
             mn: "Драгон терминалын шинэчлэл, олон дүүрэг дамнасан гүйцэтгэл.",
         },
-        cover: "/new dragon/Screenshot 2025-12-19 at 16.11.57.png",
+        cover: "/Dragon/15.jpg",
         palette: "from-amber-300/20 via-white/5 to-white/0",
         stats: [],
         shots: [
-            makeShot("/new dragon/484850189_634016686272365_2178969295659040394_n.jpg", "Terminal entry hall", "Терминалын орох танхим", "wide"),
-            makeShot("/new dragon/Screenshot 2025-12-19 at 16.11.02.png", "Glass corridor lighting", "Шилэн коридор, гэрэлтүүлэг", "square"),
-            makeShot("/new dragon/485741995_634016859605681_1354489228861073968_n.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/17.jpg", "Terminal entry hall", "Терминалын орох танхим", "wide"),
+            makeShot("/Dragon/16.jpg", "Glass corridor lighting", "Шилэн коридор, гэрэлтүүлэг", "square"),
+            makeShot("/Dragon/22.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/20.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/21.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/18.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/19.png", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
+            makeShot("/Dragon/15.jpg", "Passenger lounge seating", "Зорчигчдын хүлээлгийн суудал", "square"),
         ],
-        gallery: [
-
+        gallery: [],
+        comparisons: [
+            {
+                id: "dragon-17-15",
+                before: {
+                    image: "/Dragon/15.jpg",
+                    title: { mn: "№16", en: "#17" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/Dragon/16.jpg",
+                    title: { mn: "№15", en: "#15" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "dragon-16-22",
+                before: {
+                    image: "/Dragon/17.jpg",
+                    title: { mn: "№17", en: "#16" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/Dragon/18.jpg",
+                    title: { mn: "№22", en: "#22" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "dragon-20-21",
+                before: {
+                    image: "/Dragon/19.png",
+                    title: { mn: "№20", en: "#20" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/Dragon/20.jpg",
+                    title: { mn: "№21", en: "#21" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "dragon-18-19",
+                before: {
+                    image: "/Dragon/21.jpg",
+                    title: { mn: "№18", en: "#18" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/Dragon/22.jpg",
+                    title: { mn: "№19", en: "#19" },
+                    detail: { mn: "", en: "" },
+                },
+            },
         ],
     },
     {
         id: "ic-tower",
-        title: { en: "IC Tower 1-15 floors interior", mn: "“IC Tower”-ын 1-15 давхарын дотоод засал" },
+        title: {
+            en: "IC Tower 1-15 floors interior",
+            mn: "“IC Tower”-ын 1-15 давхарын дотоод засал",
+        },
         location: { en: "", mn: "" },
         description: {
             en: "Full interior build-out across fifteen floors.",
             mn: "15 давхарын иж бүрэн дотоод засал.",
         },
-        cover: comingSoonShot.src,
+        cover: "/ICtower/35.jpg",
         palette: "from-cyan-300/20 via-white/5 to-white/0",
         stats: [],
         shots: comingSoonGallery,
         gallery: [
-            makeShot("/Genesis/SR1.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/R2.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/R6.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/R8.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/R9.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/r11.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
-        ]
+            makeShot("/ICtower/30.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/ICtower/R6.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/ICtower/R8.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/ICtower/29.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/ICtower/R11.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/ICtower/R2.jpg", "Open office overview", "Нээлттэй ажлын талбай"),
+        ],
+        comparisons: [
+            {
+                id: "28-29",
+                before: {
+                    image: "/ICtower/28.jpg",
+                    title: { mn: "№28", en: "#28" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/ICtower/29.jpg",
+                    title: { mn: "№29", en: "#29" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "30-31",
+                before: {
+                    image: "/ICtower/30.jpg",
+                    title: { mn: "№30", en: "#30" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/ICtower/31.jpg",
+                    title: { mn: "№31", en: "#31" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "32-33",
+                before: {
+                    image: "/ICtower/32.jpg",
+                    title: { mn: "№32", en: "#32" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/ICtower/33.jpg",
+                    title: { mn: "№33", en: "#33" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "34-35",
+                before: {
+                    image: "/ICtower/34.jpg",
+                    title: { mn: "№34", en: "#34" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/ICtower/35.jpg",
+                    title: { mn: "№35", en: "#35" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+        ],
     },
     {
         id: "byd-showroom",
@@ -151,13 +280,13 @@ const unsortedProjects: Project[] = [
     },
     {
         id: "private-house-interior",
-        title: { en: "Private house interior design", mn: "Хувийн хаусны интерьер дизайн" },
+        title: { en: "House interior design", mn: "Хаусны интерьер дизайн" },
         location: { en: "", mn: "" },
         description: {
-            en: "Tailored interior for a private house.",
-            mn: "Хувийн хаусны захиалгат интерьер.",
+            en: "Tailored interior for house.",
+            mn: "Хаусны захиалгат интерьер.",
         },
-        cover: "/personal house/Enscape_2026-01-30-18-16-34.png",
+        cover: "/PersHous/1.png",
         palette: "from-amber-300/15 via-white/5 to-white/0",
         stats: [],
         shots: [
@@ -166,12 +295,15 @@ const unsortedProjects: Project[] = [
             makeShot("/personal house/Enscape_2025-09-19-18-01-54_Enscape scene 6.png", "Dining and kitchen view", "Гал тогоо, зоогийн хэсэг", "square"),
         ],
         gallery: [
-            makeShot("/personal house/Enscape_2026-01-30-18-16-34.png", "Living room panorama", "Зочны өрөөний харагдац"),
-            makeShot("/personal house/Enscape_2026-02-03-11-42-12.png", "Open living area", "Нээлттэй зочны хэсэг"),
-            makeShot("/personal house/Enscape_2026-02-02-17-50-59.png", "Dining and kitchen view", "Гал тогоо, зоогийн хэсэг"),
-            makeShot("/personal house/Enscape_2026-02-03-18-34-30.png", "Entry perspective", "Орох хэсгийн харагдац"),
-            makeShot("/personal house/Enscape_2026-02-04-17-19-40.png", "Bedroom corner", "Унтлагын өрөөний булан"),
-            makeShot("/personal house/Enscape_2026-02-06-20-04-58.png", "Bedroom corner", "Унтлагын өрөөний булан"),
+            makeShot("/PersHous/4.png", "Living room panorama", "Зочны өрөөний харагдац"),
+            makeShot("/PersHous/2.png", "Open living area", "Нээлттэй зочны хэсэг"),
+            {
+                ...makeShot("/PersHous/14.png", "Dining and kitchen view", "Гал тогоо, зоогийн хэсэг"),
+                positionY: "90%",
+            },
+            makeShot("/PersHous/3.png", "Entry perspective", "Орох хэсгийн харагдац"),
+            makeShot("/PersHous/13.png", "Bedroom corner", "Унтлагын өрөөний булан"),
+            makeShot("/PersHous/8.png", "Bedroom corner", "Унтлагын өрөөний булан"),
         ],
     },
     {
@@ -182,17 +314,45 @@ const unsortedProjects: Project[] = [
             en: "Large-format retail interior refresh.",
             mn: "Том худалдааны талбайн шинэчлэл.",
         },
-        cover: "/emart/Screenshot 2025-12-19 at 15.54.54.png",
+        cover: "/emart/24.png",
         palette: "from-indigo-200/20 via-white/5 to-white/0",
         stats: [],
         shots: [
             makeShot("/emart/Screenshot 2025-12-19 at 15.55.33.png", "Hypermarket central aisle", "Хайпермаркетын төв коридор", "wide"),
-            makeShot("/emart/Screenshot 2025-12-19 at 15.54.54.png", "Checkout perspective", "Тооцооны хэсгийн харагдац", "square"),
-            makeShot("/emart/Screenshot 2025-12-19 at 15.55.19.png", "Ceiling lighting grid", "Таазны гэрэлтүүлгийн тор", "square"),
+            makeShot("/emart/27.jpg", "Ceiling lighting grid", "Таазны гэрэлтүүлгийн тор", "square"),
         ],
         gallery: [
-            makeShot("/emart/Screenshot 2025-12-19 at 15.55.33.png", "Hypermarket central aisle", "Хайпермаркетын төв коридор"),
-            makeShot("/emart/Screenshot 2025-12-19 at 15.54.54.png", "Checkout perspective", "Тооцооны хэсгийн харагдац"),
+            makeShot("/emart/25.jpg", "Hypermarket central aisle", "Хайпермаркетын төв коридор"),
+            makeShot("/emart/26.jpg", "Checkout perspective", "Тооцооны хэсгийн харагдац"),
+            makeShot("/emart/Screenshot 2025-12-19 at 15.55.19.png", "Checkout perspective", "Тооцооны хэсгийн харагдац"),
+        ],
+        comparisons: [
+            {
+                id: "emart-25-26",
+                before: {
+                    image: "/emart/24.png",
+                    title: { mn: "№25", en: "#25" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/emart/Screenshot 2025-12-19 at 15.54.54.png",
+                    title: { mn: "№26", en: "#26" },
+                    detail: { mn: "", en: "" },
+                },
+            },
+            {
+                id: "emart-27-155519",
+                before: {
+                    image: "/emart/26.jpg",
+                    title: { mn: "№27", en: "#27" },
+                    detail: { mn: "", en: "" },
+                },
+                after: {
+                    image: "/emart/Screenshot 2025-12-19 at 15.55.33.png",
+                    title: { mn: "№2", en: "#2" },
+                    detail: { mn: "", en: "" },
+                },
+            },
         ],
     },
     {
@@ -212,8 +372,8 @@ const unsortedProjects: Project[] = [
             makeShot("/Gongcha/enhanced-Enscape_2026-01-19-04-55-45.png", "Reception lounge", "Хүлээн авах хэсэг"),
             makeShot("/Gongcha/enhanced-Enscape_2026-01-19-05-07-35.png", "Workstation row", "Ажлын ширээний эгнээ"),
             makeShot("/Gongcha/enhanced-Enscape_2026-01-19-05-20-37.png", "Meeting corner", "Хурал, уулзалтын булан"),
-            makeShot("/Gongcha/enhanced-Enscape_2026-01-19-05-40-49.png", "Office overview", "Оффисын ерөнхий төлөв")
-        ]
+            makeShot("/Gongcha/enhanced-Enscape_2026-01-19-05-40-49.png", "Office overview", "Оффисын ерөнхий төлөв"),
+        ],
     },
     {
         id: "misheel-office-aaa",
@@ -240,7 +400,10 @@ const unsortedProjects: Project[] = [
     },
     {
         id: "moujonjon",
-        title: { en: "Moujonjon kids store interior", mn: "“Moujonjon” хүүхдийн хувцасны дэлгүүр - дотоод засал" },
+        title: {
+            en: "Moujonjon kids store interior",
+            mn: "“Moujonjon” хүүхдийн хувцасны дэлгүүр - дотоод засал",
+        },
         location: { en: "", mn: "" },
         description: {
             en: "Playful retail interior for a childrenswear brand.",
@@ -250,12 +413,12 @@ const unsortedProjects: Project[] = [
         palette: "from-stone-200/20 via-white/5 to-white/0",
         stats: [],
         shots: [
-            makeShot("/moujonjon/Scene_3_UNGU-2.JPG", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац", "wide"),
+            makeShot("/moujonjon/23.png", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац", "wide"),
             makeShot("/moujonjon/Scene_5-3_UNGU-2.JPG", "Display wall", "Дисплей хана", "square"),
             makeShot("/moujonjon/Scene_6_UNGU-2.JPG", "Cash wrap and shelving", "Кассын хэсэг, тавиур", "square"),
         ],
         gallery: [
-            makeShot("/moujonjon/IMG_2502.jpg", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац"),
+            makeShot("/moujonjon/23.png", "Kids store overview", "Хүүхдийн дэлгүүрийн харагдац"),
             makeShot("/moujonjon/13.jpg", "Display wall", "Дисплей хана"),
             makeShot("/moujonjon/14.jpg", "Cash wrap and shelving", "Кассын хэсэг, тавиур"),
             makeShot("/moujonjon/15.jpg", "Entrance arch", "Орох хэсгийн нум"),
@@ -266,7 +429,10 @@ const unsortedProjects: Project[] = [
     },
     {
         id: "mongol-china-expo",
-        title: { en: "Mongol-China expo concept", mn: "“Монгол - Хятад”-ын үзэсгэлэнгийн зураг төсөл" },
+        title: {
+            en: "Mongol-China expo concept",
+            mn: "“Монгол - Хятад”-ын үзэсгэлэнгийн зураг төсөл",
+        },
         location: { en: "", mn: "" },
         description: {
             en: "Exhibition design bridging two cultures.",
@@ -276,7 +442,7 @@ const unsortedProjects: Project[] = [
         palette: "from-indigo-200/20 via-white/5 to-white/0",
         stats: [],
         shots: comingSoonGallery,
-        gallery:  [
+        gallery: [
             makeShot("/MCexpo/composed-Enscape_2026-01-29-04-27-10.jpg", "Built photo 1", "Зураг 1"),
             makeShot("/MCexpo/composed-Enscape_2026-01-29-04-50-04.jpg", "Built photo 2", "Зураг 2"),
             makeShot("/MCexpo/composed-Enscape_2026-01-29-11-19-07.jpg", "Built photo 3", "Зураг 3"),
@@ -284,29 +450,32 @@ const unsortedProjects: Project[] = [
             makeShot("/MCexpo/composed-Enscape_2026-01-29-11-52-11.jpg", "Built photo 5", "Зураг 5"),
             makeShot("/MCexpo/composed-Enscape_2026-01-29-12-34-32.jpg", "Built photo 6", "Зураг 6"),
             makeShot("/MCexpo/enhanced-Enscape_2026-01-29-04-14-12.jpg", "Built photo 7", "Зураг 7"),
-        ]
+        ],
     },
 ];
 
 const projectsWithPlaceholderComparison: Project[] = unsortedProjects.map((project) => ({
     ...project,
-    beforeAfter: {
-        before: {
-            image: comingSoonShot.src,
-            title: comingSoonShot.alt,
-            detail: { en: "", mn: "" },
+    beforeAfter:
+        project.beforeAfter ??
+        {
+            before: {
+                image: comingSoonShot.src,
+                title: comingSoonShot.alt,
+                detail: { en: "", mn: "" },
+            },
+            after: {
+                image: comingSoonShot.src,
+                title: comingSoonShot.alt,
+                detail: { en: "", mn: "" },
+            },
         },
-        after: {
-            image: comingSoonShot.src,
-            title: comingSoonShot.alt,
-            detail: { en: "", mn: "" },
-        },
-    },
 }));
 
 export const projects: Project[] = [...projectsWithPlaceholderComparison].sort((a, b) => {
     const aComingSoon = a.cover === comingSoonShot.src;
     const bComingSoon = b.cover === comingSoonShot.src;
+
     if (aComingSoon === bComingSoon) return 0;
     return aComingSoon ? 1 : -1;
 });

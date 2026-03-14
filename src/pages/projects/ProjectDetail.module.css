@@ -86,7 +86,8 @@
 
 .metaValue {
     margin: 0;
-    font-size: 15px;
+    font-size: 25px;
+    font-weight: bold;
     color: #fffdef;
     line-height: 1.6;
 }
@@ -317,15 +318,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 40px;
     z-index: 20;
 }
 
 .comparisonCard {
-    width: min(1140px,98vw);
+    width: min(940px,98vw);
     background: #111;
     border: 1px solid #3a3a3a;
-    padding: 14px 16px;
+    padding: 18px 2px;
 }
 
 .overlayHeader {
@@ -355,7 +356,7 @@
     cursor: pointer;
 }
 
-/* -------------------- RESPONSIVE ---------------------- */
+
 
 @media (max-width: 1200px) {
     .galleryItemHero { min-height: 190px; }
