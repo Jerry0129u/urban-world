@@ -27,7 +27,7 @@ export default function Navbar() {
     const activeIndexRef = useRef(0);
 
     const isDark = theme === "dark";
-    const logoSrc = isDark ? "/uw-logo-Photoroom.png" : "/image.png";
+    const logoSrc = isDark ? "/uw-logo-Photoroom.png" : "/Unknown-3-Photoroom.png";
 
     const menuButtonClass = isDark
         ? "h-12 px-6 border border-white/20 bg-transparent text-[#fffdef] hover:bg-white/10 hover:border-white"
