@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -34,7 +33,7 @@ const cols = [
     {
         top: {
             mn:
-                "2022 онд байгуулагдсан “Урбан Уорлд” ХХК\nнь интерьер дизайны зөвлөгөө, зураг төсөл,\nдотоод засал, тохижилт гүйцэтгэх чиглэлээр\nүйл ажиллагаа явуулдаг үндэсний компани.",
+                "2022 онд \nбайгуулагдсан \"Урбан Уорлд\" ХХК\nнь интерьер дизайны зөвлөгөө,\n зураг төсөл, дотоод засал, \nтохижилт гүйцэтгэх чиглэлээр\nүйл ажиллагаа явуулдаг \nүндэсний компани.",
             en:
                 "Founded in 2022, Urban World LLC\ndelivers interior consulting, design\nand fit-out as a Mongolian practice.",
         },
@@ -52,155 +51,186 @@ export default function About() {
     return (
         <section
             id="about"
-            className={`relative overflow-hidden py-28 scroll-mt-24 ${
+            className={`relative overflow-hidden scroll-mt-24 ${
                 isDark ? "bg-[#181818] text-[#fffdef]" : "bg-[#ece8e1] text-[#111111]"
             }`}
         >
-            <div
-                className={`pointer-events-none absolute inset-0 ${
-                    isDark
-                        ? "bg-gradient-to-b from-black/10 via-transparent to-black/20"
-                        : "bg-gradient-to-b from-[rgba(244,241,235,0.20)] via-transparent to-black/[0.02]"
-                }`}
-            />
+            <div className="hidden md:block py-28">
+                <div className="relative container mx-auto max-w-7xl px-6">
+                    {/* Header */}
+                    <div className="mb-5">
+                        <p className={`mb-3 text-[11px] uppercase tracking-[0.4em] ${
+                            isDark ? "text-[rgba(255,255,221,0.35)]" : "text-[rgba(0,0,0,0.35)]"
+                        }`}>
+                            {language === "mn" ? "БИДНИЙ ТУХАЙ" : "ABOUT"}
+                        </p>
+                        <h2 className="text-4xl lg:text-5xl leading-tight font-light">
+                            URBAN WORLD LLC
+                        </h2>
+                    </div>
 
-            <div className="relative container mx-auto max-w-7xl px-6">
-                <div className="mb-24">
-                    <p
-                        className={`mb-3 text-[11px] uppercase tracking-[0.4em] ${
-                            isDark ? "text-white" : "text-[#111111]/68"
-                        }`}
+                    <div
+                        className="relative"
+                        onMouseLeave={() => setActive(null)}
                     >
+                        <img
+                            src="/uw-logo-Photoroom.png"
+                            alt="Urban World logo"
+                            className="w-full h-auto block transition-opacity duration-500"
+                            style={{
+                                opacity: active !== null ? 0.2 : 1,
+                                filter: isDark ? "invert(1)" : "none",
+                            }}
+                        />
+
+                        <div className="absolute inset-0 grid grid-cols-4" style={{height: "100%"}}>
+                            {cols.map((c, i) => {
+                                const isActive = active === i;
+                                return (
+                                    <div
+                                        key={i}
+                                        onMouseEnter={() => setActive(i)}
+                                        onClick={() => setActive(active === i ? null : i)}
+                                        className="relative flex items-center justify-center cursor-pointer select-none overflow-hidden"
+                                    >
+                                        <div
+                                            className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center overflow-hidden"
+                                            style={{
+                                                opacity: isActive ? 1 : 0,
+                                                transition: "opacity 0.32s ease 0.06s",
+                                                pointerEvents: "none",
+                                            }}
+                                        >
+                                            <p
+                                                className={`whitespace-pre-line text-center text-[9px] leading-[1.75] mb-2 ${
+                                                    isDark
+                                                        ? "text-[rgba(255,255,221,0.9)]"
+                                                        : "text-[rgba(0,0,0,0.78)]"
+                                                }`}
+                                            >
+                                                {c.top[language]}
+                                            </p>
+                                            <p
+                                                className={`text-[7.5px] tracking-[0.4em] uppercase ${
+                                                    isDark
+                                                        ? "text-[rgba(255,255,221,0.35)]"
+                                                        : "text-[rgba(0,0,0,0.35)]"
+                                                }`}
+                                            >
+                                                {c.bottom[language]}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Bottom labels */}
+                    <div className="grid grid-cols-4 mt-4">
+                        {cols.map((c, i) => (
+                            <p
+                                key={i}
+                                className={`text-[8.5px] tracking-[0.36em] uppercase text-center transition-colors duration-300 ${
+                                    active === i
+                                        ? isDark
+                                            ? "text-[rgba(255,255,221,0.6)]"
+                                            : "text-[rgba(0,0,0,0.55)]"
+                                        : isDark
+                                            ? "text-[rgba(255,255,221,0.22)]"
+                                            : "text-[rgba(0,0,0,0.28)]"
+                                }`}
+                            >
+                                {c.bottom[language]}
+                            </p>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="md:hidden">
+                {/* Header */}
+                <div className="px-6 pt-20 pb-3">
+                    <p className={`mb-2 text-[10px] uppercase tracking-[0.4em] ${
+                        isDark ? "text-[rgba(255,255,221,0.35)]" : "text-[rgba(0,0,0,0.35)]"
+                    }`}>
                         {language === "mn" ? "БИДНИЙ ТУХАЙ" : "ABOUT"}
                     </p>
-
-                    <h2
-                        className={`text-4xl lg:text-5xl leading-tight font-light ${
-                            isDark ? "text-white" : "text-[#111111]"
-                        }`}
-                    >
+                    <h2 className="text-[28px] leading-tight font-light">
                         URBAN WORLD LLC
                     </h2>
                 </div>
 
-                <div className="relative">
-                    {/* background logo */}
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                        <div
-                            className={`relative w-full aspect-[16/7] ${
-                                isDark ? "opacity-[0.06]" : "opacity-[0.08]"
-                            }`}
-                        >
-                            <Image
-                                src={isDark ? "/uw-logo-Photoroom.png" : "/Unknown-3-Photoroom.png"}
-                                alt="logo"
-                                fill
-                                priority
-                                className="object-contain"
-                            />
-                        </div>
-                    </div>
-
-                    <div
-                        className="relative grid grid-cols-1 gap-6 md:grid-cols-4"
-                        onMouseLeave={() => setActive(null)}
-                    >
-                        {cols.map((c, i) => {
-                            const isActive = active === i;
-
-                            return (
-                                <div
-                                    key={i}
-                                    onMouseEnter={() => setActive(i)}
-                                    onClick={() => setActive(active === i ? null : i)}
-                                    className="relative flex min-h-[420px] flex-col items-center justify-center"
-                                >
-                                    {/* hover card only */}
-                                    <div
-                                        className={[
-                                            "absolute inset-0 rounded-[28px] transition-all duration-500 ease-out",
-                                            isActive
-                                                ? isDark
-                                                    ? "border border-white/16 bg-white/[0.05] shadow-[0_20px_60px_rgba(0,0,0,0.30)] backdrop-blur-[2px] opacity-100"
-                                                    : "border border-black/8 bg-[rgba(248,245,239,0.70)] shadow-[0_14px_36px_rgba(0,0,0,0.06)] backdrop-blur-[2px] opacity-100"
-                                                : "border border-transparent bg-transparent opacity-0",
-                                        ].join(" ")}
-                                    />
-
-                                    {/* vertical label */}
-                                    <div
-                                        className={[
-                                            "absolute inset-0 flex items-center justify-center transition-all duration-500",
-                                            i === 0
-                                                ? "translate-x-5 md:translate-x-6"
-                                                : "",
-                                            isActive
-                                                ? "pointer-events-none scale-95 opacity-0 blur-sm"
-                                                : "scale-100 opacity-100",
-                                        ].join(" ")}
-                                    >
-                                        <p
-                                            className={`text-[11px] md:text-[12px] tracking-[0.32em] md:tracking-[0.42em] ${
-                                                isDark ? "text-white/55" : "text-[#111111]/38"
-                                            } ${
-                                                active === i
-                                                    ? "whitespace-normal md:whitespace-nowrap"
-                                                    : "whitespace-normal md:whitespace-nowrap"
-                                            } rotate-0 md:rotate-90`}
-                                        >
-                                            {c.bottom[language]}
-                                        </p>
-                                    </div>
-
-                                    {/* hover content */}
-                                    <div
-                                        className={[
-                                            "absolute inset-0 flex items-center justify-center px-8 transition-all duration-500",
-                                            isActive
-                                                ? "translate-y-0 opacity-100"
-                                                : "pointer-events-none translate-y-4 opacity-0",
-                                        ].join(" ")}
-                                    >
-                                        <div className="max-w-[230px]">
-                                            <p
-                                                className={`whitespace-pre-line text-center text-[13px] leading-[2.05] tracking-[0.015em] font-light ${
-                                                    isDark ? "text-white" : "text-[#111111]"
-                                                }`}
-                                                style={{ textWrap: "pretty" }}
-                                            >
-                                                {c.top[language]}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* top line */}
-                                    <div
-                                        className={[
-                                            "pointer-events-none absolute left-6 right-6 top-8 h-px transition-all duration-500",
-                                            isActive
-                                                ? isDark
-                                                    ? "bg-white/10"
-                                                    : "bg-black/10"
-                                                : "bg-transparent opacity-0",
-                                        ].join(" ")}
-                                    />
-
-                                    {/* bottom line */}
-                                    <div
-                                        className={[
-                                            "pointer-events-none absolute bottom-8 left-6 right-6 h-px transition-all duration-500",
-                                            isActive
-                                                ? isDark
-                                                    ? "bg-white/10"
-                                                    : "bg-black/10"
-                                                : "bg-transparent opacity-0",
-                                        ].join(" ")}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
+                {/* Logo */}
+                <div className="px-6 mb-6">
+                    <img
+                        src="/uw-logo-Photoroom.png"
+                        alt="Urban World logo"
+                        className="w-full h-auto block"
+                        style={{ filter: isDark ? "invert(1)" : "none" }}
+                    />
                 </div>
+
+                {/* Accordion items */}
+                <div className={`border-t ${isDark ? "border-white/10" : "border-black/10"}`}>
+                    {cols.map((c, i) => {
+                        const isOpen = active === i;
+                        return (
+                            <div
+                                key={i}
+                                className={`border-b ${isDark ? "border-white/10" : "border-black/10"}`}
+                            >
+                                {/* Row trigger */}
+                                <button
+                                    className="w-full flex items-center justify-between px-6 py-5 cursor-pointer text-left"
+                                    onClick={() => setActive(isOpen ? null : i)}
+                                >
+                                    <span className={`text-[9px] tracking-[0.4em] uppercase transition-colors duration-300 ${
+                                        isOpen
+                                            ? isDark
+                                                ? "text-[rgba(255,255,221,0.75)]"
+                                                : "text-[rgba(0,0,0,0.7)]"
+                                            : isDark
+                                                ? "text-[rgba(255,255,221,0.3)]"
+                                                : "text-[rgba(0,0,0,0.32)]"
+                                    }`}>
+                                        {c.bottom[language]}
+                                    </span>
+
+                                    <span
+                                        className={`text-[18px] font-thin leading-none transition-all duration-300 ${
+                                            isDark ? "text-[rgba(255,255,221,0.2)]" : "text-[rgba(0,0,0,0.18)]"
+                                        }`}
+                                        style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
+                                    >
+                                        +
+                                    </span>
+                                </button>
+
+                                {/* Expandable body */}
+                                <div
+                                    style={{
+                                        maxHeight: isOpen ? "400px" : "0px",
+                                        overflow: "hidden",
+                                        transition: "max-height 0.42s cubic-bezier(0.4,0,0.2,1)",
+                                    }}
+                                >
+                                    <p
+                                        className={`px-6 pb-8 whitespace-pre-line text-[11px] leading-[2.1] ${
+                                            isDark
+                                                ? "text-[rgba(255,255,221,0.65)]"
+                                                : "text-[rgba(0,0,0,0.62)]"
+                                        }`}
+                                    >
+                                        {c.top[language]}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="h-16" />
             </div>
         </section>
     );
