@@ -7,10 +7,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const BG_IMAGES = [
-    "/1.jpg",
+    "/666.jpg",
     "/2.jpg",
     "/3.jpg",
-    "/4.jpg",
+    "/444.jpg",
+    "/555.jpg",
+    "/1.jpg",
 ];
 
 export default function Hero() {
@@ -29,11 +31,7 @@ export default function Hero() {
         },
         title: {
             en: ["BEYOND SPACE, WE CREATE VALUE."],
-            mn: ["Төсөөллөөс төгс гүйцэтгэл."],
-        },
-        description: {
-            en: "Urban World LLC — Beyond Space, We Create Value.",
-            mn: "Urban World LLC — Бид зөвхөн орон зайг бүтээдэггүй - үнэ цэнийг бүтээдэг.",
+            mn: ["BEYOND SPACE, WE CREATE VALUE."],
         },
         servicesCta: {
             en: "Services",
@@ -108,7 +106,7 @@ export default function Hero() {
             <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 md:px-16">
                 <div className="max-w-3xl space-y-6">
                     <p className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.5em]">
-                        <span className="h-px w-10 bg-gray-500" />
+                        <span className="h-px w-10 bg-white" />
                         {copy.tagline[language]}
                     </p>
 
@@ -120,17 +118,13 @@ export default function Hero() {
                         ))}
                     </h1>
 
-                    <p className="max-w-xl text-base md:text-lg">
-                        {copy.description[language]}
-                    </p>
-
                     <div className="flex gap-4 pt-4">
                         <Link
                             href="#services"
                             className={`px-6 py-3 text-sm transition ${
                                 isDark
-                                    ? "bg-gray-700 text-white hover:bg-gray-500"
-                                    : "bg-[#f4f1eb] text-black border border-black/10 hover:bg-[#ece8e1]"
+                                    ? "border border-white text-white hover:bg-white/10"
+                                    : "border border-black/10 text-black hover:bg-black/5"
                             }`}
                         >
                             {copy.servicesCta[language]}
