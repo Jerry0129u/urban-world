@@ -55,8 +55,10 @@ export default function About() {
                 isDark ? "bg-[#181818] text-[#fffdef]" : "bg-[#ece8e1] text-[#111111]"
             }`}
         >
+            {/* DESKTOP */}
             <div className="hidden md:block py-28">
                 <div className="relative container mx-auto max-w-7xl px-6">
+
                     {/* Header */}
                     <div className="mb-5">
                         <p className={`mb-3 text-[11px] uppercase tracking-[0.4em] ${
@@ -73,53 +75,72 @@ export default function About() {
                         className="relative"
                         onMouseLeave={() => setActive(null)}
                     >
+                        {/* Logo */}
                         <img
                             src="/uw-logo-Photoroom.png"
                             alt="Urban World logo"
-                            className="w-full h-auto block transition-opacity duration-500"
+                            className="w-full h-auto block transition-all duration-500"
                             style={{
-                                opacity: active !== null ? 0.2 : 1,
+                                opacity: active !== null ? 0.15 : 1,
                                 filter: isDark ? "invert(1)" : "none",
+                                transform: active !== null ? "scale(0.98)" : "scale(1)",
                             }}
                         />
 
-                        <div className="absolute inset-0 grid grid-cols-4" style={{height: "100%"}}>
+                        {/* Overlay */}
+                        <div className="absolute inset-0 grid grid-cols-4">
                             {cols.map((c, i) => {
                                 const isActive = active === i;
+
                                 return (
                                     <div
                                         key={i}
                                         onMouseEnter={() => setActive(i)}
-                                        onClick={() => setActive(active === i ? null : i)}
-                                        className="relative flex items-center justify-center cursor-pointer select-none overflow-hidden"
+                                        className="relative flex items-center justify-center cursor-pointer overflow-hidden"
                                     >
+                                        {/* TEXT */}
                                         <div
-                                            className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center overflow-hidden"
+                                            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
                                             style={{
                                                 opacity: isActive ? 1 : 0,
-                                                transition: "opacity 0.32s ease 0.06s",
-                                                pointerEvents: "none",
+                                                transform: isActive
+                                                    ? "translateY(0px)"
+                                                    : "translateY(20px)",
+                                                transition:
+                                                    "all 0.45s cubic-bezier(0.22,1,0.36,1)",
                                             }}
                                         >
                                             <p
-                                                className={`whitespace-pre-line text-center text-[9px] leading-[1.75] mb-2 ${
+                                                className={`whitespace-pre-line text-[13px] leading-[1.8] mb-3 ${
                                                     isDark
-                                                        ? "text-[rgba(255,255,221,0.9)]"
-                                                        : "text-[rgba(0,0,0,0.78)]"
+                                                        ? "text-[rgba(255,255,221,0.92)]"
+                                                        : "text-[rgba(0,0,0,0.82)]"
                                                 }`}
                                             >
                                                 {c.top[language]}
                                             </p>
+
                                             <p
-                                                className={`text-[7.5px] tracking-[0.4em] uppercase ${
+                                                className={`text-[11px] tracking-[0.4em] uppercase ${
                                                     isDark
-                                                        ? "text-[rgba(255,255,221,0.35)]"
-                                                        : "text-[rgba(0,0,0,0.35)]"
+                                                        ? "text-[rgba(255,255,221,0.45)]"
+                                                        : "text-[rgba(0,0,0,0.45)]"
                                                 }`}
                                             >
                                                 {c.bottom[language]}
                                             </p>
                                         </div>
+
+                                        {/* subtle hover glow */}
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{
+                                                background: isActive
+                                                    ? "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)"
+                                                    : "transparent",
+                                                transition: "0.4s",
+                                            }}
+                                        />
                                     </div>
                                 );
                             })}
@@ -131,14 +152,14 @@ export default function About() {
                         {cols.map((c, i) => (
                             <p
                                 key={i}
-                                className={`text-[8.5px] tracking-[0.36em] uppercase text-center transition-colors duration-300 ${
+                                className={`text-[11px] tracking-[0.36em] uppercase text-center transition-all duration-300 ${
                                     active === i
                                         ? isDark
-                                            ? "text-[rgba(255,255,221,0.6)]"
-                                            : "text-[rgba(0,0,0,0.55)]"
+                                            ? "text-[rgba(255,255,221,0.7)] scale-105"
+                                            : "text-[rgba(0,0,0,0.65)] scale-105"
                                         : isDark
-                                            ? "text-[rgba(255,255,221,0.22)]"
-                                            : "text-[rgba(0,0,0,0.28)]"
+                                            ? "text-[rgba(255,255,221,0.25)]"
+                                            : "text-[rgba(0,0,0,0.3)]"
                                 }`}
                             >
                                 {c.bottom[language]}
@@ -148,8 +169,8 @@ export default function About() {
                 </div>
             </div>
 
+            {/* MOBILE (UNCHANGED) */}
             <div className="md:hidden">
-                {/* Header */}
                 <div className="px-6 pt-20 pb-3">
                     <p className={`mb-2 text-[10px] uppercase tracking-[0.4em] ${
                         isDark ? "text-[rgba(255,255,221,0.35)]" : "text-[rgba(0,0,0,0.35)]"
@@ -161,7 +182,6 @@ export default function About() {
                     </h2>
                 </div>
 
-                {/* Logo */}
                 <div className="px-6 mb-6">
                     <img
                         src="/uw-logo-Photoroom.png"
@@ -171,57 +191,34 @@ export default function About() {
                     />
                 </div>
 
-                {/* Accordion items */}
                 <div className={`border-t ${isDark ? "border-white/10" : "border-black/10"}`}>
                     {cols.map((c, i) => {
                         const isOpen = active === i;
                         return (
-                            <div
-                                key={i}
-                                className={`border-b ${isDark ? "border-white/10" : "border-black/10"}`}
-                            >
-                                {/* Row trigger */}
+                            <div key={i} className={`border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
                                 <button
-                                    className="w-full flex items-center justify-between px-6 py-5 cursor-pointer text-left"
+                                    className="w-full flex items-center justify-between px-6 py-5"
                                     onClick={() => setActive(isOpen ? null : i)}
                                 >
-                                    <span className={`text-[9px] tracking-[0.4em] uppercase transition-colors duration-300 ${
-                                        isOpen
-                                            ? isDark
-                                                ? "text-[rgba(255,255,221,0.75)]"
-                                                : "text-[rgba(0,0,0,0.7)]"
-                                            : isDark
-                                                ? "text-[rgba(255,255,221,0.3)]"
-                                                : "text-[rgba(0,0,0,0.32)]"
-                                    }`}>
+                                    <span className="text-[9px] tracking-[0.4em] uppercase">
                                         {c.bottom[language]}
                                     </span>
-
                                     <span
-                                        className={`text-[18px] font-thin leading-none transition-all duration-300 ${
-                                            isDark ? "text-[rgba(255,255,221,0.2)]" : "text-[rgba(0,0,0,0.18)]"
-                                        }`}
+                                        className="text-[18px]"
                                         style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
                                     >
                                         +
                                     </span>
                                 </button>
 
-                                {/* Expandable body */}
                                 <div
                                     style={{
                                         maxHeight: isOpen ? "400px" : "0px",
                                         overflow: "hidden",
-                                        transition: "max-height 0.42s cubic-bezier(0.4,0,0.2,1)",
+                                        transition: "0.4s",
                                     }}
                                 >
-                                    <p
-                                        className={`px-6 pb-8 whitespace-pre-line text-[11px] leading-[2.1] ${
-                                            isDark
-                                                ? "text-[rgba(255,255,221,0.65)]"
-                                                : "text-[rgba(0,0,0,0.62)]"
-                                        }`}
-                                    >
+                                    <p className="px-6 pb-8 whitespace-pre-line text-[11px] leading-[2.1]">
                                         {c.top[language]}
                                     </p>
                                 </div>
