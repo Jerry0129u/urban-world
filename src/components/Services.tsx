@@ -61,7 +61,7 @@ const services = [
             en: "PROJECT MANAGEMENT & INTERIOR FIT-OUT",
             mn: "ТӨСӨЛИЙН МЕНЕЖМЕНТ & <br/> ДОТООД ЗАСАЛ",
         },
-        image: "/apartment-444.jpg",
+        image: "/ser4.jpg",
         summary: { en: "", mn: "" },
         details: {
             en: [
