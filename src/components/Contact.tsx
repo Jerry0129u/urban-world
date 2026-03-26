@@ -225,9 +225,11 @@ export default function Contact() {
                 >
                     <iframe
                         className="h-full w-full"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1858.429391913642!2d106.9316439309526!3d47.88919682581851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d9016da98f%3A0xb9bf4db197008fba!2sRiver%20Tower!5e0!3m2!1sen!2smn!4v1763289182079!5m2!1sen!2smn"
-                        style={{ border: 0 } as CSSProperties}
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2675.2874931200554!2d106.92236869063223!3d47.892120597689186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693e0c0ec3cb7%3A0x473dacadc8fb6e30!2sRiver%20Plaza!5e0!3m2!1sen!2smn!4v1774516879052!5m2!1sen!2smn"
+                        style={{ border: 0 }}
                         loading="lazy"
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
                     />
                 </div>
             </div>

@@ -93,7 +93,7 @@ const unsortedProjects: Project[] = [
             en: "New Dragon terminal fit-out coordinated across districts.",
             mn: "Драгон терминалын шинэчлэл, олон дүүрэг дамнасан гүйцэтгэл.",
         },
-        cover: "/Dragon/15.jpg",
+        cover: "/Dragon/face.jpg",
         palette: "from-amber-300/20 via-white/5 to-white/0",
         stats: [],
         shots: [
@@ -111,52 +111,13 @@ const unsortedProjects: Project[] = [
             {
                 id: "dragon-17-15",
                 before: {
-                    image: "/Dragon/15.jpg",
+                    image: "/Dragon/face.jpg",
                     title: { mn: "№16", en: "#17" },
                     detail: { mn: "", en: "" },
                 },
                 after: {
                     image: "/Dragon/16.jpg",
                     title: { mn: "№15", en: "#15" },
-                    detail: { mn: "", en: "" },
-                },
-            },
-            {
-                id: "dragon-16-22",
-                before: {
-                    image: "/Dragon/17.jpg",
-                    title: { mn: "№17", en: "#16" },
-                    detail: { mn: "", en: "" },
-                },
-                after: {
-                    image: "/Dragon/18.jpg",
-                    title: { mn: "№22", en: "#22" },
-                    detail: { mn: "", en: "" },
-                },
-            },
-            {
-                id: "dragon-20-21",
-                before: {
-                    image: "/Dragon/19.png",
-                    title: { mn: "№20", en: "#20" },
-                    detail: { mn: "", en: "" },
-                },
-                after: {
-                    image: "/Dragon/20.jpg",
-                    title: { mn: "№21", en: "#21" },
-                    detail: { mn: "", en: "" },
-                },
-            },
-            {
-                id: "dragon-18-19",
-                before: {
-                    image: "/Dragon/21.jpg",
-                    title: { mn: "№18", en: "#18" },
-                    detail: { mn: "", en: "" },
-                },
-                after: {
-                    image: "/Dragon/22.jpg",
-                    title: { mn: "№19", en: "#19" },
                     detail: { mn: "", en: "" },
                 },
             },

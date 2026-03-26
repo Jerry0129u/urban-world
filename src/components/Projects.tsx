@@ -35,6 +35,49 @@ export default function Projects() {
         return projects.filter((project) => project.tags?.includes(filter));
     }, [filter]);
 
+    const isSingle = filtered.length === 1;
+
+    // ✅ project render function
+    const renderProject = (project: (typeof projects)[number]) => (
+        <Link
+            key={project.id}
+            href={`/projects/${project.id}`}
+            className={`${styles.galleryItem} ${
+                isSingle ? "max-w-[520px] w-full mx-auto" : "w-full"
+            }`}
+            style={{
+                background: isDark ? "#111111" : "#e3dfd7",
+                boxShadow: isDark
+                    ? "none"
+                    : "0 14px 36px rgba(0,0,0,0.07)",
+            }}
+        >
+            <Image
+                src={project.cover}
+                alt={project.title[language]}
+                fill
+                sizes="(min-width: 1024px) 30vw, 100vw"
+                className="object-cover object-center"
+            />
+
+            <div
+                className={styles.galleryCaption}
+                style={{
+                    background: isDark
+                        ? "linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.12), transparent)"
+                        : "linear-gradient(to top, rgba(244,241,235,0.84), rgba(244,241,235,0.18), transparent)",
+                }}
+            >
+                <h3
+                    className="text-lg font-medium"
+                    style={{ color: isDark ? "#ffffff" : "#111111" }}
+                >
+                    {project.title[language]}
+                </h3>
+            </div>
+        </Link>
+    );
+
     return (
         <section
             id="projects"
@@ -52,81 +95,31 @@ export default function Projects() {
                         ? "БИДНИЙ ХИЙЖ ГҮЙЦЭТГЭСЭН ТӨСЛҮҮД."
                         : "PROJECTS WE’VE COMPLETED."}
                 </h2>
-
-                {/* ШҮҮЛТҮҮР ХЭРЭГТЭЙ БОЛ ДАРАА НЬ АСААНА
-                <div className="mt-6 flex flex-wrap justify-center gap-3">
-                    {FILTERS.map((item) => {
-                        const isActive = item.id === filter;
-                        return (
-                            <button
-                                key={item.id}
-                                type="button"
-                                onClick={() => setFilter(item.id)}
-                                className={`border px-4 py-2 text-sm transition ${
-                                    isActive
-                                        ? isDark
-                                            ? "border-[#444444] bg-[#444444] text-[#fffdef] shadow-sm hover:bg-[#989898] hover:border-[#989898]"
-                                            : "border-black/10 bg-[#f4f1eb] text-[#111111] shadow-[0_4px_14px_rgba(0,0,0,0.05)] hover:bg-[#ece8e1]"
-                                        : isDark
-                                            ? "border-[#444444] bg-transparent text-[#fffdef] hover:bg-[#444444]/80 hover:border-[#989898]"
-                                            : "border-black/10 bg-transparent text-[#111111] hover:bg-black/5"
-                                }`}
-                            >
-                                {item.label[language]}
-                            </button>
-                        );
-                    })}
-                </div>
-                */}
             </div>
 
             <div className="px-6 pb-24">
-                <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {filtered.map((project) => {
-                        return (
-                            <Link
-                                key={project.id}
-                                href={`/projects/${project.id}`}
-                                className={styles.galleryItem}
-                                style={{
-                                    background: isDark ? "#111111" : "#e3dfd7",
-                                    boxShadow: isDark
-                                        ? "none"
-                                        : "0 14px 36px rgba(0,0,0,0.07)",
-                                }}
-                            >
-                                <Image
-                                    src={project.cover}
-                                    alt={project.title[language]}
-                                    fill
-                                    sizes="(min-width: 1024px) 30vw, 100vw"
-                                    className="object-cover object-center"
-                                />
-
-                                <div
-                                    className={styles.galleryCaption}
-                                    style={{
-                                        background: isDark
-                                            ? "linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.12), transparent)"
-                                            : "linear-gradient(to top, rgba(244,241,235,0.84), rgba(244,241,235,0.18), transparent)",
-                                    }}
-                                >
-                                    <h3
-                                        className="text-lg font-medium"
-                                        style={{ color: isDark ? "#ffffff" : "#111111" }}
-                                    >
-                                        {project.title[language]}
-                                    </h3>
-                                </div>
-                            </Link>
-                        );
-                    })}
+                <div className="mx-auto w-full max-w-6xl">
+                    {isSingle ? (
+                        // ✅ ганц project → center FIX
+                        <div className="flex justify-center">
+                            {renderProject(filtered[0])}
+                        </div>
+                    ) : (
+                        // ✅ олон project → хэвийн grid
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            {filtered.map((project) => renderProject(project))}
+                        </div>
+                    )}
                 </div>
 
                 {filtered.length === 0 && (
                     <p
                         className="mt-8 text-center text-sm"
-                        style={{ color: isDark ? "rgba(255,253,239,0.7)" : "rgba(17,17,17,0.56)" }}
+                        style={{
+                            color: isDark
+                                ? "rgba(255,253,239,0.7)"
+                                : "rgba(17,17,17,0.56)",
+                        }}
                     >
                         {language === "mn"
                             ? "Энэ шүүлтүүрт тохирох төсөл алга."
