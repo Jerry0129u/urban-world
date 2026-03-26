@@ -7,10 +7,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const BG_IMAGES = [
-    "/666.jpg",
+    "/Dragon/666.jpg",
     "/2.jpg",
     "/3.jpg",
-    "/444.jpg",
+    "/4.jpg",
     "/555.jpg",
     "/1.jpg",
 ];
@@ -81,7 +81,7 @@ export default function Hero() {
                                 fill
                                 priority={index === 0}
                                 className={`object-cover ${
-                                    isActive ? "animate-slowZoom" : ""
+                                    isActive ? "animate-slowzZoom" : ""
                                 }`}
                             />
                         </div>
