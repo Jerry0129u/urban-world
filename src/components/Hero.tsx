@@ -11,7 +11,7 @@ const BG_IMAGES = [
     "/2.jpg",
     "/3.jpg",
     "/4.jpg",
-    "/555.jpg",
+    "/Dragon/face.jpg",
     "/1.jpg",
 ];
 
