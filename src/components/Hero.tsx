@@ -15,12 +15,16 @@ const BG_IMAGES = [
     "/1.jpg",
 ];
 
+const ZOOM_DURATION = 6000; // 18s — CSS animation-тай таарах ёстой
+
 export default function Hero() {
     const { language } = useLanguage();
     const { theme } = useTheme();
 
     const [currentBg, setCurrentBg] = useState(0);
     const [isManual, setIsManual] = useState(false);
+    // zoomKey өөрчлөгдөхөд zoom animation дахин эхлэнэ
+    const [zoomKey, setZoomKey] = useState(0);
 
     const isDark = theme === "dark";
 
@@ -45,16 +49,23 @@ export default function Hero() {
 
     const titleLines = copy.title[language];
 
-    // AUTO SLIDE
+    // Zoom дуусмагц дараагийн слайд руу шилжих
     useEffect(() => {
         if (isManual) return;
 
-        const interval = setInterval(() => {
+        const timeout = setTimeout(() => {
             setCurrentBg((prev) => (prev + 1) % BG_IMAGES.length);
-        }, 5000);
+            setZoomKey((prev) => prev + 1);
+        }, ZOOM_DURATION);
 
-        return () => clearInterval(interval);
-    }, [isManual]);
+        return () => clearTimeout(timeout);
+    }, [currentBg, isManual]);
+
+    const handleDotClick = (index: number) => {
+        setCurrentBg(index);
+        setZoomKey((prev) => prev + 1);
+        setIsManual(true);
+    };
 
     return (
         <section
@@ -80,9 +91,18 @@ export default function Hero() {
                                 alt="Background"
                                 fill
                                 priority={index === 0}
-                                className={`object-cover ${
-                                    isActive ? "animate-slowzZoom" : ""
-                                }`}
+                                // isActive болон zoomKey хоёулаа key-д орж,
+                                // слайд солигдох бүрт zoom дахин эхэлнэ
+                                className="object-cover"
+                                style={
+                                    isActive
+                                        ? {
+                                            animation: `slowZoom ${ZOOM_DURATION}ms ease-in-out forwards`,
+                                            animationPlayState: "running",
+                                        }
+                                        : { transform: "scale(1)" }
+                                }
+                                key={isActive ? `active-${zoomKey}` : `idle-${index}`}
                             />
                         </div>
                     );
@@ -149,10 +169,7 @@ export default function Hero() {
                 {BG_IMAGES.map((_, index) => (
                     <button
                         key={index}
-                        onClick={() => {
-                            setCurrentBg(index);
-                            setIsManual(true);
-                        }}
+                        onClick={() => handleDotClick(index)}
                         className={`h-3 w-3 rounded-full transition-all duration-300 ${
                             currentBg === index
                                 ? "bg-white scale-125 shadow-lg"
@@ -171,10 +188,6 @@ export default function Hero() {
                     100% {
                         transform: scale(1.05);
                     }
-                }
-
-                .animate-slowZoom {
-                    animation: slowZoom 18s ease-in-out forwards;
                 }
             `}</style>
         </section>
