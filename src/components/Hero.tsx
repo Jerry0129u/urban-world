@@ -15,7 +15,7 @@ const BG_IMAGES = [
     "/1.jpg",
 ];
 
-const ZOOM_DURATION = 5000; // 18s — CSS animation-тай таарах ёстой
+const ZOOM_DURATION = 6000; // 18s — CSS animation-тай таарах ёстой
 
 export default function Hero() {
     const { language } = useLanguage();
