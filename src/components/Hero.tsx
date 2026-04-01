@@ -15,7 +15,7 @@ const BG_IMAGES = [
     "/1.jpg",
 ];
 
-const ZOOM_DURATION = 6000; // 18s — CSS animation-тай таарах ёстой
+const ZOOM_DURATION = 6000;
 
 export default function Hero() {
     const { language } = useLanguage();
@@ -23,7 +23,6 @@ export default function Hero() {
 
     const [currentBg, setCurrentBg] = useState(0);
     const [isManual, setIsManual] = useState(false);
-    // zoomKey өөрчлөгдөхөд zoom animation дахин эхлэнэ
     const [zoomKey, setZoomKey] = useState(0);
 
     const isDark = theme === "dark";
@@ -49,7 +48,6 @@ export default function Hero() {
 
     const titleLines = copy.title[language];
 
-    // Zoom дуусмагц дараагийн слайд руу шилжих
     useEffect(() => {
         if (isManual) return;
 
@@ -91,8 +89,6 @@ export default function Hero() {
                                 alt="Background"
                                 fill
                                 priority={index === 0}
-                                // isActive болон zoomKey хоёулаа key-д орж,
-                                // слайд солигдох бүрт zoom дахин эхэлнэ
                                 className="object-cover"
                                 style={
                                     isActive
@@ -100,9 +96,11 @@ export default function Hero() {
                                             animation: `slowZoom ${ZOOM_DURATION}ms ease-in-out forwards`,
                                             animationPlayState: "running",
                                         }
-                                        : { transform: "scale(1)" }
+                                        : {
+                                            transform: "scale(1.05)", // zoom дуусмагц байх утга
+                                        }
                                 }
-                                key={isActive ? `active-${zoomKey}` : `idle-${index}`}
+                                // key prop огт байхгүй
                             />
                         </div>
                     );
