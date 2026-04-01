@@ -82,10 +82,11 @@ const comingSoonShot = makeShot("/coming-soon.svg", "Coming soon", "Тун уд�
 const comingSoonGallery = [comingSoonShot];
 
 const unsortedProjects: Project[] = [
+    // 1
     {
         id: "dragon-terminal",
         title: {
-            en: "Shine Ulaanbaatar Dragon Terminal",
+            en: "New Ulaanbaatar Dragon Terminal",
             mn: "Шинэ Улаанбаатар Драгон терминал",
         },
         location: { en: "", mn: "" },
@@ -123,11 +124,12 @@ const unsortedProjects: Project[] = [
             },
         ],
     },
+    // 2
     {
         id: "ic-tower",
         title: {
             en: "IC Tower 1-15 floors interior",
-            mn: "“IC Tower”-ын 1-15 давхарын дотоод засал",
+            mn: '\u201cIC Tower\u201d-ын 1-15 давхарын дотоод засал',
         },
         location: { en: "", mn: "" },
         description: {
@@ -201,6 +203,7 @@ const unsortedProjects: Project[] = [
             },
         ],
     },
+    // 3
     {
         id: "byd-showroom",
         title: { en: "BYD vehicle showroom", mn: "BYD авто машины үзүүлэнгийн танхим" },
@@ -209,36 +212,23 @@ const unsortedProjects: Project[] = [
             en: "Showroom interior tuned for EV display.",
             mn: "Электро машины үзүүлэнгийн танхимын интерьер.",
         },
-        cover: comingSoonShot.src,
+        cover: "/BYD/1.png",
         palette: "from-indigo-300/20 via-white/5 to-white/0",
         stats: [],
         shots: [],
-        gallery: [],
-    },
-    {
-        id: "misheel-office-genesis",
-        title: { en: "Misheel Office - Genesis camp", mn: "Мишээл Оффис - Genesis camp" },
-        location: { en: "", mn: "" },
-        description: {
-            en: "Office interior for Genesis camp at Misheel center.",
-            mn: "Мишээл төв дэх Genesis camp-ийн оффисын интерьер.",
-        },
-        cover: "/Genesis/Scene_4.JPG",
-        palette: "from-amber-200/20 via-white/5 to-white/0",
-        stats: [],
-        shots: [
-            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай", "wide"),
-            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг", "square"),
-            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө", "square"),
-        ],
         gallery: [
-            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай"),
-            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг"),
-            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө"),
-            makeShot("/Genesis/Scene_7.JPG", "Workspace row", "Ажлын ширээний эгнээ"),
-            makeShot("/Genesis/Scene_8.JPG", "Breakout seating", "Амрах хэсгийн суудал"),
+            makeShot("/BYD/2.png", "Living room panorama", "Зочны өрөөний харагдац"),
+            makeShot("/BYD/1.png", "Open living area", "Нээлттэй зочны хэсэг"),
+            makeShot("/BYD/3.png", "Open living area", "Нээлттэй зочны хэсэг"),
+            makeShot("/BYD/4.png", "Open living area", "Нээлттэй зочны хэсэг"),
+            makeShot("/BYD/5.png", "Open living area", "Нээлттэй зочны хэсэг"),
+            {
+                ...makeShot("/BYD/3.png", "Dining and kitchen view", "Гал тогоо, зоогийн хэсэг"),
+                positionY: "90%",
+            },
         ],
     },
+    // 4
     {
         id: "private-house-interior",
         title: { en: "House interior design", mn: "Хаусны интерьер дизайн" },
@@ -273,9 +263,37 @@ const unsortedProjects: Project[] = [
             makeShot("/PersHous/8.png", "Bedroom corner", "Унтлагын өрөөний булан"),
         ],
     },
+    // 5
+    {
+        id: "mongol-china-expo",
+        title: {
+            en: "Mongol-China expo concept",
+            mn: '\u201cМонгол - Хятад\u201d-ын үзэсгэлэнгийн зураг төсөл',
+        },
+        location: { en: "", mn: "" },
+        description: {
+            en: "Exhibition design bridging two cultures.",
+            mn: "Хоёр орныг холбосон үзэсгэлэнгийн дизайн.",
+        },
+        cover: "/MCexpo/composed-Enscape_2026-01-29-11-32-55.jpg",
+        palette: "from-indigo-200/20 via-white/5 to-white/0",
+        stats: [],
+        shots: comingSoonGallery,
+        gallery: [
+            makeShot("/MCexpo/composed-Enscape_2026-01-29-04-27-10.jpg", "Built photo 1", "Зураг 1"),
+            makeShot("/MCexpo/composed-Enscape_2026-01-29-04-50-04.jpg", "Built photo 2", "Зураг 2"),
+            makeShot("/MCexpo/composed-Enscape_2026-01-29-11-52-11.jpg", "Built photo 3", "Зураг 3"),
+            makeShot("/MCexpo/composed-Enscape_2026-01-29-12-34-32.jpg", "Built photo 6", "Зураг 6"),
+            makeShot("/MCexpo/10.jpg", "Built photo 5", "Зураг 5"),
+            makeShot("/MCexpo/enhanced-Enscape_2026-01-29-12-13-22.jpg", "Built photo 4", "Зураг 4"),
+            makeShot("/MCexpo/10.jpg", "Built photo 5", "Зураг 5"),
+            makeShot("/MCexpo/enhanced-Enscape_2026-01-29-04-14-12.jpg", "Built photo 7", "Зураг 7"),
+        ],
+    },
+    // 6
     {
         id: "emart-hypermarket",
-        title: { en: "Emart Hypermarket interior", mn: "Emart Hypermarket - Дотоод засал" },
+        title: { en: "Emart interior", mn: "Emart Дотоод засал" },
         location: { en: "", mn: "" },
         description: {
             en: "Large-format retail interior refresh.",
@@ -322,6 +340,7 @@ const unsortedProjects: Project[] = [
             },
         ],
     },
+    // 7
     {
         id: "gong-cha",
         title: { en: "Gong cha Mongolia interior", mn: "Gong cha Mongolia – Интерьер дизайн" },
@@ -342,6 +361,7 @@ const unsortedProjects: Project[] = [
             makeShot("/Gongcha/enhanced-Enscape_2026-01-19-05-40-49.png", "Office overview", "Оффисын ерөнхий төлөв"),
         ],
     },
+    // 8
     {
         id: "misheel-office-aaa",
         title: { en: "Misheel Office - AAA & S LLC", mn: "Мишээл Оффис - AAA & S ХХК" },
@@ -365,11 +385,12 @@ const unsortedProjects: Project[] = [
             makeShot("/aaa%26c/SCENE_3.JPG", "Meeting corner", "Хурал, уулзалтын булан"),
         ],
     },
+    // 9
     {
         id: "moujonjon",
         title: {
             en: "Moujonjon kids store interior",
-            mn: "“Moujonjon” хүүхдийн хувцасны дэлгүүр - дотоод засал",
+            mn: '\u201cMoujonjon\u201d хүүхдийн хувцасны дэлгүүр - дотоод засал',
         },
         location: { en: "", mn: "" },
         description: {
@@ -394,31 +415,29 @@ const unsortedProjects: Project[] = [
             makeShot("/moujonjon/viber_image_2025-04-11_18-15-16-372.jpg", "Colorful shelving detail", "Өнгөлөг тавиурын деталь"),
         ],
     },
+    // 10 — хамгийн сүүл
     {
-        id: "mongol-china-expo",
-        title: {
-            en: "Mongol-China expo concept",
-            mn: "“Монгол - Хятад”-ын үзэсгэлэнгийн зураг төсөл",
-        },
+        id: "misheel-office-genesis",
+        title: { en: "Misheel Office - Genesis camp", mn: "Мишээл Оффис - Genesis camp" },
         location: { en: "", mn: "" },
         description: {
-            en: "Exhibition design bridging two cultures.",
-            mn: "Хоёр орныг холбосон үзэсгэлэнгийн дизайн.",
+            en: "Office interior for Genesis camp at Misheel center.",
+            mn: "Мишээл төв дэх Genesis camp-ийн оффисын интерьер.",
         },
-        cover: "/MCexpo/composed-Enscape_2026-01-29-11-32-55.jpg",
-        palette: "from-indigo-200/20 via-white/5 to-white/0",
+        cover: "/Genesis/Scene_4.JPG",
+        palette: "from-amber-200/20 via-white/5 to-white/0",
         stats: [],
-        shots: comingSoonGallery,
+        shots: [
+            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай", "wide"),
+            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг", "square"),
+            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө", "square"),
+        ],
         gallery: [
-            makeShot("/MCexpo/composed-Enscape_2026-01-29-04-27-10.jpg", "Built photo 1", "Зураг 1"),
-            makeShot("/MCexpo/composed-Enscape_2026-01-29-04-50-04.jpg", "Built photo 2", "Зураг 2"),
-            makeShot("/MCexpo/composed-Enscape_2026-01-29-11-52-11.jpg", "Built photo 3", "Зураг 3"),
-            makeShot("/MCexpo/composed-Enscape_2026-01-29-12-34-32.jpg", "Built photo 6", "Зураг 6"),
-            makeShot("/MCexpo/10.jpg", "Built photo 5", "Зураг 5"),
-            makeShot("/MCexpo/enhanced-Enscape_2026-01-29-12-13-22.jpg", "Built photo 4", "Зураг 4"),
-            makeShot("/MCexpo/10.jpg", "Built photo 5", "Зураг 5"),
-
-            makeShot("/MCexpo/enhanced-Enscape_2026-01-29-04-14-12.jpg", "Built photo 7", "Зураг 7"),
+            makeShot("/Genesis/Scene_4.JPG", "Open office overview", "Нээлттэй ажлын талбай"),
+            makeShot("/Genesis/Scene_3.JPG", "Reception lounge", "Хүлээн авах хэсэг"),
+            makeShot("/Genesis/Scene_6.JPG", "Meeting room", "Хурлын өрөө"),
+            makeShot("/Genesis/Scene_7.JPG", "Workspace row", "Ажлын ширээний эгнээ"),
+            makeShot("/Genesis/Scene_8.JPG", "Breakout seating", "Амрах хэсгийн суудал"),
         ],
     },
 ];
