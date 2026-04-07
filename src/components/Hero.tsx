@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const BG_IMAGES = [
-    "/Dragon/666.jpg",
+    "/New4E.jpg",
     "/2.jpg",
     "/3.jpg",
     "/4.jpg",
